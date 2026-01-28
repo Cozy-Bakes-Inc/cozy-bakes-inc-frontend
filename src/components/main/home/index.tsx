@@ -1,4 +1,4 @@
-import HeroVideoSlider from "./hero-section";
+import HeroVideoSlider from "./hero";
 
 function Home() {
   return (
