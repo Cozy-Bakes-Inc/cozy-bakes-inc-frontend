@@ -7,8 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import HeroSlideContent from "./hero-slide-content";
-import { heroSlides } from "./hero-slide-data";
-import HeroSliderDots from "./hero-slider-dots";
+import { heroSlides } from "@/data";
+import SliderDots from "@/components/ui/slider-dots";
 
 export default function HeroVideoSlider() {
   const swiperRef = useRef<SwiperType | null>(null);
@@ -76,7 +76,7 @@ export default function HeroVideoSlider() {
           </SwiperSlide>
         ))}
       </Swiper>
-      <HeroSliderDots
+      <SliderDots
         count={heroSlides.length}
         activeIndex={activeIndex}
         onSelect={(index) => swiperRef.current?.slideToLoop(index)}

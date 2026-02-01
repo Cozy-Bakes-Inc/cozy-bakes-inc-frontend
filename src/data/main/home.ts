@@ -1,4 +1,10 @@
-import { Slide } from "@/interfaces";
+import type {
+  CategoryItem,
+  MarketSlide,
+  SelectionItem,
+  SelectionTab,
+  Slide,
+} from "@/interfaces";
 
 export const heroSlides: Slide[] = [
   {
@@ -24,5 +30,186 @@ export const heroSlides: Slide[] = [
     highlight: "Made",
     titleB: ", Carefully Baked",
     desc: "In Cozy Bakes Inc we use handcrafted bakery goods made with natural ingredients, baked fresh every day to bring warmth and comfort to every bite. No artificial flavors, no shortcuts.",
+  },
+];
+
+export const marketSlides: MarketSlide[] = [
+  {
+    image: "/images/farmer-market-1.png",
+    badge: "Freshly Stocked Today!",
+    title: "Downtown Farmer's Market",
+    desc: "We pop up at local farmers markets twice a week, bringing fresh baked goods made the same day.",
+    date: "Thursday · Jan 18",
+    time: "9:00 AM - 2:00 PM",
+    address: "123 Heritage Lane",
+    primaryCta: "Get Directions",
+    secondaryCta: "Explore Our Menu",
+  },
+  {
+    image: "/images/farmer-market-1.png",
+    badge: "Weekend Favorite",
+    title: "Riverside Artisan Row",
+    desc: "Small-batch pastries, rotating specials, and warm loaves straight from the oven.",
+    date: "Saturday · Jan 20",
+    time: "8:30 AM - 1:30 PM",
+    address: "48 Riverwalk Avenue",
+    primaryCta: "Get Directions",
+    secondaryCta: "View Specials",
+  },
+  {
+    image: "/images/farmer-market-1.png",
+    badge: "Limited Batches",
+    title: "Old Town Square",
+    desc: "Grab classic croissants and seasonal treats before they're gone.",
+    date: "Sunday · Jan 21",
+    time: "9:00 AM - 12:30 PM",
+    address: "5 Old Town Plaza",
+    primaryCta: "Get Directions",
+    secondaryCta: "Explore Our Menu",
+  },
+];
+
+export const categoryItems: CategoryItem[] = [
+  {
+    id: "breads",
+    image: "/images/artisan-sourdough.jpg",
+    title: "Breads",
+    subtitle: "Explore Collection",
+    desc: "Artisan sourdough, rustic baguettes, and handcrafted loaves baked fresh daily with premium organic flour.",
+  },
+  {
+    id: "croissants-pastries",
+    image: "/images/chocolate-croissant.jpg",
+    title: "Croissants & Pastries",
+    subtitle: "Explore Collection",
+    desc: "Flaky layers, buttery aromas, and small-batch pastries crafted for every morning craving.",
+  },
+  {
+    id: "cakes-desserts",
+    image: "/images/vanilla-bean-cake.jpg",
+    title: "Cakes & Desserts",
+    subtitle: "Explore Collection",
+    desc: "Celebration cakes, elegant desserts, and cozy treats with rich flavors and soft textures.",
+  },
+  {
+    id: "cookies-biscuits",
+    image: "/images/triple-chocolate-cookies.png",
+    title: "Cookies & Biscuits",
+    subtitle: "Explore Collection",
+    desc: "Golden cookies and tender biscuits baked with chocolate, spice, and a warm crunch.",
+  },
+  {
+    id: "donuts",
+    image: "/images/cinnamon-rolls.jpg",
+    title: "Donuts",
+    subtitle: "Explore Collection",
+    desc: "Soft, pillowy donuts with sweet glazes and seasonal toppings made fresh each day.",
+  },
+  {
+    id: "savory-bakery",
+    image: "/images/french-baguette.jpg",
+    title: "Savory Bakery",
+    subtitle: "Explore Collection",
+    desc: "Savory pastries, herbed loaves, and hearty bakes perfect for lunch or dinner.",
+  },
+];
+
+export const selectionTabs: SelectionTab[] = [
+  { label: "Best Selling", value: "best" },
+  { label: "New Arrivals", value: "new" },
+  { label: "Recommended", value: "recommended" },
+];
+
+export const selectionItems: SelectionItem[] = [
+  {
+    id: "artisan-sourdough",
+    image: "/images/artisan-sourdough.jpg",
+    badge: "Best Seller",
+    title: "Artisan Sourdough",
+    desc: "Traditional sourdough with a crisp crust and soft, tangy interior.",
+    price: "$8.50",
+    category: "best",
+    actionLabel: "Add",
+  },
+  {
+    id: "chocolate-croissant",
+    image: "/images/chocolate-croissant.jpg",
+    badge: "Best Seller",
+    title: "Chocolate Croissant",
+    desc: "Buttery, flaky croissant filled with premium Belgian chocolate.",
+    price: "$8.50",
+    category: "best",
+    actionLabel: "Add",
+  },
+  {
+    id: "vanilla-cake",
+    image: "/images/vanilla-bean-cake.jpg",
+    badge: "Best Seller",
+    title: "Vanilla Bean Cake",
+    desc: "Light and moist vanilla cake with Madagascar vanilla beans.",
+    price: "$8.50",
+    category: "best",
+    actionLabel: "Add",
+  },
+  {
+    id: "strawberry-tart",
+    image: "/images/chocolate-croissant.jpg",
+    badge: "New Arrival",
+    title: "Strawberry Tart",
+    desc: "Bright berry tart with a silky vanilla custard filling.",
+    price: "$8.50",
+    category: "new",
+    actionLabel: "Add",
+  },
+  {
+    id: "almond-macarons",
+    image: "/images/artisan-sourdough.jpg",
+    badge: "New Arrival",
+    title: "Almond Macarons",
+    desc: "Delicate shells with rich ganache and a soft center.",
+    price: "$8.50",
+    category: "new",
+    actionLabel: "Add",
+  },
+  {
+    id: "triple-cookies",
+    image: "/images/triple-chocolate-cookies.png",
+    badge: "New Arrival",
+    title: "Triple Chocolate Cookies",
+    desc: "Decadent cookies loaded with dark, milk, and white chocolate.",
+    price: "$8.50",
+    category: "new",
+    outOfStock: true,
+    actionLabel: "Notify Me",
+  },
+  {
+    id: "cinnamon-rolls",
+    image: "/images/cinnamon-rolls.jpg",
+    badge: "Recommended",
+    title: "Cinnamon Rolls",
+    desc: "Soft rolls with vanilla bean glaze and warm cinnamon swirls.",
+    price: "$8.50",
+    category: "recommended",
+    actionLabel: "Add",
+  },
+  {
+    id: "french-baguette",
+    image: "/images/french-baguette.jpg",
+    badge: "Recommended",
+    title: "French Baguette",
+    desc: "Light and airy baguette with a golden, crisp crust.",
+    price: "$8.50",
+    category: "recommended",
+    actionLabel: "Add",
+  },
+  {
+    id: "vanilla-eclair",
+    image: "/images/vanilla-bean-cake.jpg",
+    badge: "Recommended",
+    title: "Vanilla Eclair",
+    desc: "Choux pastry filled with vanilla cream and a glossy topping.",
+    price: "$8.50",
+    category: "recommended",
+    actionLabel: "Add",
   },
 ];

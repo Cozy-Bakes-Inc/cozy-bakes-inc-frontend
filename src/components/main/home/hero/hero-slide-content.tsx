@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import type { Slide } from "./hero-slide-data";
+import type { Slide } from "@/interfaces";
 import Image from "next/image";
 
 type HeroSlideContentProps = {
