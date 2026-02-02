@@ -14,7 +14,7 @@ export default function MarketSection() {
 
   return (
     <section className="relative bg-[url('/images/farmer-market-bg.png')] bg-cover bg-center py-20">
-      <div className="mx-auto max-w-6xl px-5 sm:px-10">
+      <div className="mx-auto max-w-7xl px-5 sm:px-10">
         <div className="text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold text-primary">
             Weekly Presence

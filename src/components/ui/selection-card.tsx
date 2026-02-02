@@ -32,7 +32,7 @@ export default function SelectionCard({ item }: SelectionCardProps) {
         </span>
         {item.outOfStock && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/35">
-            <span className="rounded-xl px-6 py-3 bg-chocolate/75 text-sm font-semibold text-white border border-[#5c5a5d]/50">
+            <span className="rounded-xl px-6 py-3 bg-chocolate/75 text-sm font-semibold text-white border border-Taupe-Brown">
               Out of Stock
             </span>
           </div>

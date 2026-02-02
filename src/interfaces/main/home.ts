@@ -43,3 +43,9 @@ export type SelectionItem = {
   outOfStock?: boolean;
   actionLabel?: string;
 };
+export interface Testimonial {
+  quote: string;
+  name: string;
+  date: string;
+  initial: string;
+}

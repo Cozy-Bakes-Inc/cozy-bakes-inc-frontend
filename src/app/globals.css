@@ -12,6 +12,8 @@
   --color-heading-2: var(--heading-2);
   --color-chocolate: var(--chocolate);
   --color-light-chocolate: var(--light-chocolate);
+  --color-Taupe-Brown: var(--Taupe-Brown);
+  --color-taupe-brown: var(--Taupe-Brown);
   --color-dark: var(--dark);
   --color-gray: var(--gray);
   --color-foreground: var(--foreground);
@@ -61,6 +63,7 @@
   --heading-2: #af711f;
   --chocolate: #3d2c1e;
   --light-chocolate: #7b3306;
+  --Taupe-Brown: #6b5b4c;
   --dark: #344054;
   --gray: #98a2b3;
   --radius: 0.625rem;
