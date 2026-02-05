@@ -130,8 +130,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/15 pt-6 text-xs text-white/60 sm:flex-row">
           <p>
-            (c) 2026 Cozy Bakes Inc. All rights reserved. Made with love by
-            Marwa.
+            © 2026 Cozy Bakes Inc. All rights reserved. Made with love by Marwa.
           </p>
           <div className="flex gap-4">
             <span>Privacy Policy</span>

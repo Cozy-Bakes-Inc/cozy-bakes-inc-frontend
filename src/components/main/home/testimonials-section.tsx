@@ -16,9 +16,12 @@ export default function TestimonialsSection() {
         variants={containerVariants}
       >
         <div className="text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold text-primary">
-            <Star className="h-3 w-3 text-primary" fill="currentColor" />
-            Our Selection
+          <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-semibold text-primary">
+            <Star
+              className="size-5 text-primary shrink-0"
+              fill="currentColor"
+            />
+            Our Testimonials
           </span>
           <h2 className="mt-4 text-2xl font-extrabold tracking-tight text-dark sm:text-3xl md:text-4xl">
             What Our, <span className="text-primary">Customers Say</span>

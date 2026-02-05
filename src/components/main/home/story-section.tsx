@@ -8,9 +8,17 @@ export default function StorySection() {
 
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
         <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold text-primary">
-            Our Story
-          </span>
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-semibold text-primary">
+            <div className="shrink-0">
+              <Image
+                src="/images/story.svg"
+                alt="beard"
+                height={20}
+                width={20}
+              />
+            </div>
+            <span> Our Story</span>
+          </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-dark sm:text-4xl">
             A Journey of,{" "}
             <span className="text-heading-2">Passion & Craft</span>

@@ -1,7 +1,8 @@
-import { Sparkles, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { categoryItems } from "@/data";
 import CategoryCard from "@/components/ui/category-card";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export default function CategoriesSection() {
   return (
@@ -11,10 +12,17 @@ export default function CategoriesSection() {
 
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
         <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold text-primary">
-            <Sparkles className="size-3.5" />
-            Our Categories
-          </span>
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-semibold text-primary">
+            <div className="shrink-0">
+              <Image
+                src="/images/categories.svg"
+                alt="beard"
+                height={20}
+                width={20}
+              />
+            </div>
+            <span> Our Categories</span>
+          </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-dark sm:text-4xl">
             Crafted for, <span className="text-heading-2">Every Taste</span>
           </h2>

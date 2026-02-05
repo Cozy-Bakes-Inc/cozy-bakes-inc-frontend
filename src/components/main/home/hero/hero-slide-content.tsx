@@ -25,12 +25,7 @@ export default function HeroSlideContent({
           className="mb-4 flex items-center gap-2 text-sm font-semibold text-primary"
         >
           <div>
-            <Image
-              src="/images/hero-section-bread.svg"
-              alt="beard"
-              height={20}
-              width={20}
-            />
+            <Image src="/images/break.svg" alt="beard" height={20} width={20} />
           </div>
           <span>{slide.subtitle}</span>
         </motion.div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useEventListener } from "usehooks-ts";
 
 import { Button } from "@/components/ui/button";
 import NavActions from "./nav-actions";
@@ -11,13 +12,9 @@ import { Menu } from "lucide-react";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const resize = () => {
-      if (window.innerWidth >= 1024) setOpen(false);
-    };
-    window.addEventListener("resize", resize);
-    return () => window.removeEventListener("resize", resize);
-  }, []);
+  useEventListener("resize", () => {
+    if (window.innerWidth >= 1024) setOpen(false);
+  });
 
   return (
     <header className="sticky top-0 z-999 border-b shadow-sm bg-background">

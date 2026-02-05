@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Sparkles } from "lucide-react";
+import { MousePointerClick } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { selectionItems, selectionTabs } from "@/data";
 import SelectionCard from "@/components/ui/selection-card";
@@ -18,10 +18,10 @@ export default function SelectionSection() {
     <section className="bg-bg-creamy py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
         <div className="text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold text-primary">
-            <Sparkles className="size-3.5" />
-            Our Selection
-          </span>
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-semibold text-primary">
+            <MousePointerClick className="size-5 shrink-0" />
+            <span>Our Selection</span>
+          </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-dark sm:text-4xl">
             Freshly Baked,{" "}
             <span className="text-heading-2">Thoughtfully Chosen</span>

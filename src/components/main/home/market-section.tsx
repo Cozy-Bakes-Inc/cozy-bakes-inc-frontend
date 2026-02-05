@@ -16,9 +16,17 @@ export default function MarketSection() {
     <section className="relative bg-[url('/images/farmer-market-bg.png')] bg-cover bg-center py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
         <div className="text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold text-primary">
-            Weekly Presence
-          </span>
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-semibold text-primary">
+            <div className="shrink-0">
+              <Image
+                src="/images/break.svg"
+                alt="beard"
+                height={20}
+                width={20}
+              />
+            </div>
+            <span> Weekly Presence</span>
+          </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">
             Freshly Baked, <span className="text-heading-2">Locally Found</span>
           </h2>
@@ -39,7 +47,7 @@ export default function MarketSection() {
             {marketSlides.map((slide) => (
               <SwiperSlide key={slide.title}>
                 <div className="grid items-stretch md:grid-cols-2">
-                  <div className="relative h-64 overflow-hidden rounded-t-2xl md:h-full md:rounded-l-2xl md:rounded-tr-none">
+                  <div className="relative h-50 overflow-hidden rounded-t-2xl md:h-120 md:rounded-l-2xl md:rounded-tr-none">
                     <Image
                       src={slide.image}
                       alt={slide.title}
@@ -48,7 +56,7 @@ export default function MarketSection() {
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  <div className="flex h-full flex-col rounded-b-2xl border-t-4 border-primary/10 bg-white p-6 sm:p-8 md:rounded-r-2xl md:rounded-bl-none md:border-r-4 md:p-10">
+                  <div className="flex h-full flex-col justify-center rounded-b-2xl border-t-4 border-primary/10 bg-white p-6 sm:p-8 md:rounded-r-2xl md:rounded-bl-none md:border-r-4 md:p-10">
                     <span className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
                       {slide.badge}
                     </span>
