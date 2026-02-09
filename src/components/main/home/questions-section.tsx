@@ -8,7 +8,7 @@ export default function QuestionsSection() {
         <div className="absolute inset-0 bg-[url('/images/questions.png')] bg-size-[100%_100%]  bg-center bg-no-repeat" />
         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/45 to-black/70" />
 
-        <div className="relative mx-auto max-w-7xl px-5 py-20 text-center text-white sm:px-10 sm:py-25">
+        <div className="relative mx-auto max-w-7xl px-5 py-20 text-center text-white sm:px-10">
           <h2 className="animate-in fade-in slide-in-from-bottom-4 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
             We&apos;re Here to,{" "}
             <span className="text-card">Answer Your Questions</span>

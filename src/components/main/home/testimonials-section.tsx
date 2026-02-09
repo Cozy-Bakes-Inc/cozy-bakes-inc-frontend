@@ -7,7 +7,7 @@ import { Quote, Star } from "lucide-react";
 
 export default function TestimonialsSection() {
   return (
-    <section className="bg-bg-creamy py-16 sm:py-20">
+    <section className="bg-bg-creamy py-20">
       <motion.div
         className="mx-auto max-w-7xl px-5 sm:px-10"
         initial="hidden"

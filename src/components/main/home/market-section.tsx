@@ -57,7 +57,7 @@ export default function MarketSection() {
                     />
                   </div>
                   <div className="flex h-full flex-col justify-center rounded-b-2xl border-t-4 border-primary/10 bg-white p-6 sm:p-8 md:rounded-r-2xl md:rounded-bl-none md:border-r-4 md:p-10">
-                    <span className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                    <span className="inline-flex w-fit rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
                       {slide.badge}
                     </span>
                     <h3 className="mt-3 text-xl font-bold text-slate-800 sm:text-2xl">
