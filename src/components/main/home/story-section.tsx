@@ -1,10 +1,19 @@
+import { cn } from "@/lib";
 import Image from "next/image";
 
-export default function StorySection() {
+interface Story {
+  bg?: string;
+  circle?: boolean;
+}
+export default function StorySection({ bg, circle = true }: Story) {
   return (
-    <section className="relative overflow-hidden bg-bg-creamy py-20">
-      <div className="pointer-events-none absolute -left-20 top-16 hidden size-56 rounded-full border border-primary/10 sm:block" />
-      <div className="pointer-events-none absolute -right-16 bottom-12 hidden size-64 rounded-full border border-primary/15 sm:block" />
+    <section className={cn("relative overflow-hidden bg-bg-creamy py-20", bg)}>
+      {circle && (
+        <>
+          <div className="pointer-events-none absolute -left-20 top-16 hidden size-56 rounded-full border border-primary/10 sm:block" />
+          <div className="pointer-events-none absolute -right-16 bottom-12 hidden size-64 rounded-full border border-primary/15 sm:block" />
+        </>
+      )}
 
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
         <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -29,7 +38,7 @@ export default function StorySection() {
           </p>
         </div>
 
-        <div className="mt-12 grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
+        <div className="mt-10 grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
           <div className="animate-in fade-in slide-in-from-left-6 duration-700">
             <h3 className="bg-linear-to-r from-primary to-secondary bg-clip-text text-2xl font-extrabold text-transparent sm:text-3xl">
               Where Handcrafted Excellence Lives in Every Bite

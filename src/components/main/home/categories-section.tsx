@@ -1,8 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { categoryItems } from "@/data";
 import CategoryCard from "@/components/ui/category-card";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function CategoriesSection() {
   return (
@@ -39,10 +39,13 @@ export default function CategoriesSection() {
         </div>
 
         <div className="mt-10 flex justify-center animate-in fade-in slide-in-from-bottom-6 duration-700">
-          <Button className="h-10 rounded-full bg-primary px-6 text-xs font-semibold text-white hover:bg-primary/90">
+          <Link
+            href="/categories"
+            className="h-10 flex gap-1 items-center justify-center rounded-full bg-primary px-4 text-xs font-semibold text-white hover:bg-primary/90"
+          >
             Explore More Categories
-            <ArrowRight className="size-4" />
-          </Button>
+            <ArrowRight className="size-4 shrink-0" />
+          </Link>
         </div>
       </div>
     </section>

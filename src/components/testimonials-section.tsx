@@ -24,7 +24,7 @@ export default function TestimonialsSection() {
             Our Testimonials
           </span>
           <h2 className="mt-4 text-2xl font-extrabold tracking-tight text-dark sm:text-3xl md:text-4xl">
-            What Our, <span className="text-primary">Customers Say</span>
+            What Our, <span className="text-heading-2">Customers Say</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-gray sm:text-base">
             Real reviews from real people who love our handcrafted baked goods.

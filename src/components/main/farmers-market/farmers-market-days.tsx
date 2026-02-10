@@ -1,40 +1,25 @@
 "use client";
+
+import { Button } from "@/components/ui/button";
+import SliderDots from "@/components/ui/slider-dots";
+import { marketSlides } from "@/data";
+import { CalendarDays, MapPin, Navigation } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import type { Swiper as SwiperType } from "swiper";
-import { CalendarDays, MapPin, Navigation } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Button } from "@/components/ui/button";
-import { marketSlides } from "@/data";
-import SliderDots from "@/components/ui/slider-dots";
 
-export default function MarketSection() {
+function FarmersMarketDays() {
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-
   return (
-    <section className="relative bg-[url('/images/farmer-market-bg.png')] bg-cover bg-center py-20">
-      <div className="mx-auto max-w-7xl px-5 sm:px-10">
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-semibold text-primary">
-            <div className="shrink-0">
-              <Image
-                src="/images/break.svg"
-                alt="beard"
-                height={20}
-                width={20}
-              />
-            </div>
-            <span> Weekly Presence</span>
-          </div>
-          <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">
-            Freshly Baked, <span className="text-heading-2">Locally Found</span>
+    <section className="py-20">
+      <div className="mx-auto  max-w-7xl  px-5 sm:px-10">
+        <div>
+          <h2 className="text-heading-2 font-bold sm:text-2xl text-center">
+            Friday Market
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-500 sm:text-base">
-            We bring the warmth of our oven to local squares across the city.
-          </p>
         </div>
-
         <div className="relative mt-10 rounded-2xl bg-white/90 shadow-lg">
           <Swiper
             className="pb-10"
@@ -97,7 +82,7 @@ export default function MarketSection() {
             count={marketSlides.length}
             activeIndex={activeIndex}
             onSelect={(index) => swiperRef.current?.slideTo(index)}
-            bottom="-bottom-15"
+            bottom="-bottom-13"
             inActiveBg="h-2.5 w-2.5 bg-primary/25 hover:bg-primary/40"
           />
         </div>
@@ -105,3 +90,5 @@ export default function MarketSection() {
     </section>
   );
 }
+
+export default FarmersMarketDays;

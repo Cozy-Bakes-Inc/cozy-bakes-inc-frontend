@@ -9,7 +9,7 @@ const links = [
   { href: "/categories", label: "Our Categories" },
   { href: "/menu", label: "Our Menu" },
   { href: "/story", label: "Our Story" },
-  { href: "/find-us", label: "Find Us Her" },
+  { href: "/farmers-market", label: "Find Us Her" },
   { href: "/contact", label: "Contact US" },
 ];
 

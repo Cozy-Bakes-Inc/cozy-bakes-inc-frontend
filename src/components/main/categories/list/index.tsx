@@ -1,9 +1,6 @@
-import QuestionsSection from "../../home/questions-section";
-import TestimonialsSection from "../../home/testimonials-section";
 import BakeryTreatsSection from "./bakery-treats-section";
 import CategoriesGridSection from "./categories-grid-section";
 import CategoriesHeroSection from "./categories-hero-section";
-
 
 function Categories() {
   return (
@@ -11,8 +8,6 @@ function Categories() {
       <CategoriesHeroSection />
       <CategoriesGridSection />
       <BakeryTreatsSection />
-      <QuestionsSection />
-      <TestimonialsSection />
     </>
   );
 }

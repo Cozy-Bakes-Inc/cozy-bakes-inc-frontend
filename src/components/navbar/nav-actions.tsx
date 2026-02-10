@@ -9,7 +9,7 @@ export default function NavActions() {
         size="icon"
         className="group border-primary text-primary hover:text-secondary hover:border-secondary bg-[#FBF8EB]/25 rounded-full"
       >
-        <Search className="size-5" strokeWidth={2.8} />
+        <Search className="size-5 shrink-0" strokeWidth={2.8} />
       </Button>
 
       <Button
@@ -18,7 +18,7 @@ export default function NavActions() {
         className="group border-primary text-primary hover:text-secondary hover:border-secondary bg-[#FBF8EB]/25 rounded-full"
       >
         <ShoppingCart
-          className="size-5 fill-primary stroke-primary group-hover:fill-secondary group-hover:stroke-secondary"
+          className="size-5 shrink-0 fill-primary stroke-primary group-hover:fill-secondary group-hover:stroke-secondary"
           strokeWidth={2.8}
         />
       </Button>
@@ -29,7 +29,7 @@ export default function NavActions() {
         className="group border-primary text-primary hover:text-secondary hover:border-secondary bg-[#FBF8EB]/25 rounded-full"
       >
         <UserRound
-          className="size-5 fill-primary stroke-primary group-hover:fill-secondary group-hover:stroke-secondary"
+          className="size-5 shrink-0 fill-primary stroke-primary group-hover:fill-secondary group-hover:stroke-secondary"
           strokeWidth={2.8}
         />
       </Button>

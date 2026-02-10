@@ -1,11 +1,11 @@
 import HeroSection from "@/components/ui/hero-section";
 
-export default function CategoriesHeroSection() {
+export default function StoryHero() {
   return (
     <HeroSection
       badge="Explore Our"
-      title="Handcrafted Delights"
-      description="Browse our handcrafted selection of breads, pastries, cakes, cookies, and more to find your perfect every day treat."
+      title="Story & Passion for Baking"
+      description="A journey of love, tradition, and dedication to crafting the finest handmade baked goods with fresh, natural ingredients."
       image={{
         src: "/images/our-categories.png",
         alt: "Fresh bakery products",
