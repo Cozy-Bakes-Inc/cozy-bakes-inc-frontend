@@ -10,7 +10,7 @@ const links = [
   { href: "/menu", label: "Our Menu" },
   { href: "/story", label: "Our Story" },
   { href: "/farmers-market", label: "Find Us Her" },
-  { href: "/contact", label: "Contact US" },
+  { href: "/contact", label: "Contact Us" },
 ];
 
 export default function NavLinks({
