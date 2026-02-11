@@ -6,7 +6,7 @@ type MainLayoutProps = {
   children: ReactNode;
 };
 
-function MainLayout({ children }: MainLayoutProps) {
+function SiteLayout({ children }: MainLayoutProps) {
   return (
     <>
       <main>{children}</main>
@@ -16,4 +16,4 @@ function MainLayout({ children }: MainLayoutProps) {
   );
 }
 
-export default MainLayout;
+export default SiteLayout;

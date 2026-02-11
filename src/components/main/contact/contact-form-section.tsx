@@ -29,53 +29,53 @@ export default function ContactFormSection() {
             />
           </div>
 
-          <div className="flex h-full flex-col gap-6 rounded-2xl border border-[rgba(201,165,90,0.2)] bg-[#faf8f3] p-8">
-            <h3 className="text-center text-xl font-medium text-[#3d2c1e]">
+          <div className="flex h-full flex-col gap-6 rounded-2xl border border-primary/2 bg-bg-creamy p-8">
+            <h3 className="text-center text-xl font-medium text-chocolate">
               Send Us a Message
             </h3>
             <form className="flex flex-1 flex-col gap-4">
-              <label className="flex flex-col gap-2 text-sm text-[#344054]">
+              <label className="flex flex-col gap-2 text-sm text-dark">
                 Your Name
                 <input
                   type="text"
                   name="name"
                   placeholder="Your Name"
-                  className="h-12 rounded-[10px] border border-[rgba(201,165,90,0.2)] bg-[#fcfcfd] px-4 text-sm text-[#344054] placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d19628]/30"
+                  className="h-12 rounded-[10px] border border-primary/2 bg-background px-4 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
                 />
               </label>
 
-              <label className="flex flex-col gap-2 text-sm text-[#344054]">
+              <label className="flex flex-col gap-2 text-sm text-dark">
                 Email Address
                 <input
                   type="email"
                   name="email"
                   placeholder="Email Address"
-                  className="h-12 rounded-[10px] border border-[rgba(201,165,90,0.2)] bg-[#fcfcfd] px-4 text-sm text-[#344054] placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d19628]/30"
+                  className="h-12 rounded-[10px] border border-primary/2 bg-background px-4 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
                 />
               </label>
 
-              <label className="flex flex-col gap-2 text-sm text-[#344054]">
+              <label className="flex flex-col gap-2 text-sm text-dark">
                 Subject
                 <input
                   type="text"
                   name="subject"
                   placeholder="Subject"
-                  className="h-12 rounded-[10px] border border-[rgba(201,165,90,0.2)] bg-[#fcfcfd] px-4 text-sm text-[#344054] placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d19628]/30"
+                  className="h-12 rounded-[10px] border border-primary/2 bg-background px-4 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
                 />
               </label>
 
-              <label className="flex flex-col gap-2 text-sm text-[#344054]">
+              <label className="flex flex-col gap-2 text-sm text-dark">
                 Message
                 <textarea
                   name="message"
                   placeholder="Your Message"
-                  className="min-h-36.5 resize-none rounded-[10px] border border-[rgba(201,165,90,0.2)] bg-[#fcfcfd] px-4 py-3 text-sm text-[#344054] placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d19628]/30"
+                  className="min-h-36.5 resize-none rounded-[10px] border border-primary/2 bg-background px-4 py-3 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
                 />
               </label>
 
               <button
                 type="submit"
-                className="mt-2 h-12 rounded-lg bg-[#d19628] text-sm font-semibold text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] transition hover:bg-[#c28722]"
+                className="mt-2 h-12 rounded-lg bg-primary text-sm font-semibold text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] transition hover:bg-[#c28722]"
               >
                 Send Message
               </button>

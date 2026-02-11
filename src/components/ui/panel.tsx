@@ -23,6 +23,8 @@ interface IProps {
   titleClassName?: string;
   contentClassName?: string;
   closeButtonClassName?: string;
+  side?: "top" | "right" | "bottom" | "left";
+  hideDefaultCloseButton?: boolean;
 }
 
 function Panel({
@@ -35,10 +37,16 @@ function Panel({
   contentClassName = "sm:max-w-xs",
   titleClassName,
   closeButtonClassName,
+  side = "right",
+  hideDefaultCloseButton = true,
 }: IProps) {
   return (
     <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent className={contentClassName}>
+      <SheetContent
+        className={contentClassName}
+        side={side}
+        showCloseButton={!hideDefaultCloseButton}
+      >
         {title && (
           <SheetHeader>
             <CloseButtonPanel closeButtonClassname={closeButtonClassName} />

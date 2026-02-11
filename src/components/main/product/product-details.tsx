@@ -8,10 +8,21 @@ import Counter from "@/components/ui/counter";
 import RatingStars from "@/components/ui/rating-stars";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import { useCartStore } from "@/store/cart-store";
 
 export default function ProductDetails() {
   const [quantity, setQuantity] = useState(1);
   const handleCounter = (value: number) => setQuantity(value);
+  const addItem = useCartStore((state) => state.addItem);
+  const openCart = useCartStore((state) => state.openCart);
+
+  const product = {
+    id: "sourdough-bread",
+    title: "Sourdough Bread",
+    price: 8.5,
+    image: "/images/artisan-sourdough.jpg",
+  };
+
   const images = [
     {
       src: "/images/artisan-sourdough.jpg",
@@ -58,7 +69,7 @@ export default function ProductDetails() {
         <div className="rounded-3xl bg-background p-6 shadow-sm sm:p-8 h-full">
           <div className="space-y-5">
             <h1 className="text-3xl font-semibold tracking-tight text-secondary sm:text-4xl">
-              Sourdough Bread
+              {product.title}
             </h1>
             <p className="text-sm leading-7 text-gray sm:text-base">
               Expertly handcrafted through slow natural fermentation, our
@@ -68,7 +79,9 @@ export default function ProductDetails() {
 
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-end gap-2">
-                <p className="text-2xl font-semibold text-primary">$8.50</p>
+                <p className="text-2xl font-semibold text-primary">
+                  ${product.price.toFixed(2)}
+                </p>
                 <span className="text-xs text-gray">For one piece</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-secondary">
@@ -97,8 +110,14 @@ export default function ProductDetails() {
               />
             </div>
 
-            <Button className="h-11 w-full rounded-full bg-primary px-6 text-sm font-semibold text-white hover:bg-card/90">
-              <ShoppingCart className="size-4 fill-white" />
+            <Button
+              className="h-11 w-full rounded-full bg-primary px-6 text-sm font-semibold text-white hover:bg-card/90"
+              onClick={() => {
+                addItem({ ...product, quantity });
+                openCart();
+              }}
+            >
+              <ShoppingCart className="size-4" />
               Add to Cart
             </Button>
           </div>

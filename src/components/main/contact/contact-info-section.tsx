@@ -29,20 +29,18 @@ export default function ContactInfoSection() {
           {contactCards.map((card) => (
             <div
               key={card.title}
-              className="relative flex h-full flex-col gap-6 rounded-2xl bg-[#faf8f3] p-6 shadow-[0_4px_4px_rgba(201,165,90,0.1)]"
+              className="relative flex h-full flex-col gap-6 rounded-2xl bg-bg-creamy p-6 shadow-[0_4px_4px_rgba(201,165,90,0.1)]"
             >
-              <div className="flex size-12 items-center justify-center rounded-lg bg-[#d19628] text-white">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-primary text-white">
                 <card.Icon className="size-5" />
               </div>
               <div className="space-y-2">
-                <p className="text-lg font-semibold text-[#d19628]">
+                <p className="text-lg font-semibold text-primary">
                   {card.title}
                 </p>
                 <p className="text-sm text-[#667085]">{card.description}</p>
               </div>
-              <p className="text-sm font-semibold text-[#344054]">
-                {card.detail}
-              </p>
+              <p className="text-sm font-semibold text-dark">{card.detail}</p>
             </div>
           ))}
         </div>
