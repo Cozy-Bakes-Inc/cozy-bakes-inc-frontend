@@ -2,8 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Search, ShoppingCart, UserRound } from "lucide-react";
-import CartPanel from "../cart/cart-panel";
 import { useCartStore } from "@/store/cart-store";
+import CartPanel from "@/components/cart/cart-panel";
 
 export default function NavActions() {
   const openCart = useCartStore((state) => state.openCart);
