@@ -60,13 +60,13 @@ export function LoginForm() {
         </span>
       </Button>
 
-      <div className="flex items-center justify-center gap-1">
-        <p className="text-[#667085] text-base leading-6 font-medium text-center">
+      <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-center">
+        <p className="text-[#667085] text-sm leading-6 font-medium md:text-base">
           Don&apos;t Have Account ?
         </p>
         <Link
           href="/sign-up"
-          className="text-primary text-base leading-7 font-semibold border-b border-primary"
+          className="text-primary text-sm leading-7 font-semibold border-b border-primary whitespace-nowrap md:text-base"
         >
           Create New Account
         </Link>

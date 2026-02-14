@@ -3,14 +3,16 @@
 import { ShoppingCart, X } from "lucide-react";
 
 import Panel from "@/components/ui/panel";
-import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart-store";
 import CartPanelEmptyState from "./cart-panel-empty-state";
 import CartPanelItemsList from "./cart-panel-items-list";
 import CartPanelMyLikeCarousel from "./cart-panel-my-like-carousel";
 import CartPanelActions from "./cart-panel-actions";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function CartPanel() {
+  const router = useRouter();
   const {
     items,
     isCartOpen,
@@ -25,7 +27,10 @@ export default function CartPanel() {
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
-
+  const handleViewCart = () => {
+    router.push("/cart");
+    closeCart();
+  };
   return (
     <Panel
       open={isCartOpen}
@@ -42,6 +47,7 @@ export default function CartPanel() {
           </div>
 
           <Button
+            onClick={handleViewCart}
             type="button"
             variant="outline"
             className="h-10 rounded-full border-primary bg-primary px-4 text-xs font-medium text-white hover:bg-primary/90 hover:text-white sm:text-sm"

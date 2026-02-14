@@ -1,5 +1,5 @@
-import Navbar from "@/components/layout/main/navbar";
-import Footer from "@/components/layout/main/footer";
+import Footer from "@/layout/main/footer";
+import Navbar from "@/layout/main/navbar";
 import type { ReactNode } from "react";
 
 type MainLayoutProps = {

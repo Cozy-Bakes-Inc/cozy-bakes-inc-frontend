@@ -106,24 +106,24 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-primary">Get in Touch</h4>
             <div className="mt-3 space-y-3 text-sm text-white/70">
-              <p className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-white/16 flex items-center justify-center rounded-full overflow-hidden">
                   <Phone className="h-4 w-4 shrink-0" />
                 </div>
                 (555) 123-4567
-              </p>
-              <p className="flex items-center gap-2">
+              </div>
+              <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-white/16 flex items-center justify-center rounded-full overflow-hidden">
                   <Mail className="h-4 w-4 shrink-0" />
                 </div>
                 hello@cozybakes.com
-              </p>
-              <p className="flex items-center gap-2">
+              </div>
+              <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-white/16 flex items-center justify-center rounded-full overflow-hidden">
                   <MapPin className="h-4 w-4 shrink-0" />
                 </div>
                 123 Bakery Lane, Sweet City
-              </p>
+              </div>
             </div>
           </div>
         </div>
