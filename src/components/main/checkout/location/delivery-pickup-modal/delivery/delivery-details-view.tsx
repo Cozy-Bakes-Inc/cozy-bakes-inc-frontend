@@ -14,9 +14,9 @@ export default function DeliveryDetailsView({
 }: DeliveryDetailsViewProps) {
   return (
     <div className="space-y-5">
-      <div className="flex flex-col gap-3 rounded-2xl border border-delivery-modal-map-border p-2.5 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-3 rounded-2xl border border-border/24 p-2.5 md:flex-row md:items-center md:justify-between">
         <div className="flex min-w-0 items-start gap-3">
-          <div className="grid size-16.75 shrink-0 place-items-center rounded-lg bg-delivery-modal-map-surface">
+          <div className="grid size-16.75 shrink-0 place-items-center rounded-lg bg-bg-creamy">
             <Image
               src={LOCATION_IMAGE}
               alt="Selected location"
@@ -25,13 +25,11 @@ export default function DeliveryDetailsView({
             />
           </div>
           <div className="min-w-0 space-y-1">
-            <p className="text-xs font-semibold text-delivery-modal-border">
-              Deliver to
-            </p>
-            <p className="text-sm font-semibold text-delivery-modal-text md:text-base">
+            <p className="text-xs font-semibold text-primary">Deliver to</p>
+            <p className="text-sm font-semibold text-dark md:text-base">
               New York
             </p>
-            <p className="wrap-break-word text-xs font-medium text-delivery-modal-muted-text">
+            <p className="wrap-break-word text-xs font-medium text-gray-500">
               1600 Pennsylvania Avenue NW - White House - Washington - DC 20500
             </p>
           </div>
@@ -39,14 +37,14 @@ export default function DeliveryDetailsView({
         <Button
           variant="outline"
           onClick={onBackToMap}
-          className="h-13.5 w-full border-delivery-modal-border px-4 text-sm font-medium text-delivery-modal-border hover:bg-delivery-modal-border/10 md:w-auto md:px-6 md:text-base"
+          className="h-13.5 w-full border-primary px-4 text-sm font-medium text-primary hover:bg-primary/10 hover:text-primary md:w-auto md:px-6 md:text-base"
         >
           Change Location
         </Button>
       </div>
 
-      <section className="rounded-3xl border border-delivery-modal-map-border px-4 py-4 md:px-6">
-        <h3 className="mb-4 text-lg font-medium leading-7 text-delivery-modal-border md:text-[18px]">
+      <section className="rounded-3xl border border-border/24 px-4 py-4 md:px-6">
+        <h3 className="mb-4 text-lg font-medium leading-7 text-primary md:text-[18px]">
           Address Details
         </h3>
         <div className="space-y-4">
@@ -68,8 +66,8 @@ export default function DeliveryDetailsView({
         </div>
       </section>
 
-      <section className="rounded-3xl border border-delivery-modal-map-border px-4 py-4 md:px-6">
-        <h3 className="mb-4 text-lg font-medium leading-7 text-delivery-modal-border md:text-[18px]">
+      <section className="rounded-3xl border border-border/24 px-4 py-4 md:px-6">
+        <h3 className="mb-4 text-lg font-medium leading-7 text-primary md:text-[18px]">
           Receiver Details
         </h3>
         <div className="space-y-4">
@@ -84,7 +82,7 @@ export default function DeliveryDetailsView({
       <div className="flex justify-end">
         <Button
           onClick={onSaveLocation}
-          className="h-13.5 w-full rounded-lg bg-delivery-modal-primary-soft px-6 text-sm font-medium text-white hover:bg-delivery-modal-primary-soft md:w-auto md:min-w-50.5 md:text-base"
+          className="h-13.5 w-full rounded-lg bg-primary px-6 text-sm font-medium text-white hover:bg-primary/50 md:w-auto md:min-w-50.5 md:text-base"
         >
           Save Location
         </Button>

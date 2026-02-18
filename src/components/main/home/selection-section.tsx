@@ -32,7 +32,7 @@ export default function SelectionSection() {
         </div>
 
         <div className="mt-6 flex justify-center">
-          <div className="inline-flex rounded-full bg-white p-1 shadow-sm">
+          <div className="inline-flex rounded-full bg-background p-1 shadow-sm">
             {selectionTabs.map((tab) => {
               const isActive = tab.value === activeTab;
               return (

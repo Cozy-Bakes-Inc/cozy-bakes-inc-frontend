@@ -38,7 +38,7 @@ export default function TestimonialsSection() {
           {testimonials.map((testimonial, index) => (
             <motion.article
               key={`${testimonial.name}-${index}`}
-              className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-primary/15"
+              className="relative overflow-hidden rounded-2xl bg-background p-6 shadow-sm ring-1 ring-primary/15"
               variants={cardVariants}
             >
               <div className="absolute right-5 top-4 text-6xl font-serif text-primary/15">

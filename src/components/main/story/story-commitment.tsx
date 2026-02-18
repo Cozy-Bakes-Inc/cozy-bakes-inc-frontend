@@ -51,7 +51,7 @@ export default function StoryCommitment() {
             return (
               <div
                 key={item.title}
-                className="relative overflow-hidden rounded-2xl border border-primary/10 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="relative overflow-hidden rounded-2xl border border-primary/10 bg-background p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
                 <span className="pointer-events-none absolute -right-8 -top-8 size-16 rotate-45 bg-primary/10" />
                 <div className="mb-4 inline-flex size-11 items-center justify-center rounded-xl bg-primary/15 text-primary">

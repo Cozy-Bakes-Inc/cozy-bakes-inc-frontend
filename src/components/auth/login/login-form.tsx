@@ -41,7 +41,7 @@ export function LoginForm() {
 
       <div className="flex items-center justify-center gap-2.5">
         <span className="h-px flex-1 bg-[#D0D5DD]" />
-        <span className="text-[#667085] text-sm leading-7 font-semibold uppercase">
+        <span className="text-gray-500 text-sm leading-7 font-semibold uppercase">
           OR
         </span>
         <span className="h-px flex-1 bg-[#D0D5DD]" />
@@ -50,7 +50,7 @@ export function LoginForm() {
       <Button
         type="button"
         variant="ghost"
-        className="flex h-13.5 w-full rounded-2xl border border-[#667085] items-center justify-center gap-3"
+        className="flex h-13.5 w-full rounded-2xl border border-gray-500 items-center justify-center gap-3"
       >
         <div className="relative size-6">
           <Image src="/images/google.svg" alt="Google" fill />
@@ -61,7 +61,7 @@ export function LoginForm() {
       </Button>
 
       <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-center">
-        <p className="text-[#667085] text-sm leading-6 font-medium md:text-base">
+        <p className="text-gray-500 text-sm leading-6 font-medium md:text-base">
           Don&apos;t Have Account ?
         </p>
         <Link

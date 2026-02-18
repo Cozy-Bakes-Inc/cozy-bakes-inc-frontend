@@ -20,7 +20,7 @@ export default function CartContentItemCard({
   return (
     <article className="rounded-xl border border-primary/24 bg-bg-creamy px-3 py-2.5">
       <div className="flex gap-3">
-        <div className="relative size-12 shrink-0 overflow-hidden rounded-md bg-white">
+        <div className="relative size-12 shrink-0 overflow-hidden rounded-md bg-background">
           <Image
             src={item.image}
             alt={item.title}
@@ -31,8 +31,10 @@ export default function CartContentItemCard({
         </div>
 
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-dark">{item.title}</p>
-          <p className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-[#667085]">
+          <p className="truncate text-sm font-semibold text-dark">
+            {item.title}
+          </p>
+          <p className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-gray-500">
             {itemDescription}
           </p>
         </div>
@@ -70,7 +72,9 @@ export default function CartContentItemCard({
             )}
           </button>
 
-          <span className="w-5 text-center text-sm text-dark">{item.quantity}</span>
+          <span className="w-5 text-center text-sm text-dark">
+            {item.quantity}
+          </span>
 
           <button
             type="button"

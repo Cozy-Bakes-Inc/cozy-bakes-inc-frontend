@@ -15,7 +15,7 @@ export default function SelectionCard({ item }: SelectionCardProps) {
 
   return (
     <Link href={`/products/1`}>
-      <article className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm">
+      <article className="flex h-full flex-col overflow-hidden rounded-2xl bg-background shadow-sm">
         <div className="relative overflow-hidden">
           <motion.div
             animate={{ scale: isHovered ? 1.04 : 1 }}
@@ -34,7 +34,7 @@ export default function SelectionCard({ item }: SelectionCardProps) {
           </span>
           {item.outOfStock && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/35">
-              <span className="rounded-xl px-6 py-3 bg-chocolate/75 text-sm font-semibold text-white border border-Taupe-Brown">
+              <span className="rounded-xl px-6 py-3 bg-chocolate/75 text-sm font-semibold text-white border border-taupe-brown">
                 Out of Stock
               </span>
             </div>

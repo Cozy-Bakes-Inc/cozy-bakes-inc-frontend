@@ -66,7 +66,7 @@ export default function HeroSlideContent({
 
           <Button
             variant="outline"
-            className="border-white/35 bg-white/10 text-white hover:bg-white/15 hover:text-white py-6"
+            className="border-white/35 bg-background/10 text-white hover:bg-background/15 hover:text-white py-6"
           >
             Explore Our Menu
           </Button>

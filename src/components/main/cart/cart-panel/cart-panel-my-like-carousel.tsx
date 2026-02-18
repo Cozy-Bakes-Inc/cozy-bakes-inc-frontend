@@ -69,7 +69,7 @@ export default function CartPanelMyLikeCarousel({
   }, [items]);
 
   return (
-    <div className="rounded-2xl border border-[rgba(201,165,90,0.24)] bg-bg-creamy p-2.5">
+    <div className="rounded-2xl border border-border/24 bg-bg-creamy p-2.5">
       <div className="flex items-center justify-between">
         <p className="text-xs font-medium text-dark sm:text-sm">Also My Like</p>
 
@@ -93,7 +93,7 @@ export default function CartPanelMyLikeCarousel({
         </div>
       </div>
 
-      <div className="mt-2 border-t border-[rgba(201,165,90,0.24)] pt-2">
+      <div className="mt-2 border-t border-border/24 pt-2">
         <Swiper
           slidesPerView={1}
           spaceBetween={8}
@@ -120,7 +120,7 @@ export default function CartPanelMyLikeCarousel({
                     <p className="truncate text-sm font-medium leading-5 text-dark sm:text-base sm:leading-6">
                       {recommendation.title}
                     </p>
-                    <p className="line-clamp-2 text-[11px] leading-[1.4] text-[#667085] sm:text-xs sm:leading-normal">
+                    <p className="line-clamp-2 text-[11px] leading-[1.4] text-gray-500 sm:text-xs sm:leading-normal">
                       {recommendation.description}
                     </p>
                   </div>

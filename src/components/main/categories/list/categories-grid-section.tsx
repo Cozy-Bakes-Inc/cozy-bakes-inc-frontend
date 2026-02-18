@@ -122,7 +122,7 @@ export default function CategoriesGridSection() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="flex w-max items-center gap-2 rounded-full border border-primary/25 bg-white p-1.5">
+          <div className="flex w-max items-center gap-2 rounded-full border border-primary/25 bg-background p-1.5">
             {filters.map((filter) => {
               const isActive = activeFilter === filter.value;
               return (
@@ -168,7 +168,7 @@ export default function CategoriesGridSection() {
                     variant="ghost"
                     onClick={() => setActiveFilter(filter.value)}
                     className={cn(
-                      "h-auto shrink-0 rounded-full border border-primary/25 bg-white px-4 py-2 text-xs font-semibold transition",
+                      "h-auto shrink-0 rounded-full border border-primary/25 bg-background px-4 py-2 text-xs font-semibold transition",
                       isActive
                         ? "bg-primary text-white shadow-sm"
                         : "text-taupe-brown hover:text-secondary",

@@ -1,4 +1,5 @@
 import Footer from "@/layout/main/footer";
+import GlobalModals from "@/layout/main/global-modals";
 import Navbar from "@/layout/main/navbar";
 import type { ReactNode } from "react";
 
@@ -11,6 +12,7 @@ function MainLayout({ children }: MainLayoutProps) {
     <>
       <Navbar />
       {children}
+      <GlobalModals />
       <Footer />
     </>
   );

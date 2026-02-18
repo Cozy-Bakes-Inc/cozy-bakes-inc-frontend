@@ -34,7 +34,7 @@ export default function Footer() {
       <div className="relative mx-auto max-w-7xl px-5 py-12 text-white sm:px-10 sm:py-16">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3">
-            <div className="relative h-12 w-12 rounded-full overflow-hidden bg-white/90 ring-2 ring-primary/40">
+            <div className="relative h-12 w-12 rounded-full overflow-hidden bg-background/90 ring-2 ring-primary/40">
               <Image src="/images/logo.svg" alt="logo" fill />
             </div>
             <div>
@@ -48,7 +48,7 @@ export default function Footer() {
             <Button
               size="icon"
               variant="ghost"
-              className="h-10 w-10 rounded-md bg-white/10 text-white/80 ring-1 ring-white/10 hover:bg-primary hover:text-white"
+              className="h-10 w-10 rounded-md bg-background/10 text-white/80 ring-1 ring-white/10 hover:bg-primary hover:text-white"
             >
               <Facebook className="h-4 w-4" />
             </Button>
@@ -61,14 +61,14 @@ export default function Footer() {
             <Button
               size="icon"
               variant="ghost"
-              className="h-10 w-10 rounded-md bg-white/10 text-white/80 ring-1 ring-white/10 hover:bg-primary hover:text-white"
+              className="h-10 w-10 rounded-md bg-background/10 text-white/80 ring-1 ring-white/10 hover:bg-primary hover:text-white"
             >
               <Instagram className="h-4 w-4" />
             </Button>
           </div>
         </div>
 
-        <div className="my-8 h-px bg-white/15" />
+        <div className="my-8 h-px bg-background/15" />
 
         <div className="grid gap-8 md:grid-cols-4">
           <div>
@@ -107,19 +107,19 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-primary">Get in Touch</h4>
             <div className="mt-3 space-y-3 text-sm text-white/70">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-white/16 flex items-center justify-center rounded-full overflow-hidden">
+                <div className="w-8 h-8 bg-background/16 flex items-center justify-center rounded-full overflow-hidden">
                   <Phone className="h-4 w-4 shrink-0" />
                 </div>
                 (555) 123-4567
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-white/16 flex items-center justify-center rounded-full overflow-hidden">
+                <div className="w-8 h-8 bg-background/16 flex items-center justify-center rounded-full overflow-hidden">
                   <Mail className="h-4 w-4 shrink-0" />
                 </div>
                 hello@cozybakes.com
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-white/16 flex items-center justify-center rounded-full overflow-hidden">
+                <div className="w-8 h-8 bg-background/16 flex items-center justify-center rounded-full overflow-hidden">
                   <MapPin className="h-4 w-4 shrink-0" />
                 </div>
                 123 Bakery Lane, Sweet City

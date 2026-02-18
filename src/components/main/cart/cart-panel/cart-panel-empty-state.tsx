@@ -21,7 +21,7 @@ export default function CartPanelEmptyState({
         <h3 className="text-[20px] font-semibold leading-7 text-dark sm:text-[24px] sm:leading-8">
           Your cart is empty for now
         </h3>
-        <p className="text-xs leading-5 text-[#667085] sm:text-sm sm:leading-6">
+        <p className="text-xs leading-5 text-gray-500 sm:text-sm sm:leading-6">
           Add items you love and they&apos;ll appear here. Start exploring and
           find something delicious.
         </p>

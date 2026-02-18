@@ -24,7 +24,7 @@ export default function CartPanelItemsList({
           className="rounded-2xl border border-primary/24 bg-bg-creamy p-2.5"
         >
           <div className="flex gap-2">
-            <div className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-white">
+            <div className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-background">
               <Image
                 src={item.image}
                 alt={item.title}
@@ -38,7 +38,7 @@ export default function CartPanelItemsList({
               <p className="truncate text-base font-semibold leading-6 text-dark sm:text-[18px] sm:leading-7">
                 {item.title}
               </p>
-              <p className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-[#667085] sm:text-xs">
+              <p className="mt-0.5 line-clamp-2 text-[11px] leading-4 text-gray-500 sm:text-xs">
                 Light and moist vanilla cake with Madagascar vanilla beans and
                 silky buttercream frosting.
               </p>

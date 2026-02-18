@@ -61,11 +61,11 @@ export default function StorySection({ bg, circle = true }: Story) {
               from day one. Every loaf tells a story, and every bite is a
               celebration of tradition.
             </p>
-            <div className="mt-6 rounded-2xl border border-primary/20 bg-white/80 p-4 shadow-sm">
+            <div className="mt-6 rounded-2xl border border-primary/20 bg-background/80 p-4 shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-wide text-chocolate">
                 Our Philosophy
               </p>
-              <p className="mt-2 text-sm text-Taupe-Brown">
+              <p className="mt-2 text-sm text-taupe-brown">
                 We do not take shortcuts. We do not use preservatives. We simply
                 bake the way bread was meant to be made—with time, patience, and
                 the finest ingredients.

@@ -59,7 +59,7 @@ export function SignUpForm() {
 
       <div className="flex items-center justify-center gap-2.5">
         <span className="h-px flex-1 bg-[#D0D5DD]" />
-        <span className="text-sm leading-7 font-semibold text-[#667085] uppercase">
+        <span className="text-sm leading-7 font-semibold text-gray-500 uppercase">
           OR
         </span>
         <span className="h-px flex-1 bg-[#D0D5DD]" />
@@ -68,7 +68,7 @@ export function SignUpForm() {
       <Button
         type="button"
         variant="ghost"
-        className="flex h-13.5 w-full items-center justify-center gap-3 rounded-2xl border border-[#667085]"
+        className="flex h-13.5 w-full items-center justify-center gap-3 rounded-2xl border border-gray-500"
       >
         <div className="relative size-6">
           <Image src="/images/google.svg" alt="Google" fill />
@@ -79,7 +79,7 @@ export function SignUpForm() {
       </Button>
 
       <div className="flex items-center justify-center gap-1">
-        <p className="text-center text-base leading-6 font-medium text-[#667085]">
+        <p className="text-center text-base leading-6 font-medium text-gray-500">
           Already have an account?
         </p>
         <Link

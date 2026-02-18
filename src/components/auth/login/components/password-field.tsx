@@ -19,14 +19,14 @@ export function PasswordField({
       <label className="block text-dark text-base leading-6 font-medium">
         Password
       </label>
-      <div className="flex h-13.75 items-center gap-2.5 rounded-xl border border-[#98A2B3] px-3">
+      <div className="flex h-13.75 items-center gap-2.5 rounded-xl border border-[gray] px-3">
         <LockKeyhole className="size-6 text-primary" />
         <input
           type={showPassword ? "text" : "password"}
           value={password}
           onChange={(event) => onPasswordChange(event.target.value)}
           placeholder="Password"
-          className="w-full bg-transparent text-base text-[#98A2B3] leading-6 font-medium outline-none"
+          className="w-full bg-transparent text-base text-[gray] leading-6 font-medium outline-none"
         />
         <Button
           type="button"

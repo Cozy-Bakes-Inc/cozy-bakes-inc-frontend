@@ -8,6 +8,8 @@ import DeliveryMapView from "./delivery/delivery-map-view";
 import DeliveryPickupModalHeader from "./modal-header";
 import PickupView from "./pickup/pickup-view";
 import DeliveryPickupTabs from "./tabs";
+import { useRouter } from "next/navigation";
+import { useCartStore } from "@/store/cart-store";
 
 interface DeliveryPickupModalProps {
   open: boolean;
@@ -20,19 +22,21 @@ export default function DeliveryPickupModal({
   onClose,
   onConfirmLocation,
 }: DeliveryPickupModalProps) {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<DeliveryPickupTab>("delivery");
   const [deliveryStep, setDeliveryStep] = useState<DeliveryStep>("map");
 
   const isDeliveryDetails =
     activeTab === "delivery" && deliveryStep === "details";
+  const { closeCart } = useCartStore();
 
   return (
     <Modal
       open={open}
       onClose={onClose}
-      contentClassName="md:max-w-xl lg:max-w-4xl 2xl:max-w-6xl rounded-[24px] border border-delivery-modal-map-border bg-delivery-modal-surface p-4 shadow-none sm:p-6"
-      titleClassName="text-delivery-modal-text text-lg font-semibold leading-7 md:text-xl md:leading-[30px]"
-      closeButtonClassname="border-delivery-modal-border text-delivery-modal-border"
+      contentClassName="md:max-w-xl lg:max-w-4xl 2xl:max-w-6xl rounded-[24px] border border-border/24 bg-background p-4 shadow-none sm:p-6"
+      titleClassName="text-dark text-lg font-semibold leading-7 md:text-xl md:leading-[30px]"
+      closeButtonClassname="border-primary text-primary"
       title={
         <DeliveryPickupModalHeader
           isDeliveryDetails={isDeliveryDetails}
@@ -43,7 +47,12 @@ export default function DeliveryPickupModal({
       {isDeliveryDetails ? (
         <DeliveryDetailsView
           onBackToMap={() => setDeliveryStep("map")}
-          onSaveLocation={onConfirmLocation}
+          onSaveLocation={() => {
+            onConfirmLocation?.();
+            router.push("/checkout");
+            onClose();
+            closeCart();
+          }}
         />
       ) : (
         <div className="space-y-4">
@@ -61,7 +70,14 @@ export default function DeliveryPickupModal({
               onConfirmLocation={() => setDeliveryStep("details")}
             />
           ) : (
-            <PickupView onConfirm={onConfirmLocation} />
+            <PickupView
+              onConfirm={() => {
+                onConfirmLocation?.();
+                router.push("/checkout");
+                onClose();
+                closeCart();
+              }}
+            />
           )}
         </div>
       )}

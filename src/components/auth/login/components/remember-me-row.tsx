@@ -19,10 +19,10 @@ export function RememberMeRow({
           onChange={(event) => onRememberMeChange(event.target.checked)}
           className="peer sr-only"
         />
-        <span className="flex size-5 items-center justify-center rounded-sm border border-primary bg-white text-transparent peer-checked:bg-primary peer-checked:text-white">
+        <span className="flex size-5 items-center justify-center rounded-sm border border-primary bg-background text-transparent peer-checked:bg-primary peer-checked:text-white">
           <Check className="size-4" strokeWidth={2.5} />
         </span>
-        <span className="text-[#667085] text-base leading-6 font-medium">
+        <span className="text-gray-500 text-base leading-6 font-medium">
           Remember me
         </span>
       </label>

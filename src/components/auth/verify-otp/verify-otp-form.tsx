@@ -39,7 +39,7 @@ export function VerifyOtpForm({
         </Button>
 
         {canResendCode ? (
-          <p className="text-center text-base leading-6 font-medium text-[#98A2B3]">
+          <p className="text-center text-base leading-6 font-medium text-[gray]">
             Send Code again :{" "}
             <button
               type="button"
@@ -50,7 +50,7 @@ export function VerifyOtpForm({
             </button>
           </p>
         ) : (
-          <p className="text-center text-base leading-6 font-medium text-[#98A2B3]">
+          <p className="text-center text-base leading-6 font-medium text-[gray]">
             Send Code again : {timerText}
           </p>
         )}

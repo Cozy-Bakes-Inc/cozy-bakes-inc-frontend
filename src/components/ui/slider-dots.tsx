@@ -14,7 +14,7 @@ type HeroSliderDotsProps = {
 export default function SliderDots({
   bottom = "bottom-5",
   activeBg = "bg-primary hover:bg-primary/50",
-  inActiveBg = "bg-white/35 hover:bg-white/55",
+  inActiveBg = "bg-background/35 hover:bg-background/55",
   count,
   activeIndex,
   onSelect,

@@ -16,8 +16,8 @@ export default function DeliveryPickupModalHeader({
         onClick={onBackToMap}
         className="flex items-center gap-2 pr-8"
       >
-        <span className="grid size-10 place-items-center rounded-lg bg-delivery-modal-map-surface">
-          <ArrowLeft className="size-5 text-delivery-modal-border shrink-0" />
+        <span className="grid size-10 place-items-center rounded-lg bg-bg-creamy">
+          <ArrowLeft className="size-5 text-primary shrink-0" />
         </span>
         <span>Deliver to</span>
       </button>
@@ -26,7 +26,7 @@ export default function DeliveryPickupModalHeader({
 
   return (
     <div className="flex items-center gap-2 pr-8">
-      <MapPin className="size-5 text-delivery-modal-border shrink-0" />
+      <MapPin className="size-5 text-primary shrink-0" />
       <span>Delivery & Pickup Locations</span>
     </div>
   );

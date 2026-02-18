@@ -35,7 +35,7 @@ export default function MarketSection() {
           </p>
         </div>
 
-        <div className="relative mt-10 rounded-2xl bg-white/90 shadow-lg">
+        <div className="relative mt-10 rounded-2xl bg-background/90 shadow-lg">
           <Swiper
             className="pb-10"
             onSwiper={(swiper) => {
@@ -56,7 +56,7 @@ export default function MarketSection() {
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  <div className="flex h-full flex-col justify-center rounded-b-2xl border-t-4 border-primary/10 bg-white p-6 sm:p-8 md:rounded-r-2xl md:rounded-bl-none md:border-r-4 md:p-10">
+                  <div className="flex h-full flex-col justify-center rounded-b-2xl border-t-4 border-primary/10 bg-background p-6 sm:p-8 md:rounded-r-2xl md:rounded-bl-none md:border-r-4 md:p-10">
                     <span className="inline-flex w-fit rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
                       {slide.badge}
                     </span>

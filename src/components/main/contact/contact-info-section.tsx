@@ -23,7 +23,7 @@ const contactCards = [
 
 export default function ContactInfoSection() {
   return (
-    <section className="bg-white pb-24">
+    <section className="bg-background pb-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {contactCards.map((card) => (
@@ -38,7 +38,7 @@ export default function ContactInfoSection() {
                 <p className="text-lg font-semibold text-primary">
                   {card.title}
                 </p>
-                <p className="text-sm text-[#667085]">{card.description}</p>
+                <p className="text-sm text-gray-500">{card.description}</p>
               </div>
               <p className="text-sm font-semibold text-dark">{card.detail}</p>
             </div>

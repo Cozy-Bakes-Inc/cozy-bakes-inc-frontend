@@ -9,7 +9,7 @@ type CategoryCardProps = {
 export default function CategoryCard({ item }: CategoryCardProps) {
   return (
     <Link href={`/categories/1`}>
-      <article className="group relative h-full overflow-hidden rounded-4xl bg-white shadow-sm">
+      <article className="group relative h-full overflow-hidden rounded-4xl bg-background shadow-sm">
         <div className="relative h-80">
           <Image
             src={item.image}

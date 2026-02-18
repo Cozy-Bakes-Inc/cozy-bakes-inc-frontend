@@ -37,7 +37,7 @@ export function AuthLayoutContent({ children }: AuthLayoutContentProps) {
                 <Image src="/images/logo.svg" alt="Cozy Bakes Inc." fill />
               </div>
               <div className="leading-tight">
-                <p className="text-lg font-bold text-[#7B3306]">
+                <p className="text-lg font-bold text-light-chocolate">
                   Cozy Bakes Inc.
                 </p>
                 <p className="text-xs font-medium text-[#BB4D00]">By Marwa</p>

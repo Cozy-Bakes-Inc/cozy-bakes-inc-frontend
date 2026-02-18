@@ -43,7 +43,7 @@ export default function MenuSection() {
           {menuSections.map((section, index) => (
             <article
               key={`${section.title}-${index}`}
-              className="rounded-2xl border border-primary/15 bg-white p-6 shadow-sm"
+              className="rounded-2xl border border-primary/15 bg-background p-6 shadow-sm"
             >
               <h3 className="text-lg font-semibold text-dark">
                 {section.title}

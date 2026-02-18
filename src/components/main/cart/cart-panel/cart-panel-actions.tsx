@@ -3,8 +3,7 @@
 import { ArrowRight, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import DeliveryPickupModal from "@/components/main/checkout/location/delivery-pickup-modal";
+import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
 
 type CartPanelActionsProps = {
   total: number;
@@ -15,7 +14,8 @@ export default function CartPanelActions({
   total,
   onClearCart,
 }: CartPanelActionsProps) {
-  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const openModal = useDeliveryPickupModalStore((state) => state.openModal);
+
   return (
     <>
       <div className="mt-3 border-t border-[#EAECF0] pt-3">
@@ -30,7 +30,7 @@ export default function CartPanelActions({
       </div>
 
       <Button
-        onClick={() => setIsLocationModalOpen(true)}
+        onClick={openModal}
         className="mt-3 h-12.5 w-full rounded-xl bg-primary text-sm text-white hover:bg-primary/90 sm:text-base"
       >
         Check Out
@@ -45,10 +45,6 @@ export default function CartPanelActions({
         Clear Cart
         <Trash2 className="size-4" />
       </Button>
-      <DeliveryPickupModal
-        open={isLocationModalOpen}
-        onClose={() => setIsLocationModalOpen(false)}
-      />
     </>
   );
 }

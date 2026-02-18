@@ -59,7 +59,7 @@ export default function CartPanel() {
         <button
           type="button"
           onClick={closeCart}
-          className="absolute -right-3 top-23.5 z-10 grid size-6.5 place-items-center rounded-full bg-white"
+          className="absolute -right-3 top-23.5 z-10 grid size-6.5 place-items-center rounded-full bg-background"
           aria-label="Close cart panel"
         >
           <span className="grid size-6.5 place-items-center rounded-full border border-primary bg-[#FBF8EB40] text-primary">
@@ -77,7 +77,7 @@ export default function CartPanel() {
               onRemoveItem={removeItem}
             />
 
-            <div className="rounded-t-2xl border-t border-[rgba(201,165,90,0.24)] bg-bg-creamy px-4 pb-4 pt-3">
+            <div className="rounded-t-2xl border-t border-border/24 bg-bg-creamy px-4 pb-4 pt-3">
               <CartPanelMyLikeCarousel items={items} onAddItem={addItem} />
               <CartPanelActions total={total} onClearCart={clearCart} />
             </div>
