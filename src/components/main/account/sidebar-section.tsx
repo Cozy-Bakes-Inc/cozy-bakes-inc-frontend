@@ -11,13 +11,13 @@ export default function SidebarSection({
       {sections.map((section) => (
         <article
           key={section.title}
-          className="rounded-2xl border border-border/24 bg-background p-6"
+          className="rounded-2xl border border-border/24 bg-background p-4 sm:p-6"
         >
-          <h2 className="text-lg font-semibold leading-7.5 text-dark">
+          <h2 className="text-base font-semibold leading-7 text-dark sm:text-lg sm:leading-7.5">
             {section.title}
           </h2>
 
-          <nav className="mt-2 space-y-3 py-4">
+          <nav className="mt-2 space-y-2 py-3 sm:space-y-3 sm:py-4">
             {section.items.map((item) => {
               const isActive = item.id === activeTab;
 
@@ -26,7 +26,7 @@ export default function SidebarSection({
                   key={item.id}
                   href={`/account?tab=${item.id}`}
                   className={cn(
-                    "flex h-12.25 items-center rounded-2xl px-4 text-base transition-colors",
+                    "flex h-11 items-center rounded-2xl px-4 text-sm transition-colors sm:h-12.25 sm:text-base",
                     isActive
                       ? "bg-bg-creamy font-semibold text-dark"
                       : "font-medium text-gray hover:bg-bg-creamy/70",
@@ -41,7 +41,7 @@ export default function SidebarSection({
           {section.withSignOut ? (
             <button
               type="button"
-              className="h-13.5 w-full rounded-lg border border-[#f04438] bg-[#f04438] px-4 text-base font-medium text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)]"
+              className="h-12 w-full rounded-lg border border-[#f04438] bg-[#f04438] px-4 text-sm font-medium text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] sm:h-13.5 sm:text-base"
             >
               Sign Out
             </button>

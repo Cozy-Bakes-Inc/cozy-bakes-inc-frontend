@@ -33,9 +33,9 @@ export default function Account({ activeTab, activeOrderId }: AccountProps) {
   return (
     <>
       <AccountBreadcrumb activeTab={activeTab} />
-      <section className="bg-background py-10 sm:py-14">
-        <div className="mx-auto max-w-7xl px-5 sm:px-10">
-          <div className="grid gap-6 lg:grid-cols-[311px_1fr] lg:items-start">
+      <section className="bg-background py-6 sm:py-14">
+        <div className="mx-auto max-w-7xl px-4 sm:px-10">
+          <div className="grid gap-4 sm:gap-6 lg:grid-cols-[311px_1fr] lg:items-start">
             <div className="space-y-4 lg:sticky lg:top-24">
               <ProfileSummaryCard profile={profileUser} />
 
@@ -55,9 +55,9 @@ export default function Account({ activeTab, activeOrderId }: AccountProps) {
               />
             </div>
 
-            <section className="rounded-3xl bg-bg-creamy p-3 sm:p-6">
+            <section className="rounded-3xl bg-bg-creamy p-2.5 sm:p-6">
               <div className="rounded-3xl border border-border/24 bg-background p-4 sm:p-6">
-                <h2 className="text-lg font-medium capitalize leading-7.5 text-primary">
+                <h2 className="text-base font-medium capitalize leading-7 text-primary sm:text-lg sm:leading-7.5">
                   {activeTabDefinition.title}
                 </h2>
 
