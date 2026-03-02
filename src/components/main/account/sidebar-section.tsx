@@ -29,7 +29,7 @@ export default function SidebarSection({
                     "flex h-12.25 items-center rounded-2xl px-4 text-base transition-colors",
                     isActive
                       ? "bg-bg-creamy font-semibold text-dark"
-                      : "font-medium text-[#667085] hover:bg-bg-creamy/70",
+                      : "font-medium text-gray hover:bg-bg-creamy/70",
                   )}
                 >
                   {item.label}

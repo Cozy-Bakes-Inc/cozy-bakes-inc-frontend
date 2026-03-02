@@ -14,6 +14,37 @@ export interface AccountOrder {
   image: string;
 }
 
+export interface AccountOrderTimelineStep {
+  id: string;
+  title: string;
+  time: string;
+  isCompleted?: boolean;
+}
+
+export interface AccountOrderDetailsItem {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  totalPrice: string;
+  quantityLabel: string;
+  summaryLabel: string;
+  summaryPrice: string;
+}
+
+export interface AccountOrderSummary {
+  shippingFee: string;
+  paymentMethod: string;
+  total: string;
+}
+
+export interface AccountOrderDetails {
+  orderId: string;
+  timeline: ReadonlyArray<AccountOrderTimelineStep>;
+  items: ReadonlyArray<AccountOrderDetailsItem>;
+  summary: AccountOrderSummary;
+}
+
 export interface AccountInfoContent {
   heading: string;
   description: string;
@@ -27,6 +58,7 @@ export interface AccountProfileUser {
 
 export interface AccountProps {
   activeTab: AccountTab;
+  activeOrderId?: string;
 }
 
 export interface SidebarSectionProps {

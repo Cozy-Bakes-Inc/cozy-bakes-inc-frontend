@@ -13,7 +13,7 @@ export default function ProfileSummaryCard({ profile }: ProfileSummaryCardProps)
         </div>
         <div>
           <p className="text-base font-semibold text-dark">{profile.name}</p>
-          <p className="text-xs font-medium text-[#667085]">{profile.email}</p>
+          <p className="text-xs font-medium text-gray">{profile.email}</p>
         </div>
       </div>
     </article>

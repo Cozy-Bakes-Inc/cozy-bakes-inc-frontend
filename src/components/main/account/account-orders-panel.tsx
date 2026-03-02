@@ -1,7 +1,15 @@
 import Image from "next/image";
+import Link from "next/link";
 import { orders } from "@/data/main/account";
+import type { AccountOrderTab } from "@/types/main/account";
 
-export default function AccountOrdersPanel() {
+type AccountOrdersPanelProps = {
+  activeTab: AccountOrderTab;
+};
+
+export default function AccountOrdersPanel({
+  activeTab,
+}: AccountOrdersPanelProps) {
   return (
     <div className="mt-3 space-y-3">
       {orders.map((order) => (
@@ -21,7 +29,7 @@ export default function AccountOrdersPanel() {
               <p className="text-[18px] font-semibold leading-7 text-dark">
                 {order.title}
               </p>
-              <p className="max-w-3xl text-sm font-medium text-[#667085]">
+              <p className="max-w-3xl text-sm font-medium text-gray">
                 {order.details}
               </p>
             </div>
@@ -37,12 +45,12 @@ export default function AccountOrdersPanel() {
               </p>
             </div>
 
-            <button
-              type="button"
-              className="h-10 rounded-full bg-primary px-4 text-sm font-medium text-white"
+            <Link
+              href={`/account?tab=${activeTab}&orderId=${order.id}`}
+              className="h-10 flex items-center rounded-full bg-primary px-4 text-sm font-medium text-white"
             >
               View Order Details
-            </button>
+            </Link>
           </div>
         </article>
       ))}
