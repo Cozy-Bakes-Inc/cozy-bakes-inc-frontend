@@ -8,6 +8,7 @@ import {
   Truck,
 } from "lucide-react";
 import type { AccountOrderDetails } from "@/interfaces/main/account";
+import { Button } from "@/components/ui/button";
 
 type AccountOrderDetailsPanelProps = {
   details: AccountOrderDetails;
@@ -27,7 +28,7 @@ export default function AccountOrderDetailsPanel({
   return (
     <div className="mt-4 space-y-5">
       <section className="overflow-x-auto pb-2">
-        <div className="relative mx-auto grid min-w-[760px] grid-cols-5 gap-4">
+        <div className="relative mx-auto grid min-w-190 grid-cols-5 gap-4">
           <span className="absolute left-[10%] right-[10%] top-5 h-0.5 bg-[#3fbf5a]" />
 
           {details.timeline.map((step) => (
@@ -168,12 +169,13 @@ export default function AccountOrderDetailsPanel({
           </div>
         </div>
 
-        <button
+        <Button
           type="button"
-          className="mt-5 h-12 w-full rounded-lg border border-[#f04438] bg-[#f04438] px-4 text-sm font-medium text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] sm:h-13.5 sm:text-base"
+          size="default"
+          className="mt-5 h-12 w-full rounded-lg border border-[#f04438] bg-[#f04438] px-4 text-sm font-medium text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] hover:bg-[#f04438]/90 sm:h-13.5 sm:text-base"
         >
           Cancel Order
-        </button>
+        </Button>
       </section>
     </div>
   );

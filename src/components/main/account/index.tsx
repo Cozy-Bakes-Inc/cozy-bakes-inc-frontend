@@ -2,20 +2,32 @@ import {
   accountPanelContent,
   accountTabs,
   allTabs,
-  orderDetailsById,
+  editEmailData,
+  editPasswordData,
+  editPersonalInformationData,
+  orderDetailsByTab,
   orderTabs,
+  personalInformationData,
   profileUser,
+  shippingInformationData,
 } from "@/data/main/account";
 import type { AccountProps } from "@/interfaces/main/account";
 import {
   normalizeAccountOrderId,
   normalizeAccountTab,
 } from "@/lib/main/account";
-import type { AccountInfoTab, AccountOrderTab } from "@/types/main/account";
+import type { AccountInfoTab, AccountOrderListTab } from "@/types/main/account";
 import AccountBreadcrumb from "./account-breadcrumb";
+import AccountCancelOrderPanel from "./account-cancel-order-panel";
+import AccountEditEmailPanel from "./account-edit-email-panel";
+import AccountEditPasswordPanel from "./edit-password";
+import AccountCompleteOrderPanel from "./account-complete-order-panel";
+import AccountEditPersonalInformationPanel from "./account-edit-personal-information-panel";
 import AccountInfoPanel from "./account-info-panel";
+import AccountNewOrderPanel from "./account-new-order-panel";
 import AccountOrderDetailsPanel from "./account-order-details-panel";
-import AccountOrdersPanel from "./account-orders-panel";
+import AccountPersonalInformationPanel from "./account-personal-information-panel";
+import AccountShippingInformationPanel from "./account-shipping-information-panel";
 import ProfileSummaryCard from "./profile-summary-card";
 import SidebarSection from "./sidebar-section";
 
@@ -24,11 +36,37 @@ export { normalizeAccountOrderId, normalizeAccountTab };
 export default function Account({ activeTab, activeOrderId }: AccountProps) {
   const activeTabDefinition =
     allTabs.find((tab) => tab.id === activeTab) ?? allTabs[0];
-  const isOrderTab = orderTabs.some((tab) => tab.id === activeTab);
-  const activeOrderTab = activeTab as AccountOrderTab;
-  const selectedOrderDetails = activeOrderId
-    ? orderDetailsById[activeOrderId]
-    : undefined;
+
+  const activeOrderListTab =
+    activeTab === "new-order" ||
+    activeTab === "cancel-order" ||
+    activeTab === "complete-order"
+      ? (activeTab as AccountOrderListTab)
+      : null;
+
+  const isPersonalInformationTab = activeTab === "personal-information";
+  const isEditPersonalInformationTab =
+    activeTab === "edit-personal-information";
+  const isEditEmailTab = activeTab === "edit-email";
+  const isEditPasswordTab = activeTab === "edit-password";
+  const isShippingInformationTab = activeTab === "shipping-information";
+  const selectedOrderDetails =
+    activeOrderListTab && activeOrderId
+      ? orderDetailsByTab[activeOrderListTab][activeOrderId]
+      : undefined;
+
+  function renderOrderListByTab(tab: AccountOrderListTab) {
+    switch (tab) {
+      case "new-order":
+        return <AccountNewOrderPanel />;
+      case "cancel-order":
+        return <AccountCancelOrderPanel />;
+      case "complete-order":
+        return <AccountCompleteOrderPanel />;
+      default:
+        return null;
+    }
+  }
 
   return (
     <>
@@ -55,25 +93,37 @@ export default function Account({ activeTab, activeOrderId }: AccountProps) {
               />
             </div>
 
-            <section className="rounded-3xl bg-bg-creamy p-2.5 sm:p-6">
-              <div className="rounded-3xl border border-border/24 bg-background p-4 sm:p-6">
-                <h2 className="text-base font-medium capitalize leading-7 text-primary sm:text-lg sm:leading-7.5">
-                  {activeTabDefinition.title}
-                </h2>
+            {activeOrderListTab ? (
+              <section className="rounded-3xl bg-bg-creamy p-2.5 sm:p-6 bg">
+                <div className="rounded-3xl border border-border/24 bg-background p-4 sm:p-6">
+                  <h2 className="text-base font-medium capitalize leading-7 text-primary sm:text-lg sm:leading-7.5">
+                    {activeTabDefinition.title}
+                  </h2>
 
-                {isOrderTab ? (
-                  selectedOrderDetails ? (
+                  {selectedOrderDetails ? (
                     <AccountOrderDetailsPanel details={selectedOrderDetails} />
                   ) : (
-                    <AccountOrdersPanel activeTab={activeOrderTab} />
-                  )
-                ) : (
-                  <AccountInfoPanel
-                    content={accountPanelContent[activeTab as AccountInfoTab]}
-                  />
-                )}
-              </div>
-            </section>
+                    renderOrderListByTab(activeOrderListTab)
+                  )}
+                </div>
+              </section>
+            ) : isShippingInformationTab ? (
+              <AccountShippingInformationPanel data={shippingInformationData} />
+            ) : isPersonalInformationTab ? (
+              <AccountPersonalInformationPanel data={personalInformationData} />
+            ) : isEditPersonalInformationTab ? (
+              <AccountEditPersonalInformationPanel
+                data={editPersonalInformationData}
+              />
+            ) : isEditEmailTab ? (
+              <AccountEditEmailPanel data={editEmailData} />
+            ) : isEditPasswordTab ? (
+              <AccountEditPasswordPanel data={editPasswordData} />
+            ) : (
+              <AccountInfoPanel
+                content={accountPanelContent[activeTab as AccountInfoTab]}
+              />
+            )}
           </div>
         </div>
       </section>

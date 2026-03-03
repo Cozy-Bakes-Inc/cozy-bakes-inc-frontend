@@ -1,26 +1,32 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Search, ShoppingCart, UserRound } from "lucide-react";
+import { ShoppingCart, UserRound } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
 import CartPanel from "@/components/main/cart/cart-panel";
+import { useRouter } from "next/navigation";
 
 export default function NavActions() {
+  const router = useRouter();
   const openCart = useCartStore((state) => state.openCart);
   const totalQuantity = useCartStore((state) =>
     state.items.reduce((sum, item) => sum + item.quantity, 0),
   );
 
+  const handleAccount = () => {
+    router.push("/account");
+  };
+
   return (
     <>
       <div className="hidden sm:flex items-center gap-3">
-        <Button
+        {/* <Button
           variant="outline"
           size="icon"
           className="group border-primary text-primary hover:text-secondary hover:border-secondary bg-[#FBF8EB]/25 rounded-full"
         >
           <Search className="size-5 shrink-0" strokeWidth={2.8} />
-        </Button>
+        </Button> */}
 
         <Button
           variant="outline"
@@ -37,6 +43,7 @@ export default function NavActions() {
         </Button>
 
         <Button
+          onClick={handleAccount}
           variant="outline"
           size="icon"
           className="border-primary text-primary hover:text-secondary hover:border-secondary bg-[#FBF8EB]/25 rounded-full"

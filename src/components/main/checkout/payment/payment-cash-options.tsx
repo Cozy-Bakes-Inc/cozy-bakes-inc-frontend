@@ -22,8 +22,7 @@ const cashMethods: CashMethodConfig[] = [
   {
     id: "zelle",
     subLabel: "Zelle",
-    logoSrc:
-      "https://www.figma.com/api/mcp/asset/bdc87ab2-1ed8-47e9-a955-78d9645da645",
+    logoSrc: "/images/zelle.svg",
     logoAlt: "Zelle",
     logoWidth: 50,
     logoHeight: 33,
@@ -32,8 +31,7 @@ const cashMethods: CashMethodConfig[] = [
   {
     id: "venmo",
     subLabel: "Venom",
-    logoSrc:
-      "https://www.figma.com/api/mcp/asset/72f2cfbe-f7dd-4408-ba8c-e79e6a85beda",
+    logoSrc: "/images/venom.svg",
     logoAlt: "Venmo",
     logoWidth: 50,
     logoHeight: 10,
@@ -44,8 +42,7 @@ const cashMethods: CashMethodConfig[] = [
   {
     id: "apple-pay",
     subLabel: "Apple Pay",
-    logoSrc:
-      "https://www.figma.com/api/mcp/asset/62b7e049-94ff-437f-b1f4-e6ff1a475b7e",
+    logoSrc: "/images/apple-pay.svg",
     logoAlt: "Apple Pay",
     logoWidth: 50,
     logoHeight: 33,
@@ -54,8 +51,7 @@ const cashMethods: CashMethodConfig[] = [
   {
     id: "cash-app",
     subLabel: "Cash App",
-    logoSrc:
-      "https://www.figma.com/api/mcp/asset/5e5be4ff-67ef-4200-906a-7b0b42c30933",
+    logoSrc: "/images/cash-app.svg",
     logoAlt: "Cash App",
     logoWidth: 70,
     logoHeight: 16,
@@ -64,10 +60,8 @@ const cashMethods: CashMethodConfig[] = [
   },
 ];
 
-const payCashIcon =
-  "https://www.figma.com/api/mcp/asset/f54dcec7-5bb4-4cb6-abde-740920d4490f";
-const checkmarkIcon =
-  "https://www.figma.com/api/mcp/asset/25fcb7cc-be4e-4f72-89e5-69d3f99d0a22";
+const payCashIcon = "/images/cash-payment.gif";
+const checkmarkIcon = "/images/checkmark-icon.svg";
 
 export default function PaymentCashOptions({
   selectedMethod,

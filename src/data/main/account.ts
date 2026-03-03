@@ -1,8 +1,14 @@
 import type {
+  AccountEditEmailData,
+  AccountEditPasswordData,
+  AccountEditPersonalInformationData,
   AccountInfoContent,
+  AccountPersonalInformationData,
+  AccountOrderDetailsByTab,
   AccountOrder,
-  AccountOrderDetails,
+  AccountOrdersByTab,
   AccountProfileUser,
+  AccountShippingInformationData,
   AccountTabDefinition,
 } from "@/interfaces/main/account";
 
@@ -54,9 +60,9 @@ export const accountTabs = [
 
 export const allTabs = [...orderTabs, ...accountTabs] as const;
 
-export const orders: ReadonlyArray<AccountOrder> = [
+const newOrders: ReadonlyArray<AccountOrder> = [
   {
-    id: "order-1",
+    id: "new-order-1",
     title: "Order Details",
     details:
       "Sourdough Bread * 2 , Multigrain Bread * 2 , Whole Grain Bread * 2 , Whole Grain Bread * 1",
@@ -64,22 +70,54 @@ export const orders: ReadonlyArray<AccountOrder> = [
     image: "/images/artisan-sourdough.jpg",
   },
   {
-    id: "order-2",
+    id: "new-order-2",
     title: "Order Details",
-    details:
-      "Sourdough Bread * 2 , Multigrain Bread * 2 , Whole Grain Bread * 2 , Whole Grain Bread * 1",
-    total: "$220",
+    details: "Croissant * 3 , Brioche * 2 , Bagel * 2 , Baguette * 1",
+    total: "$185",
+    image: "/images/french-baguette.jpg",
+  },
+];
+
+const cancelOrders: ReadonlyArray<AccountOrder> = [
+  {
+    id: "cancel-order-1",
+    title: "Canceled Order",
+    details: "Multigrain Bread * 2 , Whole Grain Bread * 1",
+    total: "$58",
     image: "/images/french-baguette.jpg",
   },
   {
-    id: "order-3",
-    title: "Order Details",
-    details:
-      "Sourdough Bread * 2 , Multigrain Bread * 2 , Whole Grain Bread * 2 , Whole Grain Bread * 1",
-    total: "$220",
-    image: "/images/bread-category.png",
+    id: "cancel-order-2",
+    title: "Canceled Order",
+    details: "Sourdough Bread * 1 , Bagel * 2 , Croissant * 2",
+    total: "$74",
+    image: "/images/artisan-sourdough.jpg",
   },
 ];
+
+const completeOrders: ReadonlyArray<AccountOrder> = [
+  {
+    id: "complete-order-1",
+    title: "Completed Order",
+    details:
+      "Sourdough Bread * 2 , Multigrain Bread * 2 , Whole Grain Bread * 2",
+    total: "$190",
+    image: "/images/bread-category.png",
+  },
+  {
+    id: "complete-order-2",
+    title: "Completed Order",
+    details: "Brioche * 4 , Baguette * 2",
+    total: "$140",
+    image: "/images/french-baguette.jpg",
+  },
+];
+
+export const ordersByTab: AccountOrdersByTab = {
+  "new-order": newOrders,
+  "cancel-order": cancelOrders,
+  "complete-order": completeOrders,
+};
 
 const sharedOrderDetails = {
   timeline: [
@@ -167,24 +205,79 @@ const sharedOrderDetails = {
   },
 } as const;
 
-export const orderDetailsById: Record<string, AccountOrderDetails> = {
-  "order-1": {
-    orderId: "order-1",
-    timeline: sharedOrderDetails.timeline,
-    items: sharedOrderDetails.items,
-    summary: sharedOrderDetails.summary,
+export const orderDetailsByTab: AccountOrderDetailsByTab = {
+  "new-order": {
+    "new-order-1": {
+      orderId: "new-order-1",
+      timeline: sharedOrderDetails.timeline,
+      items: sharedOrderDetails.items,
+      summary: sharedOrderDetails.summary,
+    },
+    "new-order-2": {
+      orderId: "new-order-2",
+      timeline: sharedOrderDetails.timeline,
+      items: sharedOrderDetails.items,
+      summary: { ...sharedOrderDetails.summary, total: "$185" },
+    },
   },
-  "order-2": {
-    orderId: "order-2",
-    timeline: sharedOrderDetails.timeline,
-    items: sharedOrderDetails.items,
-    summary: sharedOrderDetails.summary,
+  "cancel-order": {
+    "cancel-order-1": {
+      orderId: "cancel-order-1",
+      timeline: [
+        {
+          id: "placed",
+          title: "Order Placed",
+          time: "15 Jan, 2025 09:30",
+          isCompleted: true,
+        },
+        {
+          id: "processed",
+          title: "Processed",
+          time: "15 Jan, 2025 10:10",
+          isCompleted: true,
+        },
+        {
+          id: "packed",
+          title: "Packed",
+          time: "15 Jan, 2025 11:00",
+          isCompleted: true,
+        },
+        {
+          id: "shipped",
+          title: "Canceled",
+          time: "15 Jan, 2025 12:15",
+          isCompleted: true,
+        },
+        {
+          id: "delivered",
+          title: "Refunded",
+          time: "16 Jan, 2025 09:00",
+          isCompleted: true,
+        },
+      ],
+      items: sharedOrderDetails.items,
+      summary: { ...sharedOrderDetails.summary, total: "$58" },
+    },
+    "cancel-order-2": {
+      orderId: "cancel-order-2",
+      timeline: sharedOrderDetails.timeline,
+      items: sharedOrderDetails.items,
+      summary: { ...sharedOrderDetails.summary, total: "$74" },
+    },
   },
-  "order-3": {
-    orderId: "order-3",
-    timeline: sharedOrderDetails.timeline,
-    items: sharedOrderDetails.items,
-    summary: sharedOrderDetails.summary,
+  "complete-order": {
+    "complete-order-1": {
+      orderId: "complete-order-1",
+      timeline: sharedOrderDetails.timeline,
+      items: sharedOrderDetails.items,
+      summary: { ...sharedOrderDetails.summary, total: "$190" },
+    },
+    "complete-order-2": {
+      orderId: "complete-order-2",
+      timeline: sharedOrderDetails.timeline,
+      items: sharedOrderDetails.items,
+      summary: { ...sharedOrderDetails.summary, total: "$140" },
+    },
   },
 };
 
@@ -208,6 +301,66 @@ export const accountPanelContent: Record<
     heading: "Edit Password",
     description: "Set a new secure password for your account.",
   },
+};
+
+export const shippingInformationData: AccountShippingInformationData = {
+  sectionTitle: "Shipping Locations",
+  address: {
+    deliverToLabel: "Deliver to",
+    city: "New York",
+    fullAddress:
+      "1600 Pennsylvania Avenue NW - White House - Washington - DC 20500",
+    changeAddressLabel: "Change Address",
+  },
+  receiver: {
+    title: "Receiver Details",
+    firstNameLabel: "First Name",
+    firstName: "Michael",
+    lastNameLabel: "Last Name",
+    lastName: "Anderson",
+    phoneLabel: "Phone Number",
+    phoneNumber: "(415) 628-9473",
+    countryCode: "+1",
+    countryFlag: "US",
+  },
+};
+
+export const personalInformationData: AccountPersonalInformationData = {
+  sectionTitle: "Personal Information",
+  firstNameLabel: "First Name",
+  firstName: "Michael",
+  lastNameLabel: "Last Name",
+  lastName: "Anderson",
+  emailLabel: "Email",
+  email: "MichaelAnderson98@gmail.com",
+};
+
+export const editPersonalInformationData: AccountEditPersonalInformationData = {
+  sectionTitle: "Edit Personal Information",
+  firstNameLabel: "First Name",
+  firstName: "Michael",
+  lastNameLabel: "Last Name",
+  lastName: "Anderson",
+  submitLabel: "Save Edit",
+};
+
+export const editEmailData: AccountEditEmailData = {
+  sectionTitle: "Edit Email",
+  emailLabel: "Email",
+  email: "Cozy Bakes@gmail.com",
+  submitLabel: "Edit Email",
+};
+
+export const editPasswordData: AccountEditPasswordData = {
+  sectionTitle: "Edit Password",
+  oldPasswordLabel: "Old Password",
+  oldPasswordPlaceholder: "Last Upate 22/1/2026",
+  newPasswordLabel: "New Password",
+  newPasswordPlaceholder: "New Password",
+  confirmPasswordLabel: "Confirm New Password",
+  confirmPasswordPlaceholder: "Confirm New Password",
+  forgotPasswordLabel: "Forget Password ?",
+  submitLabel: "Change Password",
 };
 
 export const profileUser: AccountProfileUser = {

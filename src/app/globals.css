@@ -140,4 +140,15 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  input {
+    @apply outline-none;
+  }
+  button,
+  [role="button"] {
+    cursor: pointer;
+  }
+  button:focus,
+  [role="button"]:focus {
+    outline: none;
+  }
 }

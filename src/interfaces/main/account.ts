@@ -1,4 +1,4 @@
-import type { AccountTab } from "@/types/main/account";
+import type { AccountOrderListTab, AccountTab } from "@/types/main/account";
 
 export interface AccountTabDefinition {
   id: string;
@@ -44,6 +44,79 @@ export interface AccountOrderDetails {
   items: ReadonlyArray<AccountOrderDetailsItem>;
   summary: AccountOrderSummary;
 }
+
+export interface AccountShippingAddress {
+  deliverToLabel: string;
+  city: string;
+  fullAddress: string;
+  changeAddressLabel: string;
+}
+
+export interface AccountReceiverDetails {
+  title: string;
+  firstNameLabel: string;
+  firstName: string;
+  lastNameLabel: string;
+  lastName: string;
+  phoneLabel: string;
+  phoneNumber: string;
+  countryCode: string;
+  countryFlag: string;
+}
+
+export interface AccountShippingInformationData {
+  sectionTitle: string;
+  address: AccountShippingAddress;
+  receiver: AccountReceiverDetails;
+}
+
+export interface AccountPersonalInformationData {
+  sectionTitle: string;
+  firstNameLabel: string;
+  firstName: string;
+  lastNameLabel: string;
+  lastName: string;
+  emailLabel: string;
+  email: string;
+}
+
+export interface AccountEditPersonalInformationData {
+  sectionTitle: string;
+  firstNameLabel: string;
+  firstName: string;
+  lastNameLabel: string;
+  lastName: string;
+  submitLabel: string;
+}
+
+export interface AccountEditEmailData {
+  sectionTitle: string;
+  emailLabel: string;
+  email: string;
+  submitLabel: string;
+}
+
+export interface AccountEditPasswordData {
+  sectionTitle: string;
+  oldPasswordLabel: string;
+  oldPasswordPlaceholder: string;
+  newPasswordLabel: string;
+  newPasswordPlaceholder: string;
+  confirmPasswordLabel: string;
+  confirmPasswordPlaceholder: string;
+  forgotPasswordLabel: string;
+  submitLabel: string;
+}
+
+export type AccountOrdersByTab = Record<
+  AccountOrderListTab,
+  ReadonlyArray<AccountOrder>
+>;
+
+export type AccountOrderDetailsByTab = Record<
+  AccountOrderListTab,
+  Record<string, AccountOrderDetails>
+>;
 
 export interface AccountInfoContent {
   heading: string;

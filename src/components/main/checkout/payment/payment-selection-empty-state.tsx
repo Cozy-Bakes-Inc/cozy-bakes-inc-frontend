@@ -4,8 +4,7 @@ type PaymentSelectionEmptyStateProps = {
   selected: boolean;
 };
 
-const paymentCardsIcon =
-  "https://www.figma.com/api/mcp/asset/702aa6f6-9e49-4d1f-801a-bb3ab592236b";
+const paymentCardsIcon = "/images/payment-unsuccessful.gif";
 
 export default function PaymentSelectionEmptyState({
   selected,

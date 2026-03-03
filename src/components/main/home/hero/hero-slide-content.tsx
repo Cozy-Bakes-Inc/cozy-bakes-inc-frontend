@@ -5,6 +5,7 @@ import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Slide } from "@/interfaces";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type HeroSlideContentProps = {
   slide: Slide;
@@ -15,6 +16,7 @@ export default function HeroSlideContent({
   slide,
   isActive,
 }: HeroSlideContentProps) {
+  const router = useRouter();
   return (
     <div className="relative mx-auto max-w-7xl h-full px-5 sm:px-20 2xl:px-0 flex items-center">
       <div className="max-w-5xl">
@@ -57,6 +59,7 @@ export default function HeroSlideContent({
           className="mt-8 flex flex-wrap gap-3"
         >
           <Button
+            onClick={() => router.push("/categories")}
             variant="outline"
             className="bg-primary border-transparent text-white hover:bg-primary/90 py-6"
           >
@@ -65,6 +68,7 @@ export default function HeroSlideContent({
           </Button>
 
           <Button
+            onClick={() => router.push("/menu")}
             variant="outline"
             className="border-white/35 bg-background/10 text-white hover:bg-background/15 hover:text-white py-6"
           >
