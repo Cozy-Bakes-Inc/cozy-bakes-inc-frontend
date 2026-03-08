@@ -1,12 +1,23 @@
+"use client";
 import Link from "next/link";
-import { cn } from "@/lib";
+import { cn, removeToken } from "@/lib";
 import { SidebarSectionProps } from "@/interfaces/main/account";
 import { Button } from "@/components/ui/button";
+import { logoutAPI } from "@/services/mutations";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function SidebarSection({
   activeTab,
   sections,
 }: SidebarSectionProps) {
+  const queryClient = useQueryClient();
+
+  const handleLogout = async () => {
+    await logoutAPI();
+    await removeToken();
+    queryClient.removeQueries({ queryKey: ["authenticatedUser"] });
+    window.location.assign("/login");
+  };
   return (
     <div className="space-y-4">
       {sections.map((section) => (
@@ -41,6 +52,7 @@ export default function SidebarSection({
 
           {section.withSignOut ? (
             <Button
+              onClick={handleLogout}
               type="button"
               size="default"
               className="h-12 w-full rounded-lg border border-[#f04438] bg-[#f04438] px-4 text-sm font-medium text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] hover:bg-[#f04438]/90 sm:h-13.5 sm:text-base"

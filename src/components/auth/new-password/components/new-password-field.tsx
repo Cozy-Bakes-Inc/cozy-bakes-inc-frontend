@@ -5,6 +5,7 @@ type NewPasswordFieldProps = {
   label: string;
   placeholder: string;
   value: string;
+  errorMessage?: string;
   showPassword: boolean;
   onValueChange: (value: string) => void;
   onToggleShowPassword: () => void;
@@ -14,6 +15,7 @@ export function NewPasswordField({
   label,
   placeholder,
   value,
+  errorMessage,
   showPassword,
   onValueChange,
   onToggleShowPassword,
@@ -47,6 +49,9 @@ export function NewPasswordField({
           )}
         </Button>
       </div>
+      {errorMessage ? (
+        <p className="text-sm font-medium text-destructive">{errorMessage}</p>
+      ) : null}
     </div>
   );
 }

@@ -33,7 +33,10 @@ import SidebarSection from "./sidebar-section";
 
 export { normalizeAccountOrderId, normalizeAccountTab };
 
-export default function Account({ activeTab, activeOrderId }: AccountProps) {
+export default function Account({
+  activeTab,
+  activeOrderId,
+}: AccountProps) {
   const activeTabDefinition =
     allTabs.find((tab) => tab.id === activeTab) ?? allTabs[0];
 

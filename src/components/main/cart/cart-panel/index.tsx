@@ -11,7 +11,11 @@ import CartPanelActions from "./cart-panel-actions";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
-export default function CartPanel() {
+type CartPanelProps = {
+  hasToken: boolean;
+};
+
+export default function CartPanel({ hasToken }: CartPanelProps) {
   const router = useRouter();
   const {
     items,
@@ -79,7 +83,11 @@ export default function CartPanel() {
 
             <div className="rounded-t-2xl border-t border-border/24 bg-bg-creamy px-4 pb-4 pt-3">
               <CartPanelMyLikeCarousel items={items} onAddItem={addItem} />
-              <CartPanelActions total={total} onClearCart={clearCart} />
+              <CartPanelActions
+                hasToken={hasToken}
+                total={total}
+                onClearCart={clearCart}
+              />
             </div>
           </div>
         )}

@@ -6,7 +6,11 @@ import CartContentEmptyState from "./cart-content-empty-state";
 import CartContentItemsList from "./cart-content-items-list";
 import CartContentSummary from "./cart-content-summary";
 
-export default function CartContent() {
+type CartContentProps = {
+  hasToken: boolean;
+};
+
+export default function CartContent({ hasToken }: CartContentProps) {
   const { items, updateQuantity, removeItem } = useCartStore();
 
   const total = items.reduce(
@@ -29,7 +33,7 @@ export default function CartContent() {
           )}
 
           {items.length > 0 && (
-            <CartContentSummary items={items} total={total} />
+            <CartContentSummary hasToken={hasToken} items={items} total={total} />
           )}
         </div>
       </div>

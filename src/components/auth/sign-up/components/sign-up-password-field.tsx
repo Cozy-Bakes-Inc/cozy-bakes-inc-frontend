@@ -1,34 +1,35 @@
 import { Eye, EyeOff, LockKeyhole } from "lucide-react";
+import { type UseFormRegisterReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import InputErrorMessage from "@/components/ui/input-error-message";
 
 type SignUpPasswordFieldProps = {
   label: string;
   placeholder: string;
-  value: string;
+  register: UseFormRegisterReturn<"password" | "password_confirmation">;
+  errorMessage?: string;
   showPassword: boolean;
-  onValueChange: (value: string) => void;
   onToggleShowPassword: () => void;
 };
 
 export function SignUpPasswordField({
   label,
   placeholder,
-  value,
+  register,
+  errorMessage,
   showPassword,
-  onValueChange,
   onToggleShowPassword,
 }: SignUpPasswordFieldProps) {
   return (
-    <div className="space-y-2">
+    <div>
       <label className="block text-base leading-6 font-medium text-dark">
         {label} <span className="text-[#F04438]">*</span>
       </label>
       <div className="flex h-13.75 items-center gap-2.5 rounded-xl border border-[gray] px-3">
         <LockKeyhole className="size-6 text-primary" />
         <input
+          {...register}
           type={showPassword ? "text" : "password"}
-          value={value}
-          onChange={(event) => onValueChange(event.target.value)}
           placeholder={placeholder}
           className="w-full bg-transparent text-base leading-6 font-medium text-[gray] outline-none"
         />
@@ -47,6 +48,7 @@ export function SignUpPasswordField({
           )}
         </Button>
       </div>
+      <InputErrorMessage msg={errorMessage} />
     </div>
   );
 }

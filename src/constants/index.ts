@@ -5,3 +5,5 @@ export const MAP_IMAGE =
 
 export const LOCATION_IMAGE =
   "https://www.figma.com/api/mcp/asset/3d482240-9c48-44e5-b1ab-aab6e77dd749";
+
+export const PAGE_SIZE = 10;

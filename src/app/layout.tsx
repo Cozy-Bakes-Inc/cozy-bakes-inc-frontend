@@ -5,6 +5,8 @@ import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "@smastrom/react-rating/style.css";
 import "./globals.css";
+import QueryProvider from "@/provider";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +34,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <QueryProvider>
+          {children}
+          <Toaster />
+        </QueryProvider>
       </body>
     </html>
   );

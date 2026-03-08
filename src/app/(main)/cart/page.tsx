@@ -1,7 +1,10 @@
 import Cart from "@/components/main/cart/cart-view";
+import { getToken } from "@/lib/utils/auth";
 
-function CartPage() {
-  return <Cart />;
+async function CartPage() {
+  const token = await getToken();
+
+  return <Cart hasToken={Boolean(token)} />;
 }
 
 export default CartPage;

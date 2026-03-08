@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import SystemLoader from "@/components/ui/system-loader";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { VerifyOtpForm } from "./verify-otp-form";
 import { VerifyOtpIntro } from "./components/verify-otp-intro";
 import { formatTimer } from "@/lib/utils/time";
 
 const RESEND_TIMER_KEY = "verify_otp_resend_end_at";
-const RESEND_DURATION_SECONDS = 60;
+const RESEND_DURATION_SECONDS = 300;
 
 function getOrCreateEndAt() {
   const now = Date.now();
@@ -38,8 +40,11 @@ function getInitialTimerState() {
   };
 }
 
-export default function VerifyOtp() {
+function VerifyOtpContent() {
+  const searchParams = useSearchParams();
   const [timerState, setTimerState] = useState(getInitialTimerState);
+  const email = searchParams.get("email")?.trim() || "";
+  const flow = searchParams.get("flow")?.trim() || "";
 
   useEffect(() => {
     const updateTimer = () => {
@@ -54,7 +59,7 @@ export default function VerifyOtp() {
     return () => window.clearInterval(interval);
   }, []);
 
-  const handleResendCode = () => {
+  const handleResendCode = async () => {
     const nextEndAt = Date.now() + RESEND_DURATION_SECONDS * 1000;
     sessionStorage.setItem(RESEND_TIMER_KEY, String(nextEndAt));
     setTimerState({
@@ -71,12 +76,22 @@ export default function VerifyOtp() {
 
   return (
     <section className="content-stretch flex flex-col items-start justify-center gap-8 py-2">
-      <VerifyOtpIntro />
+      <VerifyOtpIntro email={email} />
       <VerifyOtpForm
+        email={email}
+        flow={flow}
         canResendCode={canResendCode}
         timerText={timerText}
         onResendCode={handleResendCode}
       />
     </section>
+  );
+}
+
+export default function VerifyOtp() {
+  return (
+    <Suspense fallback={<SystemLoader />}>
+      <VerifyOtpContent />
+    </Suspense>
   );
 }
