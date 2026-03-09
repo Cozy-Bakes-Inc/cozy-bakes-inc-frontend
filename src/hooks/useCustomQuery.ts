@@ -15,7 +15,7 @@ export function useCustomQuery<TData>(
   options?: Omit<
     UseQueryOptions<TData, unknown, TData, QueryKey>,
     "queryKey" | "queryFn"
-  >,
+  >
 ) {
   return useQuery<TData, unknown, TData, QueryKey>({
     queryKey,
@@ -28,11 +28,11 @@ export function useCustomInfiniteQuery<
   TPage, // شكل صفحة واحدة
   TError = unknown,
   TQueryKey extends QueryKey = QueryKey,
-  TPageParam = unknown,
+  TPageParam = unknown
 >(
   queryKey: TQueryKey,
   queryFn: (
-    context: QueryFunctionContext<TQueryKey, TPageParam>,
+    context: QueryFunctionContext<TQueryKey, TPageParam>
   ) => Promise<TPage>,
   options: Omit<
     UseInfiniteQueryOptions<
@@ -43,7 +43,7 @@ export function useCustomInfiniteQuery<
       TPageParam // PageParam
     >,
     "queryKey" | "queryFn"
-  >,
+  >
 ): UseInfiniteQueryResult<InfiniteData<TPage, TPageParam>, TError> {
   return useInfiniteQuery<
     TPage,

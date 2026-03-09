@@ -1,10 +1,20 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
 import { categoryItems } from "@/data";
 import CategoryCard from "@/components/ui/category-card";
 import Image from "next/image";
 import Link from "next/link";
+import { useSubcategories } from "@/hooks/api/categories";
 
 export default function CategoriesSection() {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useSubcategories();
+
+  const subcategories =
+    data?.pages?.flatMap((page) => page?.data?.data ?? []) ?? [];
+
+  console.log(subcategories);
   return (
     <section className="relative overflow-x-hidden bg-background py-20">
       <div className="pointer-events-none absolute -left-10 top-10 hidden size-32 rounded-full border border-primary/20 sm:block" />

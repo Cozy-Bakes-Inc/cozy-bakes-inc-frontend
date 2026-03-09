@@ -1,7 +1,41 @@
+"use client";
+
 import Image from "next/image";
 import { PhoneCall } from "lucide-react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import InputErrorMessage from "@/components/ui/input-error-message";
+import Loader from "@/components/ui/loader";
+import { contactSchema, type ContactSchemaValues } from "@/schemas/main";
+import { contactAPI } from "@/services/mutations";
 
 export default function ContactFormSection() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactSchemaValues>({
+    defaultValues: {
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: ContactSchemaValues) => {
+    const result = await contactAPI(data);
+
+    if (result?.ok) {
+      toast.success(result?.message || "Message sent successfully");
+      reset();
+      return;
+    }
+
+    toast.error(result?.message || "Failed to send message");
+  };
+
   return (
     <section className="bg-background py-20">
       <div className="mx-auto flex max-w-7xl flex-col gap-14 px-5 sm:px-10">
@@ -33,51 +67,91 @@ export default function ContactFormSection() {
             <h3 className="text-center text-xl font-medium text-chocolate">
               Send Us a Message
             </h3>
-            <form className="flex flex-1 flex-col gap-4">
-              <label className="flex flex-col gap-2 text-sm text-dark">
-                Your Name
+            <form
+              className="flex flex-1 flex-col gap-4"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div className="text-sm text-dark">
+                <label htmlFor="contact-name" className="mb-2 block">
+                  Your Name
+                </label>
                 <input
+                  {...register("name", {
+                    validate: (value) => {
+                      const result = contactSchema.shape.name.safeParse(value);
+                      return result.success || result.error.issues[0]?.message;
+                    },
+                  })}
+                  id="contact-name"
                   type="text"
-                  name="name"
                   placeholder="Your Name"
-                  className="h-12 rounded-[10px] border border-primary/2 bg-background px-4 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                  className="h-12 w-full rounded-[10px] border border-primary/2 bg-background px-4 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
                 />
-              </label>
+                <InputErrorMessage msg={errors.name?.message} />
+              </div>
 
-              <label className="flex flex-col gap-2 text-sm text-dark">
-                Email Address
+              <div className="text-sm text-dark">
+                <label htmlFor="contact-email" className="mb-2 block">
+                  Email Address
+                </label>
                 <input
+                  {...register("email", {
+                    validate: (value) => {
+                      const result = contactSchema.shape.email.safeParse(value);
+                      return result.success || result.error.issues[0]?.message;
+                    },
+                  })}
+                  id="contact-email"
                   type="email"
-                  name="email"
                   placeholder="Email Address"
-                  className="h-12 rounded-[10px] border border-primary/2 bg-background px-4 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                  className="h-12 w-full rounded-[10px] border border-primary/2 bg-background px-4 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
                 />
-              </label>
+                <InputErrorMessage msg={errors.email?.message} />
+              </div>
 
-              <label className="flex flex-col gap-2 text-sm text-dark">
-                Subject
+              <div className="text-sm text-dark">
+                <label htmlFor="contact-subject" className="mb-2 block">
+                  Subject
+                </label>
                 <input
+                  {...register("subject", {
+                    validate: (value) => {
+                      const result = contactSchema.shape.subject.safeParse(value);
+                      return result.success || result.error.issues[0]?.message;
+                    },
+                  })}
+                  id="contact-subject"
                   type="text"
-                  name="subject"
                   placeholder="Subject"
-                  className="h-12 rounded-[10px] border border-primary/2 bg-background px-4 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                  className="h-12 w-full rounded-[10px] border border-primary/2 bg-background px-4 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
                 />
-              </label>
+                <InputErrorMessage msg={errors.subject?.message} />
+              </div>
 
-              <label className="flex flex-col gap-2 text-sm text-dark">
-                Message
+              <div className="text-sm text-dark">
+                <label htmlFor="contact-message" className="mb-2 block">
+                  Message
+                </label>
                 <textarea
-                  name="message"
+                  {...register("message", {
+                    validate: (value) => {
+                      const result = contactSchema.shape.message.safeParse(value);
+                      return result.success || result.error.issues[0]?.message;
+                    },
+                  })}
+                  id="contact-message"
                   placeholder="Your Message"
-                  className="min-h-36.5 resize-none rounded-[10px] border border-primary/2 bg-background px-4 py-3 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                  className="min-h-36.5 w-full resize-none rounded-[10px] border border-primary/2 bg-background px-4 py-3 text-sm text-dark placeholder:text-[#d0d5dd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
                 />
-              </label>
+                <InputErrorMessage msg={errors.message?.message} />
+              </div>
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="mt-2 h-12 rounded-lg bg-primary text-sm font-semibold text-white shadow-[0_1px_2px_rgba(16,24,40,0.05)] transition hover:bg-[#c28722]"
               >
-                Send Message
+                {isSubmitting ? <Loader /> : "Send Message"}
               </button>
             </form>
           </div>
