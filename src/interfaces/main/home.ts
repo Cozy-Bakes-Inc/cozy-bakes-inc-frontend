@@ -1,3 +1,5 @@
+import type { ApiProductItem } from "./categories";
+
 export type Slide = {
   videoSrc: string;
   subtitle: string;
@@ -32,14 +34,10 @@ export type SelectionTab = {
   value: "best" | "new" | "recommended";
 };
 
-export type SelectionItem = {
-  id: string;
-  image: string;
-  badge: string;
-  title: string;
-  desc: string;
-  price: string;
-  category: SelectionTab["value"];
+export type SelectionItem = ApiProductItem & {
+  badge?: string;
+  desc?: string;
+  category?: SelectionTab["value"];
   outOfStock?: boolean;
   actionLabel?: string;
 };

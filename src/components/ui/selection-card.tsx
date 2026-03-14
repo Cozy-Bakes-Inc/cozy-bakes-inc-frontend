@@ -5,32 +5,92 @@ import { Bell, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { SelectionItem } from "@/interfaces";
 import Link from "next/link";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
 
 type SelectionCardProps = {
   item: SelectionItem;
+  badge?: string;
 };
 
-export default function SelectionCard({ item }: SelectionCardProps) {
+function getProductImages(item: SelectionItem) {
+  const images = [item.image, ...(item.images ?? [])].filter(
+    (image): image is string => Boolean(image),
+  );
+
+  return images.length > 0
+    ? Array.from(new Set(images))
+    : ["/images/artisan-sourdough.jpg"];
+}
+
+function formatProductPrice(item: SelectionItem) {
+  const rawPrice = item.final_price ?? item.price;
+
+  if (typeof rawPrice === "number") return `$${rawPrice.toFixed(2)}`;
+  if (typeof rawPrice === "string" && rawPrice.trim()) {
+    return rawPrice.startsWith("$") ? rawPrice : `$${rawPrice}`;
+  }
+
+  return "N/A";
+}
+
+export default function SelectionCard({ item, badge: badgeOverride }: SelectionCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const images = getProductImages(item);
+  const imageSrc = images[0];
+  const hasMultipleImages = images.length > 1;
+  const productHref = item.slug ? `/products/${item.slug}` : `/products/1`;
+  const description =
+    item.desc ?? item.description ?? "Freshly baked and ready to order.";
+  const badge = badgeOverride ?? item.badge ?? "Featured";
+  const price = formatProductPrice(item);
 
   return (
-    <Link href={`/products/1`}>
+    <Link href={productHref}>
       <article className="flex h-full flex-col overflow-hidden rounded-2xl bg-background shadow-sm">
         <div className="relative overflow-hidden">
           <motion.div
             animate={{ scale: isHovered ? 1.04 : 1 }}
             transition={{ duration: 0.35 }}
           >
-            <Image
-              src={item.image}
-              alt={item.title}
-              width={520}
-              height={360}
-              className="h-60 w-full object-cover"
-            />
+            {hasMultipleImages ? (
+              <Swiper
+                modules={[Autoplay]}
+                slidesPerView={1}
+                loop
+                autoplay={{
+                  delay: 2500,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
+                className="h-60 w-full"
+              >
+                {images.map((image, index) => (
+                  <SwiperSlide key={`${item.id}-image-${index}`}>
+                    <Image
+                      src={image}
+                      alt={`${item.title} ${index + 1}`}
+                      width={520}
+                      height={360}
+                      className="h-60 w-full object-cover"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            ) : (
+              <Image
+                src={imageSrc}
+                alt={item.title}
+                width={520}
+                height={360}
+                className="h-60 w-full object-cover"
+              />
+            )}
           </motion.div>
           <span className="absolute left-3 top-3 rounded-full bg-card/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
-            {item.badge}
+            {badge}
           </span>
           {item.outOfStock && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/35">
@@ -55,12 +115,12 @@ export default function SelectionCard({ item }: SelectionCardProps) {
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
           >
-            {item.desc}
+            {description}
           </motion.p>
           <div className="mt-4 flex items-center justify-between">
             <div>
               <p className="text-[10px] uppercase text-gray">Price</p>
-              <p className="text-sm font-semibold text-primary">{item.price}</p>
+              <p className="text-sm font-semibold text-primary">{price}</p>
             </div>
             <Button
               variant={item.outOfStock ? "outline" : "default"}

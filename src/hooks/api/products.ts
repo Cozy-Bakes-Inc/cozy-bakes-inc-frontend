@@ -1,16 +1,19 @@
 import {
-  getCategorySubcategoriesAPI,
-  listCategoriesAPI,
-  listProductsBySubcategoryAPI,
-  listSubcategoriesAPI,
+  bestSellingInfiniteAPI,
+  bestSellingPreviewAPI,
+  listProductsInfiniteAPI,
+  listProductsPreviewAPI,
+  listRecommendedProductsInfiniteAPI,
+  listRecommendedProductsPreviewAPI,
+  singleProductAPI,
 } from "@/services/queries";
-import { useCustomInfiniteQuery } from "../useCustomQuery";
+import { useCustomInfiniteQuery, useCustomQuery } from "../useCustomQuery";
 
-export function useCategories() {
+export function useProductsInfinite(sort: string) {
   return useCustomInfiniteQuery(
-    ["categories"],
+    ["products", "infinite", sort],
     async ({ pageParam = 1 }) => {
-      return listCategoriesAPI(pageParam);
+      return listProductsInfiniteAPI(sort, pageParam);
     },
     {
       initialPageParam: 1,
@@ -29,35 +32,19 @@ export function useCategories() {
   );
 }
 
-export function useCategorySubcategories(slug: string) {
-  return useCustomInfiniteQuery(
-    ["categorySubcategories", slug],
-    async ({ pageParam = 1 }) => {
-      return getCategorySubcategoriesAPI(slug, pageParam);
-    },
-    {
-      enabled: !!slug,
-      initialPageParam: 1,
-      getNextPageParam: (lastPage) => {
-        const pagination = lastPage?.data?.category?.sub_categories;
-        if (!pagination) return undefined;
-        if (
-          pagination.next_page_url &&
-          pagination.current_page < pagination.last_page
-        ) {
-          return pagination.current_page + 1;
-        }
-        return undefined;
-      },
-    },
+export function useProductsPreview(sort: string, enabled: boolean = true) {
+  return useCustomQuery(
+    ["products", "preview", sort],
+    () => listProductsPreviewAPI(sort),
+    { enabled },
   );
 }
 
-export function useSubcategories() {
+export function useBestSellingInfinite() {
   return useCustomInfiniteQuery(
-    ["subcategories"],
+    ["bestSelling", "infinite"],
     async ({ pageParam = 1 }) => {
-      return listSubcategoriesAPI(pageParam);
+      return bestSellingInfiniteAPI(pageParam);
     },
     {
       initialPageParam: 1,
@@ -76,14 +63,19 @@ export function useSubcategories() {
   );
 }
 
-export function useProductsBySubcategory(slug: string) {
+export function useBestSellingPreview(enabled: boolean = true) {
+  return useCustomQuery(["bestSelling", "preview"], bestSellingPreviewAPI, {
+    enabled,
+  });
+}
+
+export function useRecommendedProductsInfinite() {
   return useCustomInfiniteQuery(
-    ["productsBySubcategory", slug],
+    ["recommended", "infinite"],
     async ({ pageParam = 1 }) => {
-      return listProductsBySubcategoryAPI(slug, pageParam);
+      return listRecommendedProductsInfiniteAPI(pageParam);
     },
     {
-      enabled: !!slug,
       initialPageParam: 1,
       getNextPageParam: (lastPage) => {
         const pagination = lastPage?.data;
@@ -98,4 +90,16 @@ export function useProductsBySubcategory(slug: string) {
       },
     },
   );
+}
+
+export function useRecommendedProductsPreview(enabled: boolean = true) {
+  return useCustomQuery(
+    ["recommended", "preview"],
+    listRecommendedProductsPreviewAPI,
+    { enabled },
+  );
+}
+
+export function useSingleProduct(slug: string) {
+  return useCustomQuery(["singleProduct", slug], () => singleProductAPI(slug));
 }

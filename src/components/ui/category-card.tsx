@@ -1,14 +1,15 @@
 import Image from "next/image";
-import type { CategoryItem } from "@/interfaces";
+import type { CategoryCardItem } from "@/interfaces/main/categories";
 import Link from "next/link";
 
 type CategoryCardProps = {
-  item: CategoryItem;
+  item: CategoryCardItem;
 };
 
 export default function CategoryCard({ item }: CategoryCardProps) {
+  console.log(item?.image);
   return (
-    <Link href={`/categories/1`}>
+    <Link href={item.href ?? "/categories/1"}>
       <article className="group relative h-full overflow-hidden rounded-4xl bg-background shadow-sm">
         <div className="relative h-80">
           <Image
@@ -35,7 +36,7 @@ export default function CategoryCard({ item }: CategoryCardProps) {
           <div className="flex items-center gap-2">
             <div className="h-1 w-10 rounded-full bg-primary" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
-              Discover
+              {item.eyebrow ?? "Discover"}
             </span>
           </div>
           <h3 className="mt-3 text-2xl font-semibold text-dark">
@@ -43,7 +44,7 @@ export default function CategoryCard({ item }: CategoryCardProps) {
           </h3>
           <p className="mt-3 text-sm leading-6 text-gray">{item.desc}</p>
           <span className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary absolute right-5 bottom-6">
-            Explore Collection
+            {item.footerLabel ?? "Explore Collection"}
             <span aria-hidden="true">-&gt;</span>
           </span>
         </div>

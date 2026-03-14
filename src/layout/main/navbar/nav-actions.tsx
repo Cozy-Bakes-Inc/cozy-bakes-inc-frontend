@@ -6,7 +6,7 @@ import { useCartStore } from "@/store/cart-store";
 import CartPanel from "@/components/main/cart/cart-panel";
 import { useRouter } from "next/navigation";
 import { useAuthenticatedUser } from "@/hooks";
-import Shimmer from "@/components/ui/shimmer";
+import { Shimmer } from "@/components/ui/shimmer";
 
 type NavActionsProps = {
   hasToken: boolean;
