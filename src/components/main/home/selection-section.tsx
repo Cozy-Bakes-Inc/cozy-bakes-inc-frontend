@@ -118,7 +118,7 @@ export default function SelectionSection() {
         </div>
 
         {isLoading ? (
-          <GridShimmer count={3} />
+          <GridShimmer count={3} cardClassName="bg-background" />
         ) : filteredItems.length > 0 ? (
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredItems.map((item) => (

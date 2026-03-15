@@ -44,7 +44,7 @@ export default function CategoryCard({ item }: CategoryCardProps) {
           </h3>
           <p className="mt-3 text-sm leading-6 text-gray">{item.desc}</p>
           <span className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary absolute right-5 bottom-6">
-            {item.footerLabel ?? "Explore Collection"}
+            {"Explore Collection"}
             <span aria-hidden="true">-&gt;</span>
           </span>
         </div>

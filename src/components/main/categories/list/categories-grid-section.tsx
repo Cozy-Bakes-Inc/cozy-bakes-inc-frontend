@@ -131,7 +131,7 @@ export default function CategoriesGridSection() {
         ) : null}
 
         {isSubcategoriesLoading ? (
-          <GridShimmer count={3} />
+          <GridShimmer count={3} className="rounded-4xl" />
         ) : (
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence mode="popLayout" initial={false}>

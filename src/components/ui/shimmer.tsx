@@ -5,7 +5,10 @@ type ShimmerProps = HTMLAttributes<HTMLDivElement>;
 
 export function Shimmer({ className, ...props }: ShimmerProps) {
   return (
-    <div className={cn("animate-pulse bg-bg-creamy", className)} {...props} />
+    <div
+      className={cn("animate-pulse bg-bg-creamy rounded-2xl", className)}
+      {...props}
+    />
   );
 }
 
@@ -28,9 +31,7 @@ export function GridShimmer({
       )}
     >
       {Array.from({ length: count }).map((_, index) => (
-        <div key={index} className={cn(cardClassName)}>
-          <Shimmer className="h-80 w-full" />
-        </div>
+        <Shimmer key={index} className={cn("h-80 w-full", cardClassName)} />
       ))}
     </div>
   );
