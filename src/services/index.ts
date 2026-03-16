@@ -1,4 +1,4 @@
-import axios, { AxiosError, Method } from "axios";
+import axios, { AxiosError, AxiosRequestConfig, Method } from "axios";
 import { getToken } from "@/lib";
 import { ApiResult, ErrorBody, ExtraConfig } from "@/types";
 import { getPayloadMessage, getValidationErrors } from "@/lib/utils/helper";
@@ -8,9 +8,43 @@ export const api = axios.create({
   baseURL: BASE_URL,
 });
 
-export const initApi = async () => {
+let unauthorizedHandler: (() => void | Promise<void>) | null = null;
+
+export function registerUnauthorizedHandler(
+  handler: (() => void | Promise<void>) | null,
+) {
+  unauthorizedHandler = handler;
+}
+
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const status = error.response?.status;
+    const hasAuthorizationHeader = Boolean(
+      error.config?.headers?.Authorization ||
+        error.config?.headers?.authorization,
+    );
+
+    if (status === 401 && hasAuthorizationHeader && unauthorizedHandler) {
+      await unauthorizedHandler();
+    }
+
+    return Promise.reject(error);
+  },
+);
+
+const getAuthHeaders = async (
+  headers?: AxiosRequestConfig["headers"],
+  isForm?: boolean,
+) => {
   const token = await getToken();
-  if (token) api.defaults.headers.common.Authorization = `Bearer ${token}`;
+  const authHeader = token ? { Authorization: `Bearer ${token}` } : {};
+
+  return {
+    "Content-Type": isForm ? "multipart/form-data" : "application/json",
+    ...authHeader,
+    ...headers,
+  };
 };
 
 const safe = async <T = unknown, E extends { message: string } = ErrorBody>(
@@ -19,7 +53,6 @@ const safe = async <T = unknown, E extends { message: string } = ErrorBody>(
   data?: unknown,
   config: ExtraConfig = {},
 ): Promise<ApiResult<T, E>> => {
-  await initApi();
   const { isForm, headers, ...rest } = config;
   try {
     const res = await api.request<T>({
@@ -27,10 +60,7 @@ const safe = async <T = unknown, E extends { message: string } = ErrorBody>(
       url,
       data,
       ...rest,
-      headers: {
-        "Content-Type": isForm ? "multipart/form-data" : "application/json",
-        ...headers,
-      },
+      headers: await getAuthHeaders(headers, isForm),
     });
     const msg = (res.data as { message: string })?.message;
     return { ok: true, status: res.status, data: res.data, message: msg };
@@ -64,14 +94,10 @@ export const safeApi = async <
 ) => await safe<T, E>(method, url, data, config);
 
 export const baseAPI = async <T = unknown>(method: Method, url: string) => {
-  await initApi();
-
   const response = await api.request<T>({
     method,
     url,
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: await getAuthHeaders(),
   });
 
   return response.data;

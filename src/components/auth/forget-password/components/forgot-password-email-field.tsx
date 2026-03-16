@@ -13,7 +13,7 @@ export function ForgotPasswordEmailField({
 }: ForgotPasswordEmailFieldProps) {
   return (
     <div>
-      <label className="block text-base leading-6 font-medium text-dark">
+      <label className="mb-2 block text-base leading-6 font-medium text-dark">
         Email
       </label>
       <div className="flex h-13.75 items-center gap-2.5 rounded-xl border border-[gray] px-3">

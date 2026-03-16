@@ -1,11 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import { testimonials } from "@/data";
 import { cardVariants, containerVariants } from "@/lib";
 import { motion } from "framer-motion";
-import { Quote, Star } from "lucide-react";
+import { MoveRight, Quote, Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import AddReviewModal from "./add-review-modal";
 
 export default function TestimonialsSection() {
+  const [isAddReviewOpen, setIsAddReviewOpen] = useState(false);
+  const [rating, setRating] = useState(2);
+  const [reviewText, setReviewText] = useState("");
+
   return (
     <section className="bg-bg-creamy py-20">
       <motion.div
@@ -71,7 +78,26 @@ export default function TestimonialsSection() {
             </motion.article>
           ))}
         </motion.div>
+
+        <div className="mt-8 flex justify-center">
+          <Button
+            type="button"
+            onClick={() => setIsAddReviewOpen(true)}
+            className="h-11 gap-2 flex items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-white hover:bg-primary/90"
+          >
+            <span>Add Review</span> <MoveRight className="size-5" />
+          </Button>
+        </div>
       </motion.div>
+
+      <AddReviewModal
+        open={isAddReviewOpen}
+        onClose={() => setIsAddReviewOpen(false)}
+        rating={rating}
+        reviewText={reviewText}
+        onRatingChange={setRating}
+        onReviewTextChange={setReviewText}
+      />
     </section>
   );
 }

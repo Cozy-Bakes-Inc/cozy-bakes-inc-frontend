@@ -22,7 +22,6 @@ import AccountCancelOrderPanel from "./account-cancel-order-panel";
 import AccountEditEmailPanel from "./account-edit-email-panel";
 import AccountEditPasswordPanel from "./edit-password";
 import AccountCompleteOrderPanel from "./account-complete-order-panel";
-import AccountEditPersonalInformationPanel from "./account-edit-personal-information-panel";
 import AccountInfoPanel from "./account-info-panel";
 import AccountNewOrderPanel from "./account-new-order-panel";
 import AccountOrderDetailsPanel from "./account-order-details-panel";
@@ -30,13 +29,11 @@ import AccountPersonalInformationPanel from "./account-personal-information-pane
 import AccountShippingInformationPanel from "./account-shipping-information-panel";
 import ProfileSummaryCard from "./profile-summary-card";
 import SidebarSection from "./sidebar-section";
+import AccountEditPersonalInformationPanel from "./edit-personal-information/account-edit-personal-information-panel";
 
 export { normalizeAccountOrderId, normalizeAccountTab };
 
-export default function Account({
-  activeTab,
-  activeOrderId,
-}: AccountProps) {
+export default function Account({ activeTab, activeOrderId }: AccountProps) {
   const activeTabDefinition =
     allTabs.find((tab) => tab.id === activeTab) ?? allTabs[0];
 

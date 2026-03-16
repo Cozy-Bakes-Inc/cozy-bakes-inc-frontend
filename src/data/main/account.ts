@@ -354,7 +354,7 @@ export const editEmailData: AccountEditEmailData = {
 export const editPasswordData: AccountEditPasswordData = {
   sectionTitle: "Edit Password",
   oldPasswordLabel: "Old Password",
-  oldPasswordPlaceholder: "Last Upate 22/1/2026",
+  oldPasswordPlaceholder: "Old Password",
   newPasswordLabel: "New Password",
   newPasswordPlaceholder: "New Password",
   confirmPasswordLabel: "Confirm New Password",

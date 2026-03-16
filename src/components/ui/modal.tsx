@@ -41,7 +41,10 @@ function Modal({
 }: IProps) {
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className={contentClassName} showCloseButton={false}>
+      <DialogContent
+        className={cn("bg-background", contentClassName)}
+        showCloseButton={false}
+      >
         {/* <ScrollArea className="min-h-full overflow-y-auto"> */}
         {title && (
           <DialogHeader>
@@ -72,7 +75,7 @@ export function CloseButtonModal({ closeButtonClassname }: ICloseButtonProps) {
   return (
     <DialogClose
       className={cn(
-        "w-6 h-6 bg-transparent rounded-full text-gray-700 border-2 border-gray-700 flex justify-center items-center absolute right-4 top-4",
+        "w-6 h-6 rounded-full border-2 flex justify-center items-center absolute right-4 top-4 border-primary bg-background text-primary",
         closeButtonClassname && closeButtonClassname,
       )}
     >
