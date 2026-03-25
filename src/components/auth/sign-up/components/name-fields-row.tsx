@@ -16,7 +16,7 @@ export function NameFieldsRow({
 }: NameFieldsRowProps) {
   return (
     <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
-      <div>
+      <div className="space-y-2">
         <label className="block text-base leading-6 font-medium text-dark">
           First name <span className="text-[#F04438]">*</span>
         </label>
@@ -31,7 +31,7 @@ export function NameFieldsRow({
         <InputErrorMessage msg={firstNameErrorMessage} />
       </div>
 
-      <div>
+      <div className="space-y-2">
         <label className="block text-base leading-6 font-medium text-dark">
           Last name <span className="text-[#F04438]">*</span>
         </label>

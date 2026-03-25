@@ -4,6 +4,9 @@ import { Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuthenticatedUser } from "@/hooks";
+import { getCheckoutPath, hasSavedCheckoutDetails } from "@/lib/utils/checkout";
+import { useCartStore } from "@/store/cart-store";
 import type { CartItem } from "@/store/cart-store";
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
 
@@ -80,6 +83,8 @@ function CartContentSummaryContent({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const openModal = useDeliveryPickupModalStore((state) => state.openModal);
+  const closeCart = useCartStore((state) => state.closeCart);
+  const { data, isLoading } = useAuthenticatedUser(hasToken);
 
   const handleCheckout = () => {
     if (!hasToken) {
@@ -91,6 +96,14 @@ function CartContentSummaryContent({
         : pathname;
 
       router.push(`/login?returnTo=${encodeURIComponent(returnTo)}`);
+      return;
+    }
+
+    const user = data?.data?.user;
+
+    if (hasSavedCheckoutDetails(user)) {
+      closeCart();
+      router.push(getCheckoutPath(user?.last_fulfillment_type));
       return;
     }
 
@@ -131,6 +144,7 @@ function CartContentSummaryContent({
 
       <Button
         onClick={handleCheckout}
+        disabled={hasToken && isLoading}
         className="mt-5 h-11 w-full rounded-md bg-primary text-sm text-white hover:bg-primary/90"
       >
         Check Out

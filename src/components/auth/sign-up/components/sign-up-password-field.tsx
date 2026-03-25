@@ -21,7 +21,7 @@ export function SignUpPasswordField({
   onToggleShowPassword,
 }: SignUpPasswordFieldProps) {
   return (
-    <div>
+    <div className="space-y-2">
       <label className="block text-base leading-6 font-medium text-dark">
         {label} <span className="text-[#F04438]">*</span>
       </label>

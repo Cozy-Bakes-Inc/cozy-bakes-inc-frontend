@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "@smastrom/react-rating/style.css";
+import "leaflet/dist/leaflet.css";
 import "./globals.css";
 import QueryProvider from "@/provider";
 import { Toaster } from "react-hot-toast";

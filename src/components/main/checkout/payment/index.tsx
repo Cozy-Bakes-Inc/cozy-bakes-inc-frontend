@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { getCheckoutUrlWithFulfillmentType } from "@/lib/utils/checkout";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { useCartStore } from "@/store/cart-store";
 
 import CheckoutCartSummary from "./checkout-cart-summary";
@@ -50,6 +52,9 @@ const fallbackItems: OrderLineItem[] = [
 ];
 
 export default function CheckoutPaymentPage() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const cartItems = useCartStore((state) => state.items);
   const [paymentChannel, setPaymentChannel] = useState<PaymentChannel>("card");
   const [selectedMethod, setSelectedMethod] =
@@ -76,6 +81,16 @@ export default function CheckoutPaymentPage() {
     paymentChannel === "card"
       ? Boolean(selectedMethod)
       : Boolean(selectedCashMethod);
+
+  useEffect(() => {
+    if (searchParams.get("fulfillment_type") === "delivery") return;
+    if (searchParams.get("fulfillment_type") === "pickup") return;
+
+    router.replace(
+      getCheckoutUrlWithFulfillmentType(pathname, searchParams, "delivery"),
+      { scroll: false },
+    );
+  }, [pathname, router, searchParams]);
 
   return (
     <>

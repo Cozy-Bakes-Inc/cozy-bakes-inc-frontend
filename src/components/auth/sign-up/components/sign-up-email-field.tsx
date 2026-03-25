@@ -12,7 +12,7 @@ export function SignUpEmailField({
   errorMessage,
 }: SignUpEmailFieldProps) {
   return (
-    <div>
+    <div className="space-y-2">
       <label className="block text-base leading-6 font-medium text-dark">
         Email <span className="text-[#F04438]">*</span>
       </label>

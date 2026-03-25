@@ -5,6 +5,9 @@ import { ArrowRight, Trash2 } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import { useAuthenticatedUser } from "@/hooks";
+import { getCheckoutPath, hasSavedCheckoutDetails } from "@/lib/utils/checkout";
+import { useCartStore } from "@/store/cart-store";
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
 
 type CartPanelActionsProps = {
@@ -70,6 +73,8 @@ function CartPanelActionsContent({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const openModal = useDeliveryPickupModalStore((state) => state.openModal);
+  const closeCart = useCartStore((state) => state.closeCart);
+  const { data, isLoading } = useAuthenticatedUser(hasToken);
 
   const handleCheckout = () => {
     if (!hasToken) {
@@ -81,6 +86,14 @@ function CartPanelActionsContent({
         : pathname;
 
       router.push(`/login?returnTo=${encodeURIComponent(returnTo)}`);
+      return;
+    }
+
+    const user = data?.data?.user;
+
+    if (hasSavedCheckoutDetails(user)) {
+      closeCart();
+      router.push(getCheckoutPath(user?.last_fulfillment_type));
       return;
     }
 
@@ -102,6 +115,7 @@ function CartPanelActionsContent({
 
       <Button
         onClick={handleCheckout}
+        disabled={hasToken && isLoading}
         className="mt-3 h-12.5 w-full rounded-xl bg-primary text-sm text-white hover:bg-primary/90 sm:text-base"
       >
         Check Out

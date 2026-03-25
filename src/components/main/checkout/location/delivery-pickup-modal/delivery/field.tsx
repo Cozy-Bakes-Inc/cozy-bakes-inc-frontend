@@ -5,6 +5,8 @@ interface FieldProps {
   placeholder: string;
   optional?: boolean;
   rightSlot?: ReactNode;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 export default function Field({
@@ -12,6 +14,8 @@ export default function Field({
   placeholder,
   optional,
   rightSlot,
+  value,
+  onChange,
 }: FieldProps) {
   return (
     <label className="flex flex-col gap-2">
@@ -27,6 +31,8 @@ export default function Field({
         <input
           type="text"
           placeholder={placeholder}
+          value={value}
+          onChange={(event) => onChange?.(event.target.value)}
           className="h-full w-full bg-transparent text-sm text-dark outline-none placeholder:text-gray md:text-base"
         />
         {rightSlot}
