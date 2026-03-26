@@ -9,34 +9,47 @@ import RatingStars from "@/components/ui/rating-stars";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { useCartStore } from "@/store/cart-store";
+import type { ApiProductItem } from "@/interfaces";
 
-export default function ProductDetails() {
+type ProductDetailsProps = {
+  product?: ApiProductItem;
+};
+
+export default function ProductDetails({ product }: ProductDetailsProps) {
   const [quantity, setQuantity] = useState(1);
   const handleCounter = (value: number) => setQuantity(value);
   const addItem = useCartStore((state) => state.addItem);
   const openCart = useCartStore((state) => state.openCart);
 
-  const product = {
-    id: "sourdough-bread",
-    title: "Sourdough Bread",
-    price: 8.5,
-    image: "/images/artisan-sourdough.jpg",
+  const productTitle = product?.title ?? "Product";
+  const productDescription =
+    product?.description ?? "No description available.";
+  const originalPrice = Number(product?.price ?? 0);
+  const productPrice = Number(product?.final_price ?? product?.price ?? 0);
+  const productRating = Number(product?.rating ?? 0);
+  const productFreshness =
+    product?.freshness_guarantee ??
+    "Freshness information is not available for this product.";
+  const images = product?.images?.length
+    ? product.images.map((src, index) => ({
+        src,
+        alt: `${productTitle} image ${index + 1}`,
+      }))
+    : [
+        {
+          src: product?.image || "/images/artisan-sourdough.jpg",
+          alt: productTitle,
+        },
+      ];
+
+  const cartProduct = {
+    id: String(product?.slug ?? product?.id ?? productTitle),
+    slug: product?.slug,
+    title: productTitle,
+    price: productPrice,
+    image: images[0]?.src ?? "",
   };
 
-  const images = [
-    {
-      src: "/images/artisan-sourdough.jpg",
-      alt: "Sourdough bread",
-    },
-    {
-      src: "/images/vanilla-bean-cake.jpg",
-      alt: "Vanilla bean cake",
-    },
-    {
-      src: "/images/chocolate-croissant.jpg",
-      alt: "Chocolate croissant",
-    },
-  ];
   return (
     <section className="bg-bg-creamy py-12 sm:py-16">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 sm:px-10 lg:grid-cols-2 lg:items-stretch">
@@ -69,24 +82,27 @@ export default function ProductDetails() {
         <div className="rounded-3xl bg-background p-6 shadow-sm sm:p-8 h-full">
           <div className="space-y-5">
             <h1 className="text-3xl font-semibold tracking-tight text-secondary sm:text-4xl">
-              {product.title}
+              {productTitle}
             </h1>
             <p className="text-sm leading-7 text-gray sm:text-base">
-              Expertly handcrafted through slow natural fermentation, our
-              sourdough delivers a refined balance of deep flavor and delicate
-              texture. Baked fresh daily for an authentic artisan experience.
+              {productDescription}
             </p>
 
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-end gap-2">
                 <p className="text-2xl font-semibold text-primary">
-                  ${product.price.toFixed(2)}
+                  ${productPrice.toFixed(2)}
                 </p>
+                {originalPrice > productPrice ? (
+                  <span className="text-sm font-medium text-[#F04438] line-through">
+                    ${originalPrice.toFixed(2)}
+                  </span>
+                ) : null}
                 <span className="text-xs text-gray">For one piece</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-secondary">
-                <RatingStars value={4.8} />
-                <span className="text-gray">(4.8)</span>
+                <RatingStars value={productRating} />
+                <span className="text-gray">({productRating.toFixed(1)})</span>
               </div>
             </div>
 
@@ -95,8 +111,7 @@ export default function ProductDetails() {
                 Freshness Guarantee
               </p>
               <p className="mt-1 text-xs leading-5 text-gray">
-                Carefully baked fresh every morning to preserve flavor and
-                quality. For the best experience, enjoy within 3 days.
+                {productFreshness}
               </p>
             </div>
 
@@ -113,7 +128,7 @@ export default function ProductDetails() {
             <Button
               className="h-11 w-full rounded-full bg-primary px-6 text-sm font-semibold text-white hover:bg-card/90"
               onClick={() => {
-                addItem({ ...product, quantity });
+                addItem({ ...cartProduct, quantity });
                 openCart();
               }}
             >

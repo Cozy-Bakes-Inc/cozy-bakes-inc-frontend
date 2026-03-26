@@ -9,24 +9,34 @@ const tabs = [
 
 type TabId = (typeof tabs)[number]["id"];
 
-export default function ProductTabs() {
+type ProductTabsProps = {
+  ingredients?: string | null;
+  allergens?: string | null;
+};
+
+function normalizeTabContent(value?: string | null) {
+  if (!value) return "";
+
+  return value
+    .split(/[\n,]+/)
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .join(", ");
+}
+
+export default function ProductTabs({
+  ingredients,
+  allergens,
+}: ProductTabsProps) {
   const [activeTab, setActiveTab] = useState<TabId>("ingredients");
 
   const tabContent = useMemo(() => {
     if (activeTab === "allergens") {
-      return [
-        "Contains wheat (gluten).",
-        "Produced in a facility that also handles nuts, dairy, and eggs.",
-        "May contain trace amounts of sesame.",
-      ];
+      return normalizeTabContent(allergens);
     }
 
-    return [
-      "Organic bread flour, filtered water, sea salt, wild yeast culture.",
-      "Optional: sesame seeds or sunflower seeds on request.",
-      "Slow-fermented dough baked in stone-deck ovens.",
-    ];
-  }, [activeTab]);
+    return normalizeTabContent(ingredients);
+  }, [activeTab, allergens, ingredients]);
 
   return (
     <section className="bg-background py-20">
@@ -57,14 +67,17 @@ export default function ProductTabs() {
               ? "Ingredients"
               : "Allergens & Dietary Notes"}
           </h2>
-          <ul className="mt-4 space-y-3">
-            {tabContent.map((text, index) => (
-              <li key={index} className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
-                <span className="text-sm sm:text-base">{text}</span>
-              </li>
-            ))}
-          </ul>
+          {tabContent ? (
+            <p className="mt-4 text-sm sm:text-base">
+              {tabContent}
+            </p>
+          ) : (
+            <p className="mt-4 text-sm sm:text-base">
+              {activeTab === "ingredients"
+                ? "No ingredients available for this product."
+                : "No allergen information available for this product."}
+            </p>
+          )}
         </div>
       </div>
     </section>

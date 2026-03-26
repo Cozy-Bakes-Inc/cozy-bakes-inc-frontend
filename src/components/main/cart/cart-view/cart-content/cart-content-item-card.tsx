@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { Minus, Plus, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import type { CartItem } from "@/store/cart-store";
 
@@ -17,9 +20,19 @@ export default function CartContentItemCard({
   onUpdateQuantity,
   onRemoveItem,
 }: CartContentItemCardProps) {
+  const router = useRouter();
+
   return (
     <article className="rounded-xl border border-primary/24 bg-bg-creamy px-3 py-2.5">
-      <div className="flex gap-3">
+      <button
+        type="button"
+        onClick={() => {
+          const productSlug = item.slug ?? item.id;
+          if (!productSlug) return;
+          router.push(`/products/${productSlug}`);
+        }}
+        className="flex w-full gap-3 text-left"
+      >
         <div className="relative size-12 shrink-0 overflow-hidden rounded-md bg-background">
           <Image
             src={item.image}
@@ -38,7 +51,7 @@ export default function CartContentItemCard({
             {itemDescription}
           </p>
         </div>
-      </div>
+      </button>
 
       <div className="mt-2.5 flex items-end justify-between">
         <div>

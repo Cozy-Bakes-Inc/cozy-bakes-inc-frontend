@@ -34,6 +34,12 @@ export interface CategorySubcategoryItem {
   updated_at: string;
 }
 
+export interface ProductSubCategoryItem {
+  id?: number | string;
+  slug?: string;
+  title: string;
+}
+
 export interface ApiProductItem {
   id: number | string;
   slug?: string;
@@ -44,14 +50,16 @@ export interface ApiProductItem {
   price?: number | string | null;
   final_price?: number | string | null;
   discount_percentage?: number;
+  rating?: number | string | null;
   description_ingredient?: string | null;
+  description_allergens?: string | null;
   freshness_guarantee?: string | null;
   nutritional_information?: string | null;
   premium_ingredient?: string[];
   quantity?: number | string | null;
   status?: number | string;
   total_sold?: number;
-  sub_categories?: unknown[];
+  sub_categories?: ProductSubCategoryItem[];
   created_at?: string;
   updated_at?: string;
 }

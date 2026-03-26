@@ -1,5 +1,6 @@
 import { PAGE_SIZE } from "@/constants";
 import type { ApiProductItem, PaginatedApiResponse } from "@/interfaces";
+import type { SingleProductResponse } from "@/types";
 import { baseAPI } from "..";
 
 export const listProductsInfiniteAPI = async (
@@ -42,4 +43,4 @@ export const listRecommendedProductsPreviewAPI = async () =>
   );
 
 export const singleProductAPI = async (slug: string) =>
-  await baseAPI("GET", `/product/${slug}/view`);
+  await baseAPI<SingleProductResponse>("GET", `/product/${slug}/view`);

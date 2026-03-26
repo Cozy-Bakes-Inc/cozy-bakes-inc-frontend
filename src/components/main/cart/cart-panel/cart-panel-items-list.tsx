@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { Minus, Plus, Trash2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-import type { CartItem } from "@/store/cart-store";
+import { useCartStore, type CartItem } from "@/store/cart-store";
 
 type CartPanelItemsListProps = {
   items: CartItem[];
@@ -16,6 +17,9 @@ export default function CartPanelItemsList({
   onUpdateQuantity,
   onRemoveItem,
 }: CartPanelItemsListProps) {
+  const router = useRouter();
+  const closeCart = useCartStore((state) => state.closeCart);
+
   return (
     <div className="flex-1 space-y-3 overflow-y-auto px-4 py-3">
       {items.map((item) => (
@@ -23,7 +27,16 @@ export default function CartPanelItemsList({
           key={item.id}
           className="rounded-2xl border border-primary/24 bg-bg-creamy p-2.5"
         >
-          <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              const productSlug = item.slug ?? item.id;
+              if (!productSlug) return;
+              router.push(`/products/${productSlug}`);
+              closeCart();
+            }}
+            className="flex w-full gap-2 text-left"
+          >
             <div className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-background">
               <Image
                 src={item.image}
@@ -43,7 +56,7 @@ export default function CartPanelItemsList({
                 silky buttercream frosting.
               </p>
             </div>
-          </div>
+          </button>
 
           <div className="mt-2 flex items-end justify-between">
             <div>

@@ -7,6 +7,7 @@ const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
 
 export type CartItem = {
   id: string;
+  slug?: string;
   title: string;
   price: number;
   image: string;
@@ -46,6 +47,10 @@ function readCartCookie(): CartItem[] {
       .filter((item) => item && typeof item.id === "string")
       .map((item) => ({
         id: item.id,
+        slug:
+          typeof item.slug === "string" && item.slug.length > 0
+            ? item.slug
+            : item.id,
         title: String(item.title ?? ""),
         price: Number(item.price ?? 0),
         image: String(item.image ?? ""),
@@ -109,4 +114,3 @@ export const useCartStore = create<CartState>((set) => ({
   openCart: () => set({ isCartOpen: true }),
   closeCart: () => set({ isCartOpen: false }),
 }));
-
