@@ -1,20 +1,21 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/loader";
-import { CalendarDays, MapPin } from "lucide-react";
-import { useAuthenticatedUser } from "@/hooks";
+import { useAuthenticatedUser, useShops } from "@/hooks";
 import {
   receiverDetailsSchema,
   type ReceiverDetailsSchemaValues,
 } from "@/schemas/main/account";
 import { updateReceiverDetailsAPI } from "@/services/mutations/account";
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
-import DeliveryDetailsFormInput from "../delivery/delivery-details-form-input";
+import { ShopListItem } from "@/interfaces";
+import PickupReceiverDetailsSection from "./pickup-receiver-details-section";
+import PickupShopsSection from "./pickup-shops-section";
 
 interface PickupViewProps {
   onConfirm?: () => void;
@@ -22,22 +23,48 @@ interface PickupViewProps {
 
 export default function PickupView({ onConfirm }: PickupViewProps) {
   const queryClient = useQueryClient();
+  const [selectedShopIdOverride, setSelectedShopIdOverride] = useState<
+    number | null
+  >(null);
+  const {
+    data: shopsData,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useShops();
+  const shops: ShopListItem[] = useMemo(
+    () => shopsData?.pages?.flatMap((page) => page?.data?.data ?? []) ?? [],
+    [shopsData],
+  );
   const { data: authenticatedUser } = useAuthenticatedUser(true);
   const receiverDetails = useDeliveryPickupModalStore(
     (state) => state.receiverDetails,
   );
+  const pickupLocation = useDeliveryPickupModalStore(
+    (state) => state.pickupLocation,
+  );
   const setReceiverDetails = useDeliveryPickupModalStore(
     (state) => state.setReceiverDetails,
+  );
+  const setPickupLocation = useDeliveryPickupModalStore(
+    (state) => state.setPickupLocation,
   );
   const user = authenticatedUser?.data?.user;
   const initialValues = useMemo<ReceiverDetailsSchemaValues>(
     () => ({
-      first_name: user?.receiver?.first_name?.trim() || receiverDetails.firstName,
+      first_name:
+        user?.receiver?.first_name?.trim() || receiverDetails.firstName,
       last_name: user?.receiver?.last_name?.trim() || receiverDetails.lastName,
       phone_number:
         user?.receiver?.phone_number?.trim() || receiverDetails.phoneNumber,
     }),
-    [receiverDetails.firstName, receiverDetails.lastName, receiverDetails.phoneNumber, user],
+    [
+      receiverDetails.firstName,
+      receiverDetails.lastName,
+      receiverDetails.phoneNumber,
+      user,
+    ],
   );
 
   const {
@@ -58,6 +85,33 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
     reset(initialValues);
   }, [initialValues, reset]);
 
+  const selectedShopId = useMemo(() => {
+    if (
+      selectedShopIdOverride &&
+      shops.some((shop) => shop.id === selectedShopIdOverride)
+    ) {
+      return selectedShopIdOverride;
+    }
+
+    if (
+      pickupLocation.id &&
+      shops.some((shop) => shop.id === pickupLocation.id)
+    ) {
+      return pickupLocation.id;
+    }
+
+    return shops[0]?.id ?? null;
+  }, [pickupLocation.id, selectedShopIdOverride, shops]);
+  const initialSelectedShopId = useMemo(() => {
+    if (pickupLocation.id && shops.some((shop) => shop.id === pickupLocation.id)) {
+      return pickupLocation.id;
+    }
+
+    return shops[0]?.id ?? null;
+  }, [pickupLocation.id, shops]);
+
+  const selectedShop = shops.find((shop) => shop.id === selectedShopId) ?? null;
+
   const watchedValues = useWatch({ control });
   const normalizedValues = {
     first_name: watchedValues.first_name?.trim() ?? "",
@@ -68,6 +122,8 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
     normalizedValues.first_name !== initialValues.first_name ||
     normalizedValues.last_name !== initialValues.last_name ||
     normalizedValues.phone_number !== initialValues.phone_number;
+  const hasSelectedShopChanged = selectedShopId !== initialSelectedShopId;
+  const canSubmit = hasChanges || hasSelectedShopChanged;
 
   const onSubmit = async (values: ReceiverDetailsSchemaValues) => {
     const payload = {
@@ -78,6 +134,11 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
 
     const schemaResult = receiverDetailsSchema.safeParse(payload);
     if (!schemaResult.success) {
+      return;
+    }
+
+    if (!selectedShop) {
+      toast.error("Please select a pickup location");
       return;
     }
 
@@ -101,6 +162,14 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
       lastName: payload.last_name,
       phoneNumber: payload.phone_number,
     });
+    setPickupLocation({
+      id: selectedShop.id,
+      name: selectedShop.name,
+      fullAddress: selectedShop.address_line,
+      phoneNumber: selectedShop.phone_number,
+      email: selectedShop.email,
+      storeDescription: selectedShop.store_description ?? "",
+    });
     reset(payload);
     onConfirm?.();
   };
@@ -108,95 +177,23 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="space-y-4">
-        <div className="rounded-2xl border border-border/24 bg-background p-2.5">
-          <div className="mb-3 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-            <p className="text-sm font-semibold text-dark">Available At</p>
-            <div className="flex items-center gap-2 text-sm font-semibold text-gray-500">
-              <CalendarDays className="size-4 shrink-0 text-primary" />
-              <span>Thursday - Jan 18 - 9:00 AM - 2:00 PM</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="grid size-10 shrink-0 place-items-center rounded-lg bg-bg-creamy sm:size-16.75">
-              <MapPin className="size-5 shrink-0 text-primary" />
-            </div>
-            <div className="space-y-1">
-              <p className="text-xs font-semibold text-primary">Store Pickup</p>
-              <p className="text-sm font-semibold text-dark md:text-base">
-                New York
-              </p>
-              <p className="text-xs font-medium text-gray-500">
-                1600 Pennsylvania Avenue NW - White House - Washington - DC
-                20500
-              </p>
-            </div>
-          </div>
-        </div>
+        <PickupShopsSection
+          shops={shops}
+          isLoading={isLoading}
+          selectedShopId={selectedShopId}
+          onSelect={setSelectedShopIdOverride}
+          hasNextPage={Boolean(hasNextPage)}
+          isFetchingNextPage={isFetchingNextPage}
+          onShowMore={() => fetchNextPage()}
+        />
 
-        <div className="rounded-2xl border border-border/24 bg-background p-4 sm:p-5">
-          <div className="mb-4">
-            <h3 className="text-base font-medium text-primary sm:text-lg">
-              Receiver Details
-            </h3>
-            <p className="mt-1 text-xs text-gray-500 sm:text-sm">
-              Add the pickup receiver information so the order is ready for hand
-              off at the store.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2">
-              <DeliveryDetailsFormInput
-                label="First Name"
-                placeholder="First Name"
-                errorMessage={errors.first_name?.message}
-                register={register("first_name", {
-                  validate: (value) => {
-                    const result =
-                      receiverDetailsSchema.shape.first_name.safeParse(value);
-                    return (
-                      result.success || result.error.issues[0]?.message
-                    );
-                  },
-                })}
-              />
-
-              <DeliveryDetailsFormInput
-                label="Last Name"
-                placeholder="Last Name"
-                errorMessage={errors.last_name?.message}
-                register={register("last_name", {
-                  validate: (value) => {
-                    const result =
-                      receiverDetailsSchema.shape.last_name.safeParse(value);
-                    return (
-                      result.success || result.error.issues[0]?.message
-                    );
-                  },
-                })}
-              />
-            </div>
-
-            <DeliveryDetailsFormInput
-              label="Phone Number"
-              placeholder="1234 5678 9564"
-              type="tel"
-              errorMessage={errors.phone_number?.message}
-              register={register("phone_number", {
-                validate: (value) => {
-                  const result =
-                    receiverDetailsSchema.shape.phone_number.safeParse(value);
-                  return result.success || result.error.issues[0]?.message;
-                },
-              })}
-            />
-          </div>
-        </div>
+        <PickupReceiverDetailsSection register={register} errors={errors} />
       </div>
 
       <div className="flex justify-end">
         <Button
           type="submit"
+          disabled={!canSubmit || isSubmitting}
           className="h-13.5 min-w-34 rounded-lg bg-primary px-6 text-sm font-medium text-white hover:bg-primary/90 md:text-base"
         >
           {isSubmitting ? <Loader /> : "Confirm"}

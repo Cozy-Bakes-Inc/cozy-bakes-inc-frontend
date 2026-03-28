@@ -15,6 +15,7 @@ import PickupView from "./pickup/pickup-view";
 import DeliveryPickupTabs from "./tabs";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCartStore } from "@/store/cart-store";
+import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
 import toast from "react-hot-toast";
 
 interface DeliveryPickupModalProps {
@@ -42,6 +43,9 @@ export default function DeliveryPickupModal({
   const isDeliveryDetails =
     activeTab === "delivery" && deliveryStep === "details";
   const { closeCart } = useCartStore();
+  const shouldRedirectToCheckout = useDeliveryPickupModalStore(
+    (state) => state.shouldRedirectToCheckout,
+  );
 
   const handleTabChange = (nextTab: DeliveryPickupTab) => {
     if (nextTab === activeTab) return;
@@ -92,7 +96,7 @@ export default function DeliveryPickupModal({
           onBackToMap={() => setDeliveryStep("map")}
           onSaveLocation={() => {
             onConfirmLocation?.();
-            if (isCheckoutPage) {
+            if (isCheckoutPage || shouldRedirectToCheckout) {
               router.push(getCheckoutPath("delivery"));
               closeCart();
             }
@@ -115,7 +119,7 @@ export default function DeliveryPickupModal({
             <PickupView
               onConfirm={() => {
                 onConfirmLocation?.();
-                if (isCheckoutPage) {
+                if (isCheckoutPage || shouldRedirectToCheckout) {
                   router.push(getCheckoutPath("pickup"));
                   closeCart();
                 }

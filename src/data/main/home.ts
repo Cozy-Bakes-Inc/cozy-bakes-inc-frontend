@@ -4,7 +4,6 @@ import type {
   SelectionItem,
   SelectionTab,
   Slide,
-  Testimonial,
 } from "@/interfaces";
 
 export const heroSlides: Slide[] = [
@@ -212,28 +211,5 @@ export const selectionItems: SelectionItem[] = [
     price: "$8.50",
     category: "recommended",
     actionLabel: "Add",
-  },
-];
-export const testimonials: Testimonial[] = [
-  {
-    quote:
-      "Marwa, the owner of Cozy Bakes is wonderful. I cannot say enough good things not only about her but also her bread and baked goods. They are worth every penny.",
-    name: "Stephanie H.",
-    date: "December 2025",
-    initial: "S",
-  },
-  {
-    quote:
-      "Marwa, the owner of Cozy Bakes is wonderful. I cannot say enough good things not only about her but also her bread and baked goods. They are worth every penny.",
-    name: "Stephanie H.",
-    date: "December 2025",
-    initial: "S",
-  },
-  {
-    quote:
-      "I recently received a wonderful gift from a co-worker featuring products from Cozy Bakes. It included an assortment of olive oils, complete with recipes and pairings.",
-    name: "Darrin P",
-    date: "December 2025",
-    initial: "P",
   },
 ];

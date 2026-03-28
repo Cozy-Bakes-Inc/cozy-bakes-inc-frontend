@@ -16,7 +16,6 @@ import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store
 import DeliveryAddressDetailsSection from "./delivery-address-details-section";
 import DeliveryReceiverDetailsSection from "./delivery-receiver-details-section";
 import {
-  buildInitialShippingInformationValues,
   buildCurrentShippingInformationValues,
   hasShippingInformationChanged,
   normalizeShippingInformationValues,
@@ -46,9 +45,16 @@ export default function DeliveryDetailsView({
     (state) => state.receiverDetails,
   );
   const user = authenticatedUser?.data?.user;
-  const savedValues = useMemo(
-    () => buildInitialShippingInformationValues(user),
-    [user],
+  const initialValues = useMemo(
+    () =>
+      normalizeShippingInformationValues(
+        buildCurrentShippingInformationValues({
+          user,
+          deliveryLocation,
+          receiverDetails,
+        }),
+      ),
+    [deliveryLocation, receiverDetails, user],
   );
 
   const {
@@ -56,7 +62,7 @@ export default function DeliveryDetailsView({
     handleSubmit,
     reset,
     control,
-    formState: { errors, isDirty, isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm<ShippingInformationSchemaValues>({
     defaultValues: {
       first_name: "",
@@ -71,25 +77,17 @@ export default function DeliveryDetailsView({
   });
 
   useEffect(() => {
-    const nextValues = normalizeShippingInformationValues(
-      buildCurrentShippingInformationValues({
-        user,
-        deliveryLocation,
-        receiverDetails,
-      }),
-    );
-
-    reset(nextValues);
-  }, [deliveryLocation, receiverDetails, reset, user]);
+    reset(initialValues);
+  }, [initialValues, reset]);
 
   const watchedValues = useWatch({ control });
   const currentValues = normalizeShippingInformationValues({
-    ...savedValues,
+    ...initialValues,
     ...watchedValues,
   });
   const hasChanges = hasShippingInformationChanged({
     currentValues,
-    initialValues: savedValues,
+    initialValues,
   });
 
   const onSubmit = async (values: ShippingInformationSchemaValues) => {
@@ -174,7 +172,7 @@ export default function DeliveryDetailsView({
       <div className="flex justify-end">
         <Button
           type="submit"
-          disabled={(!isDirty && !hasChanges) || !hasChanges || isSubmitting}
+          disabled={!hasChanges || isSubmitting}
           className="h-13.5 w-full rounded-lg bg-primary px-6 text-sm font-medium text-white hover:bg-primary/50 md:w-auto md:min-w-50.5 md:text-base"
         >
           {isSubmitting ? <Loader /> : "Save Location"}

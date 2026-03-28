@@ -131,7 +131,7 @@ export interface AccountProfileUser {
 
 export interface AccountProps {
   activeTab: AccountTab;
-  activeOrderId?: string;
+  activeOrderNumber?: string;
 }
 
 export interface SidebarSectionProps {

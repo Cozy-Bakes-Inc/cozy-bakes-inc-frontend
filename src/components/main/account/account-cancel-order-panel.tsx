@@ -1,18 +1,12 @@
-import { ordersByTab } from "@/data/main/account";
-import AccountOrdersCard from "./account-orders-card";
+import AccountOrdersListPanel from "./account-orders-list-panel";
 
 export default function AccountCancelOrderPanel() {
-  const list = ordersByTab["cancel-order"];
-
   return (
-    <div className="mt-3 space-y-3">
-      {list.map((order) => (
-        <AccountOrdersCard
-          key={order.id}
-          activeTab="cancel-order"
-          order={order}
-        />
-      ))}
-    </div>
+    <AccountOrdersListPanel
+      activeTab="cancel-order"
+      queryStatus="cancelled"
+      visibleStatuses={["cancelled"]}
+      emptyMessage="No cancelled orders found."
+    />
   );
 }

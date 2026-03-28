@@ -30,7 +30,7 @@ export default function CartPanelActions({
               <p className="text-xs font-semibold tracking-[0.06em] text-dark sm:text-sm">
                 Total
               </p>
-              <p className="text-2xl font-semibold leading-7 text-primary sm:text-[30px]">
+              <p className="text-xl font-semibold leading-7 text-primary sm:text-[26px]">
                 ${total.toFixed(2)}
               </p>
             </div>
@@ -73,6 +73,9 @@ function CartPanelActionsContent({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const openModal = useDeliveryPickupModalStore((state) => state.openModal);
+  const setShouldRedirectToCheckout = useDeliveryPickupModalStore(
+    (state) => state.setShouldRedirectToCheckout,
+  );
   const closeCart = useCartStore((state) => state.closeCart);
   const { data, isLoading } = useAuthenticatedUser(hasToken);
 
@@ -97,6 +100,7 @@ function CartPanelActionsContent({
       return;
     }
 
+    setShouldRedirectToCheckout(true);
     openModal();
   };
 
@@ -107,7 +111,7 @@ function CartPanelActionsContent({
           <p className="text-xs font-semibold tracking-[0.06em] text-dark sm:text-sm">
             Total
           </p>
-          <p className="text-2xl font-semibold leading-7 text-primary sm:text-[30px]">
+          <p className="text-xl font-semibold leading-7 text-primary sm:text-[26px]">
             ${total.toFixed(2)}
           </p>
         </div>

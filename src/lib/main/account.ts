@@ -1,5 +1,5 @@
-import { allTabs, ordersByTab } from "@/data/main/account";
-import type { AccountOrderListTab, AccountTab } from "@/types/main/account";
+import { allTabs } from "@/data/main/account";
+import type { AccountTab } from "@/types/main/account";
 
 const DEFAULT_ACCOUNT_TAB: AccountTab = "new-order";
 
@@ -14,13 +14,9 @@ export function normalizeAccountTab(
   return isValid ? (rawValue as AccountTab) : DEFAULT_ACCOUNT_TAB;
 }
 
-export function normalizeAccountOrderId(
-  tab: AccountOrderListTab,
+export function normalizeAccountOrderNumber(
   value: string | string[] | undefined,
 ): string | undefined {
   const rawValue = Array.isArray(value) ? value[0] : value;
-  if (!rawValue) return undefined;
-
-  const isValid = ordersByTab[tab].some((order) => order.id === rawValue);
-  return isValid ? rawValue : undefined;
+  return rawValue || undefined;
 }

@@ -15,6 +15,9 @@ export default function ShippingLocationCard() {
   const deliveryLocation = useDeliveryPickupModalStore(
     (state) => state.deliveryLocation,
   );
+  const pickupLocation = useDeliveryPickupModalStore(
+    (state) => state.pickupLocation,
+  );
   const setDeliveryLocation = useDeliveryPickupModalStore(
     (state) => state.setDeliveryLocation,
   );
@@ -71,11 +74,14 @@ export default function ShippingLocationCard() {
               {isPickup ? "Pickup from" : "Deliver to"}
             </p>
             <p className="text-sm font-semibold text-dark">
-              {isPickup ? "Cozy Bakes Pickup Point" : deliveryLocation.label}
+              {isPickup
+                ? pickupLocation.name || "Cozy Bakes Pickup Point"
+                : deliveryLocation.label}
             </p>
             <p className="mt-0.5 text-xs text-gray-500">
               {isPickup
-                ? "1600 Pennsylvania Avenue NW - Pickup counter - Washington - DC 20500"
+                ? pickupLocation.fullAddress ||
+                  "Choose your pickup location from the list."
                 : deliveryLocation.fullAddress}
             </p>
           </div>

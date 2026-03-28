@@ -83,6 +83,9 @@ function CartContentSummaryContent({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const openModal = useDeliveryPickupModalStore((state) => state.openModal);
+  const setShouldRedirectToCheckout = useDeliveryPickupModalStore(
+    (state) => state.setShouldRedirectToCheckout,
+  );
   const closeCart = useCartStore((state) => state.closeCart);
   const { data, isLoading } = useAuthenticatedUser(hasToken);
 
@@ -107,6 +110,7 @@ function CartContentSummaryContent({
       return;
     }
 
+    setShouldRedirectToCheckout(true);
     openModal();
   };
 

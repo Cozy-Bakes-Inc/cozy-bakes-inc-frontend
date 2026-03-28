@@ -1,14 +1,12 @@
-import { ordersByTab } from "@/data/main/account";
-import AccountOrdersCard from "./account-orders-card";
+import AccountOrdersListPanel from "./account-orders-list-panel";
 
 export default function AccountNewOrderPanel() {
-  const list = ordersByTab["new-order"];
-
   return (
-    <div className="mt-3 space-y-3">
-      {list.map((order) => (
-        <AccountOrdersCard key={order.id} activeTab="new-order" order={order} />
-      ))}
-    </div>
+    <AccountOrdersListPanel
+      activeTab="new-order"
+      queryStatus="pending"
+      visibleStatuses={["pending"]}
+      emptyMessage="No active orders found."
+    />
   );
 }

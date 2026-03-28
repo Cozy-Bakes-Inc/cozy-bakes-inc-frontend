@@ -1,25 +1,26 @@
 import Account, {
-  normalizeAccountOrderId,
+  normalizeAccountOrderNumber,
   normalizeAccountTab,
 } from "@/components/main/account";
-import type { AccountOrderListTab } from "@/types/main/account";
 
 type AccountPageProps = {
   searchParams: Promise<{
     tab?: string | string[];
-    orderId?: string | string[];
+    orderNumber?: string | string[];
   }>;
 };
 
 export default async function AccountPage({ searchParams }: AccountPageProps) {
-  const { tab, orderId } = await searchParams;
+  const { tab, orderNumber } = await searchParams;
   const activeTab = normalizeAccountTab(tab);
-  const activeOrderId =
+  const activeOrderNumber =
     activeTab === "new-order" ||
     activeTab === "cancel-order" ||
     activeTab === "complete-order"
-      ? normalizeAccountOrderId(activeTab as AccountOrderListTab, orderId)
+      ? normalizeAccountOrderNumber(orderNumber)
       : undefined;
 
-  return <Account activeTab={activeTab} activeOrderId={activeOrderId} />;
+  return (
+    <Account activeTab={activeTab} activeOrderNumber={activeOrderNumber} />
+  );
 }

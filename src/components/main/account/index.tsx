@@ -5,7 +5,6 @@ import {
   editEmailData,
   editPasswordData,
   editPersonalInformationData,
-  orderDetailsByTab,
   orderTabs,
   personalInformationData,
   profileUser,
@@ -13,7 +12,7 @@ import {
 } from "@/data/main/account";
 import type { AccountProps } from "@/interfaces/main/account";
 import {
-  normalizeAccountOrderId,
+  normalizeAccountOrderNumber,
   normalizeAccountTab,
 } from "@/lib/main/account";
 import type { AccountInfoTab, AccountOrderListTab } from "@/types/main/account";
@@ -31,9 +30,12 @@ import ProfileSummaryCard from "./profile-summary-card";
 import SidebarSection from "./sidebar-section";
 import AccountEditPersonalInformationPanel from "./edit-personal-information/account-edit-personal-information-panel";
 
-export { normalizeAccountOrderId, normalizeAccountTab };
+export { normalizeAccountOrderNumber, normalizeAccountTab };
 
-export default function Account({ activeTab, activeOrderId }: AccountProps) {
+export default function Account({
+  activeTab,
+  activeOrderNumber,
+}: AccountProps) {
   const activeTabDefinition =
     allTabs.find((tab) => tab.id === activeTab) ?? allTabs[0];
 
@@ -50,10 +52,6 @@ export default function Account({ activeTab, activeOrderId }: AccountProps) {
   const isEditEmailTab = activeTab === "edit-email";
   const isEditPasswordTab = activeTab === "edit-password";
   const isShippingInformationTab = activeTab === "shipping-information";
-  const selectedOrderDetails =
-    activeOrderListTab && activeOrderId
-      ? orderDetailsByTab[activeOrderListTab][activeOrderId]
-      : undefined;
 
   function renderOrderListByTab(tab: AccountOrderListTab) {
     switch (tab) {
@@ -100,8 +98,8 @@ export default function Account({ activeTab, activeOrderId }: AccountProps) {
                     {activeTabDefinition.title}
                   </h2>
 
-                  {selectedOrderDetails ? (
-                    <AccountOrderDetailsPanel details={selectedOrderDetails} />
+                  {activeOrderNumber ? (
+                    <AccountOrderDetailsPanel orderNumber={activeOrderNumber} />
                   ) : (
                     renderOrderListByTab(activeOrderListTab)
                   )}

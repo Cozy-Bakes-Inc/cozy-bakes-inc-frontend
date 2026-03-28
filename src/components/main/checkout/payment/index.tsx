@@ -24,33 +24,6 @@ import {
 const sampleSubtitle =
   "Light and moist vanilla cake with Madagascar vanilla beans and silky buttercream frosting.";
 
-const fallbackItems: OrderLineItem[] = [
-  {
-    id: "fallback-1",
-    title: "Sourdough Bread",
-    subtitle: sampleSubtitle,
-    price: 8.5,
-    quantity: 2,
-    image: "/images/artisan-sourdough.jpg",
-  },
-  {
-    id: "fallback-2",
-    title: "Multigrain Bread",
-    subtitle: sampleSubtitle,
-    price: 8.5,
-    quantity: 2,
-    image: "/images/french-baguette.jpg",
-  },
-  {
-    id: "fallback-3",
-    title: "Whole Grain Bread",
-    subtitle: sampleSubtitle,
-    price: 8.5,
-    quantity: 1,
-    image: "/images/bread-category.png",
-  },
-];
-
 export default function CheckoutPaymentPage() {
   const pathname = usePathname();
   const router = useRouter();
@@ -64,16 +37,14 @@ export default function CheckoutPaymentPage() {
 
   const orderItems = useMemo<OrderLineItem[]>(
     () =>
-      cartItems.length
-        ? cartItems.map((item) => ({
-            id: item.id,
-            title: item.title,
-            subtitle: sampleSubtitle,
-            price: item.price,
-            quantity: item.quantity,
-            image: item.image,
-          }))
-        : fallbackItems,
+      cartItems.map((item) => ({
+        id: item.id,
+        title: item.title,
+        subtitle: sampleSubtitle,
+        price: item.price,
+        quantity: item.quantity,
+        image: item.image,
+      })),
     [cartItems],
   );
 
@@ -137,6 +108,9 @@ export default function CheckoutPaymentPage() {
             <CheckoutCartSummary
               items={orderItems}
               isCheckoutEnabled={isCheckoutEnabled}
+              paymentChannel={paymentChannel}
+              selectedMethod={selectedMethod}
+              selectedCashMethod={selectedCashMethod}
             />
           </div>
         </div>
