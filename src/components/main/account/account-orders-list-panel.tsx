@@ -66,22 +66,22 @@ function formatPrice(value: string) {
   return `$${value}`;
 }
 
-function getOrderItemsSummary(order: OrderListItem) {
-  return order.items
-    .map((item) => `${item.title} * ${item.quantity}`)
-    .join(" , ");
-}
-
-function getOrderItemsDescription(order: OrderListItem) {
-  return order.items
-    .map((item) => item.description?.trim())
-    .filter((description): description is string => Boolean(description))
-    .join(" , ");
+function getPrimaryOrderItem(order: OrderListItem) {
+  return order.items[0];
 }
 
 function getOrderImage(order: OrderListItem) {
-  const firstImage = order.items.flatMap((item) => item.images)[0];
+  const firstImage = getPrimaryOrderItem(order)?.images?.[0];
+  if (typeof firstImage === "string") {
+    return firstImage;
+  }
+
   return firstImage?.url || firstImage?.image || FALLBACK_ORDER_IMAGE;
+}
+
+function getOrderProductHref(order: OrderListItem) {
+  const slug = getPrimaryOrderItem(order)?.slug;
+  return slug ? `/products/${slug}` : null;
 }
 
 export default function AccountOrdersListPanel({
@@ -116,7 +116,8 @@ export default function AccountOrdersListPanel({
         ))
       ) : orders.length ? (
         orders.map((order) => {
-          const description = getOrderItemsDescription(order);
+          const productHref = getOrderProductHref(order);
+          const orderImage = getOrderImage(order);
 
           return (
             <article
@@ -124,13 +125,28 @@ export default function AccountOrdersListPanel({
               className="rounded-2xl border border-border/24 bg-bg-creamy p-2.5"
             >
               <div className="flex items-start gap-2">
-                <Image
-                  src={getOrderImage(order)}
-                  alt={order.order_number}
-                  width={71}
-                  height={71}
-                  className="size-17.75 shrink-0 rounded-lg object-cover"
-                />
+                {productHref ? (
+                  <Link
+                    href={productHref}
+                    className="block shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    <Image
+                      src={orderImage}
+                      alt={order.order_number}
+                      width={71}
+                      height={71}
+                      className="size-17.75 rounded-lg object-cover"
+                    />
+                  </Link>
+                ) : (
+                  <Image
+                    src={orderImage}
+                    alt={order.order_number}
+                    width={71}
+                    height={71}
+                    className="size-17.75 shrink-0 rounded-lg object-cover"
+                  />
+                )}
                 <div className="min-w-0 flex-1">
                   <div className="mb-0.5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-lg font-semibold leading-7 text-dark sm:text-[18px]">
@@ -146,15 +162,20 @@ export default function AccountOrdersListPanel({
                     </span>
                   </div>
 
-                  <p className="text-sm font-medium text-gray sm:max-w-3xl">
-                    {getOrderItemsSummary(order)}
-                  </p>
-
-                  {description ? (
-                    <p className="mt-1 text-sm text-gray/90 sm:max-w-3xl">
-                      {description}
-                    </p>
-                  ) : null}
+                  <div className="space-y-1 sm:max-w-3xl">
+                    {order.items.map((item) => (
+                      <div key={`${order.id}-${item.product_id}-${item.title}`}>
+                        <p className="text-sm font-medium text-gray">
+                          {item.title} * {item.quantity}
+                        </p>
+                        {item.description?.trim() ? (
+                          <p className="text-sm text-gray/90">
+                            {item.description.trim()}
+                          </p>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 

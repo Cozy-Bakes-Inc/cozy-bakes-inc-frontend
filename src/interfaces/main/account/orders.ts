@@ -16,19 +16,21 @@ export interface OrderShippingDetails {
   note: string | null;
 }
 
-export interface OrderItemImage {
+export interface OrderItemImageObject {
   id?: number;
   image?: string;
   url?: string;
   [key: string]: unknown;
 }
 
+export type OrderItemImage = string | OrderItemImageObject;
+
 export interface OrderListItemDetails {
-  product_id: number;
+  product_id: number | string;
   slug?: string;
   title: string;
   description?: string | null;
-  quantity: number;
+  quantity: number | string;
   price: string;
   subtotal: string | null;
   images: OrderItemImage[];

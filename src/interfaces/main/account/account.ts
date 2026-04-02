@@ -144,4 +144,5 @@ export interface SidebarSectionProps {
     }>;
     withSignOut?: boolean;
   }>;
+  onNavigate?: () => void;
 }

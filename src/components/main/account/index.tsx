@@ -29,6 +29,7 @@ import AccountShippingInformationPanel from "./account-shipping-information-pane
 import ProfileSummaryCard from "./profile-summary-card";
 import SidebarSection from "./sidebar-section";
 import AccountEditPersonalInformationPanel from "./edit-personal-information/account-edit-personal-information-panel";
+import AccountMobileSidebarPanel from "./account-mobile-sidebar-panel";
 
 export { normalizeAccountOrderNumber, normalizeAccountTab };
 
@@ -36,6 +37,18 @@ export default function Account({
   activeTab,
   activeOrderNumber,
 }: AccountProps) {
+  const sidebarSections = [
+    {
+      title: "My Orders Details",
+      items: orderTabs,
+    },
+    {
+      title: "My Account",
+      items: accountTabs,
+      withSignOut: true,
+    },
+  ] as const;
+
   const activeTabDefinition =
     allTabs.find((tab) => tab.id === activeTab) ?? allTabs[0];
 
@@ -75,20 +88,14 @@ export default function Account({
             <div className="space-y-4 lg:sticky lg:top-24">
               <ProfileSummaryCard profile={profileUser} />
 
-              <SidebarSection
+              <AccountMobileSidebarPanel
                 activeTab={activeTab}
-                sections={[
-                  {
-                    title: "My Orders Details",
-                    items: orderTabs,
-                  },
-                  {
-                    title: "My Account",
-                    items: accountTabs,
-                    withSignOut: true,
-                  },
-                ]}
+                sections={sidebarSections}
               />
+
+              <div className="hidden lg:block">
+                <SidebarSection activeTab={activeTab} sections={sidebarSections} />
+              </div>
             </div>
 
             {activeOrderListTab ? (

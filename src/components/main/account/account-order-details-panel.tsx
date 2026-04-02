@@ -60,7 +60,15 @@ function formatPaymentMethod(method: string) {
 
 function getItemImage(item: OrderListItemDetails) {
   const firstImage = item.images[0];
+  if (typeof firstImage === "string") {
+    return firstImage;
+  }
+
   return firstImage?.url || firstImage?.image || FALLBACK_ORDER_IMAGE;
+}
+
+function getItemHref(item: OrderListItemDetails) {
+  return item.slug ? `/products/${item.slug}` : null;
 }
 
 function getItemTotal(item: OrderListItemDetails) {
@@ -68,7 +76,7 @@ function getItemTotal(item: OrderListItemDetails) {
     return formatPrice(item.subtotal);
   }
 
-  return formatPrice(Number(item.price) * item.quantity);
+  return formatPrice(Number(item.price) * Number(item.quantity));
 }
 
 function buildTimeline(order: OrderListItem) {
@@ -294,59 +302,79 @@ export default function AccountOrderDetailsPanel({
         </h3>
 
         <div className="mt-4 space-y-3">
-          {order.items.map((item) => (
-            <article
-              key={`${item.product_id}-${item.title}`}
-              className="rounded-2xl border border-border/24 bg-bg-creamy p-2.5"
-            >
-              <div className="flex items-start gap-2">
-                <Image
-                  src={getItemImage(item)}
-                  alt={item.title}
-                  width={71}
-                  height={71}
-                  className="size-17.75 shrink-0 rounded-lg object-cover"
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="mb-0.5 text-sm font-medium text-gray">
-                    Order #{order.order_number}
-                  </p>
-                  {item.slug ? (
+          {order.items.map((item) => {
+            const itemHref = getItemHref(item);
+            const itemImage = getItemImage(item);
+
+            return (
+              <article
+                key={`${item.product_id}-${item.title}`}
+                className="rounded-2xl border border-border/24 bg-bg-creamy p-2.5"
+              >
+                <div className="flex items-start gap-2">
+                  {itemHref ? (
                     <Link
-                      href={`/products/${item.slug}`}
-                      className="text-lg font-semibold leading-7 text-dark hover:text-primary sm:text-[18px]"
+                      href={itemHref}
+                      className="block shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                     >
-                      {item.title}
+                      <Image
+                        src={itemImage}
+                        alt={item.title}
+                        width={71}
+                        height={71}
+                        className="size-17.75 rounded-lg object-cover"
+                      />
                     </Link>
                   ) : (
-                    <p className="text-lg font-semibold leading-7 text-dark sm:text-[18px]">
-                      {item.title}
-                    </p>
+                    <Image
+                      src={itemImage}
+                      alt={item.title}
+                      width={71}
+                      height={71}
+                      className="size-17.75 shrink-0 rounded-lg object-cover"
+                    />
                   )}
-                  {item.description ? (
-                    <p className="text-sm font-medium text-gray sm:max-w-3xl">
-                      {item.description}
+                  <div className="min-w-0 flex-1">
+                    <p className="mb-0.5 text-sm font-medium text-gray">
+                      Order #{order.order_number}
                     </p>
-                  ) : null}
+                    {itemHref ? (
+                      <Link
+                        href={itemHref}
+                        className="text-lg font-semibold leading-7 text-dark hover:text-primary sm:text-[18px]"
+                      >
+                        {item.title}
+                      </Link>
+                    ) : (
+                      <p className="text-lg font-semibold leading-7 text-dark sm:text-[18px]">
+                        {item.title}
+                      </p>
+                    )}
+                    {item.description ? (
+                      <p className="text-sm font-medium text-gray sm:max-w-3xl">
+                        {item.description}
+                      </p>
+                    ) : null}
+                  </div>
                 </div>
-              </div>
 
-              <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
-                <div>
-                  <p className="mb-0.5 text-xs font-medium uppercase tracking-[0.6px] text-warm-brown">
-                    Total Price
-                  </p>
-                  <p className="text-xl font-semibold leading-7 text-primary sm:text-[24px] sm:leading-7">
-                    {getItemTotal(item)}
-                  </p>
+                <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+                  <div>
+                    <p className="mb-0.5 text-xs font-medium uppercase tracking-[0.6px] text-warm-brown">
+                      Total Price
+                    </p>
+                    <p className="text-xl font-semibold leading-7 text-primary sm:text-[24px] sm:leading-7">
+                      {getItemTotal(item)}
+                    </p>
+                  </div>
+
+                  <span className="w-full shrink-0 rounded-lg bg-background px-4 py-2 text-center text-sm text-chocolate sm:w-auto sm:text-base">
+                    {item.title} * {item.quantity}
+                  </span>
                 </div>
-
-                <span className="w-full shrink-0 rounded-lg bg-background px-4 py-2 text-center text-sm text-chocolate sm:w-auto sm:text-base">
-                  {item.title} * {item.quantity}
-                </span>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </section>
 
@@ -384,15 +412,23 @@ export default function AccountOrderDetailsPanel({
 
           <div className="flex min-h-12 flex-col items-start justify-between gap-2 border-b border-border/24 py-2 sm:flex-row sm:items-center sm:gap-3">
             <span className="text-sm font-medium text-dark sm:text-base">
-              Payment Methods Used
+              Payment Method
             </span>
             <span className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-dark sm:text-base">
-              {/* <span className="size-3 shrink-0 rounded-full bg-[#ff5f00]" />
-              <span className="-ml-3 size-3 shrink-0 rounded-full bg-[#eb001b]" />
-              <span className="size-3 shrink-0 rounded-full bg-[#f79e1b]" /> */}
               {formatPaymentMethod(order.payment_method)}
             </span>
           </div>
+
+          {order.cod_payment_method ? (
+            <div className="flex min-h-12 flex-col items-start justify-between gap-2 border-b border-border/24 py-2 sm:flex-row sm:items-center sm:gap-3">
+              <span className="text-sm font-medium text-dark sm:text-base">
+                COD Payment Method
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-dark sm:text-base">
+                {formatPaymentMethod(order.cod_payment_method)}
+              </span>
+            </div>
+          ) : null}
 
           <div className="flex min-h-14 items-center justify-between gap-3 py-2">
             <span className="text-xl font-semibold leading-7 text-dark sm:text-[24px]">

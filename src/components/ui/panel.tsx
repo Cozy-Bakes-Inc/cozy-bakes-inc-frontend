@@ -37,7 +37,7 @@ function Panel({
   contentClassName = "sm:max-w-xs",
   titleClassName,
   closeButtonClassName,
-  side = "right",
+  side = "left",
   hideDefaultCloseButton = true,
 }: IProps) {
   return (

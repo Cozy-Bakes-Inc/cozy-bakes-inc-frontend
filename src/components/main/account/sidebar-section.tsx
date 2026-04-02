@@ -8,10 +8,12 @@ import { logoutAPI } from "@/services/mutations";
 export default function SidebarSection({
   activeTab,
   sections,
+  onNavigate,
 }: SidebarSectionProps) {
   const handleLogout = async () => {
     await logoutAPI();
     await handleLogoutSession();
+    onNavigate?.();
   };
   return (
     <div className="space-y-4">
@@ -32,6 +34,7 @@ export default function SidebarSection({
                 <Link
                   key={item.id}
                   href={`/account?tab=${item.id}`}
+                  onClick={onNavigate}
                   className={cn(
                     "flex h-11 items-center rounded-2xl px-4 text-sm transition-colors sm:h-12.25 sm:text-base",
                     isActive

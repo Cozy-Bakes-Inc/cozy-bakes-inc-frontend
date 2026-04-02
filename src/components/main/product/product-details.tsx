@@ -53,7 +53,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   return (
     <section className="bg-bg-creamy py-12 sm:py-16">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 sm:px-10 lg:grid-cols-2 lg:items-stretch">
-        <div className="overflow-hidden rounded-3xl shadow-sm h-full">
+        <div className="relative h-[320px] overflow-hidden rounded-3xl shadow-sm sm:h-[420px] lg:h-full lg:min-h-[560px]">
           <Swiper
             modules={[Autoplay]}
             slidesPerView={1}
