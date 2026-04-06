@@ -67,6 +67,7 @@ export default function ProductTabs({
               ? "Ingredients"
               : "Allergens & Dietary Notes"}
           </h2>
+
           {tabContent ? (
             <p className="mt-4 text-sm sm:text-base">
               {tabContent}

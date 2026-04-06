@@ -13,10 +13,15 @@ import {
   type TestimonialsSchemaValues,
 } from "@/schemas/main";
 import { reviewAPI } from "@/services/mutations";
+import type { ApiResult, ErrorBody } from "@/types";
 
 type AddReviewModalProps = {
   open: boolean;
   onClose: () => void;
+  onSubmitReview?: (
+    payload: TestimonialsSchemaValues,
+  ) => Promise<ApiResult<unknown, ErrorBody>>;
+  invalidateQueryKeys?: readonly unknown[][];
 };
 
 const defaultValues: TestimonialsSchemaValues = {
@@ -24,7 +29,12 @@ const defaultValues: TestimonialsSchemaValues = {
   review_text: "",
 };
 
-export default function AddReviewModal({ open, onClose }: AddReviewModalProps) {
+export default function AddReviewModal({
+  open,
+  onClose,
+  onSubmitReview,
+  invalidateQueryKeys = [["reviews"]],
+}: AddReviewModalProps) {
   const queryClient = useQueryClient();
   const {
     control,
@@ -54,13 +64,19 @@ export default function AddReviewModal({ open, onClose }: AddReviewModalProps) {
       return;
     }
 
-    const result = await reviewAPI(parsed.data);
+    const result = await (onSubmitReview
+      ? onSubmitReview(parsed.data)
+      : reviewAPI(parsed.data));
 
     if (result?.ok) {
       toast.success(result?.message || "Review added successfully");
-      await queryClient.invalidateQueries({
-        queryKey: ["reviews"],
-      });
+      await Promise.all(
+        invalidateQueryKeys.map((queryKey) =>
+          queryClient.invalidateQueries({
+            queryKey,
+          }),
+        ),
+      );
       handleModalClose();
       return;
     }

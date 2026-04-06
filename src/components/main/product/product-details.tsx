@@ -2,12 +2,14 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { ShoppingCart } from "lucide-react";
+import { MoveRight, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Counter from "@/components/ui/counter";
 import RatingStars from "@/components/ui/rating-stars";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import AddReviewModal from "@/layout/main/site/add-review-modal";
+import { productReviewAPI } from "@/services/mutations";
 import { useCartStore } from "@/store/cart-store";
 import type { ApiProductItem } from "@/interfaces";
 
@@ -17,6 +19,7 @@ type ProductDetailsProps = {
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
   const [quantity, setQuantity] = useState(1);
+  const [isAddReviewOpen, setIsAddReviewOpen] = useState(false);
   const handleCounter = (value: number) => setQuantity(value);
   const addItem = useCartStore((state) => state.addItem);
   const openCart = useCartStore((state) => state.openCart);
@@ -27,6 +30,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const originalPrice = Number(product?.price ?? 0);
   const productPrice = Number(product?.final_price ?? product?.price ?? 0);
   const productRating = Number(product?.rating ?? 0);
+  const productSlug = product?.slug;
   const productFreshness =
     product?.freshness_guarantee ??
     "Freshness information is not available for this product.";
@@ -53,7 +57,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   return (
     <section className="bg-bg-creamy py-12 sm:py-16">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 sm:px-10 lg:grid-cols-2 lg:items-stretch">
-        <div className="relative h-[320px] overflow-hidden rounded-3xl shadow-sm sm:h-[420px] lg:h-full lg:min-h-[560px]">
+        <div className="relative h-[320px] overflow-hidden rounded-3xl shadow-sm sm:h-[420px] lg:h-full lg:min-h-0">
           <Swiper
             modules={[Autoplay]}
             slidesPerView={1}
@@ -106,6 +110,28 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </div>
             </div>
 
+            <div className="flex flex-col gap-3 rounded-2xl border border-primary/10 bg-primary/5 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm font-semibold text-secondary">
+                  Share your experience
+                </p>
+                <p className="mt-1 text-xs leading-5 text-gray sm:text-sm">
+                  Tried this item before? Add your review to help other
+                  customers.
+                </p>
+              </div>
+
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsAddReviewOpen(true)}
+                className="h-10 rounded-full border-primary bg-background px-5 text-sm font-semibold text-primary hover:bg-primary/5 hover:text-secondary"
+              >
+                <span>Add Review</span>
+                <MoveRight className="size-4" />
+              </Button>
+            </div>
+
             <div className="rounded-2xl border border-secondary/10 bg-bg-creamy px-4 py-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-card">
                 Freshness Guarantee
@@ -138,6 +164,20 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           </div>
         </div>
       </div>
+
+      {productSlug ? (
+        <AddReviewModal
+          open={isAddReviewOpen}
+          onClose={() => setIsAddReviewOpen(false)}
+          onSubmitReview={(payload) => productReviewAPI(productSlug, payload)}
+          invalidateQueryKeys={[["singleProduct", productSlug], ["reviews"]]}
+        />
+      ) : (
+        <AddReviewModal
+          open={isAddReviewOpen}
+          onClose={() => setIsAddReviewOpen(false)}
+        />
+      )}
     </section>
   );
 }
