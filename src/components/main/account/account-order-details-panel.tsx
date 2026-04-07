@@ -440,15 +440,17 @@ export default function AccountOrderDetailsPanel({
           </div>
         </div>
 
-        <Button
-          type="button"
-          size="default"
-          onClick={handleCancelOrder}
-          disabled={!canCancelOrder || isCancelling}
-          className="mt-5 h-12 w-full rounded-lg border border-[#f04438] bg-[#f04438] px-4 text-sm font-medium text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] hover:bg-[#f04438]/90 sm:h-13.5 sm:text-base"
-        >
-          {isCancelling ? <Loader /> : "Cancel Order"}
-        </Button>
+        {canCancelOrder ? (
+          <Button
+            type="button"
+            size="default"
+            onClick={handleCancelOrder}
+            disabled={isCancelling}
+            className="mt-5 h-12 w-full rounded-lg border border-[#f04438] bg-[#f04438] px-4 text-sm font-medium text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] hover:bg-[#f04438]/90 sm:h-13.5 sm:text-base"
+          >
+            {isCancelling ? <Loader /> : "Cancel Order"}
+          </Button>
+        ) : null}
       </section>
     </div>
   );
