@@ -30,7 +30,7 @@ export default function DeliveryPickupTabs({
             activeTab === "pickup" ? "bg-primary text-white" : "text-gray-600"
           }`}
         >
-          Store Pickup
+          Pickup Location
         </button>
       </div>
     </div>

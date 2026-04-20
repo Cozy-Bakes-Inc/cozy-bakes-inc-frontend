@@ -30,7 +30,7 @@ export default function PickupShopCard({
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary/70">
-            Store Pickup
+            Pickup Location
           </p>
           <h3 className="text-base font-semibold text-dark">{shop.name}</h3>
           {shop.store_description ? (

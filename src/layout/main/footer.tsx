@@ -4,14 +4,21 @@ import {
   Facebook,
   Instagram,
   Phone,
-  Twitter,
   Mail,
   ChevronsRight,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import type { SVGProps } from "react";
 import { Button } from "@/components/ui/button";
 
-const links = ["Home", "Our Menu", "Our Categories", "Our Story", "Contact us"];
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/menu", label: "Our Menu" },
+  { href: "/categories", label: "Our Categories" },
+  { href: "/story", label: "Our Story" },
+  { href: "/contact", label: "Contact us" },
+];
 
 const markets = [
   {
@@ -23,6 +30,19 @@ const markets = [
     time: "Friday - Jan 18 - 9:00 AM - 2:00 PM",
   },
 ];
+
+function TikTokIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M14.25 3c.2 1.72 1.16 3.27 2.58 4.18.97.62 2.1.96 3.24.98v3.17a8.77 8.77 0 0 1-4.16-1.07v5.95a6.21 6.21 0 1 1-6.22-6.21c.33 0 .66.03.98.08v3.22a3.08 3.08 0 1 0 2.48 3.02V3h3.1Z" />
+    </svg>
+  );
+}
 
 export default function Footer() {
   return (
@@ -52,10 +72,18 @@ export default function Footer() {
               <Facebook className="h-4 w-4" />
             </Button>
             <Button
+              asChild
               size="icon"
               className="h-10 w-10 rounded-md bg-primary text-white shadow-sm hover:bg-primary/90"
             >
-              <Twitter className="h-4 w-4" />
+              <a
+                href="https://www.tiktok.com/@cozybakesinc?_r=1&_t=ZS-95gOMNgVwG5"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Cozy Bakes Inc. on TikTok"
+              >
+                <TikTokIcon className="h-4 w-4" />
+              </a>
             </Button>
             <Button
               size="icon"
@@ -84,9 +112,14 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-primary">Quick Links</h4>
             <ul className="mt-3 space-y-2 text-sm text-white/70">
               {links.map((item) => (
-                <li key={item} className="flex items-center gap-2">
+                <li key={item.href} className="flex items-center gap-2">
                   <ChevronsRight />
-                  {item}
+                  <Link
+                    href={item.href}
+                    className="transition-colors hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -105,18 +138,26 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-primary">Get in Touch</h4>
             <div className="mt-3 space-y-3 text-sm text-white/70">
-              <div className="flex items-center gap-2">
+              <a
+                href="tel:+16122276186"
+                className="flex items-center gap-2 transition-colors hover:text-white"
+                aria-label="Call Cozy Bakes Inc. at (612) 227-6186"
+              >
                 <div className="w-8 h-8 bg-background/16 flex items-center justify-center rounded-full overflow-hidden">
                   <Phone className="h-4 w-4 shrink-0" />
                 </div>
                 (612) 227-6186
-              </div>
-              <div className="flex items-center gap-2">
+              </a>
+              <a
+                href="mailto:marwa@cozybakesinc.com"
+                className="flex items-center gap-2 transition-colors hover:text-white"
+                aria-label="Email Cozy Bakes Inc. at marwa@cozybakesinc.com"
+              >
                 <div className="w-8 h-8 bg-background/16 flex items-center justify-center rounded-full overflow-hidden">
                   <Mail className="h-4 w-4 shrink-0" />
                 </div>
                 marwa@cozybakesinc.com
-              </div>
+              </a>
             </div>
           </div>
         </div>

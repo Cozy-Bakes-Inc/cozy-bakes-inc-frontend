@@ -5,19 +5,11 @@ import SelectionCard from "@/components/ui/selection-card";
 import type { SelectionItem } from "@/interfaces";
 import { AnimatePresence, motion } from "framer-motion";
 
-type ProductTab = {
-  label: string;
-  value: "best" | "gluten-free" | "new" | "vetris";
-};
-
-type ProductItem = SelectionItem & {
-  tab: ProductTab["value"];
-};
+type ProductItem = SelectionItem;
 
 const products: ProductItem[] = [
   {
     id: "artisan-sourdough",
-    tab: "best",
     title: "Artisan Sourdough",
     desc: "Traditional sourdough with a crisp crust and soft, tangy interior.",
     price: "$8.50",
@@ -27,7 +19,6 @@ const products: ProductItem[] = [
   },
   {
     id: "chocolate-croissant",
-    tab: "best",
     title: "Chocolate Croissant",
     desc: "Buttery, flaky pastry with premium chocolate and golden layers.",
     price: "$8.50",
@@ -38,7 +29,6 @@ const products: ProductItem[] = [
   },
   {
     id: "vanilla-bean-cake",
-    tab: "best",
     title: "Vanilla Bean Cake",
     desc: "Light vanilla cake with Madagascar beans and silky buttercream.",
     price: "$8.50",
@@ -48,17 +38,15 @@ const products: ProductItem[] = [
   },
   {
     id: "cookies",
-    tab: "gluten-free",
     title: "Cookies & Biscuits",
     desc: "Golden cookies with rich chocolate and warm crunchy texture.",
     price: "$8.50",
     image: "/images/triple-chocolate-cookies.png",
-    badge: "Gluten-Free",
+    badge: "Recommended",
     category: "recommended",
   },
   {
     id: "cinnamon-rolls",
-    tab: "new",
     title: "Cinnamon Rolls",
     desc: "Soft rolls with cinnamon layers and vanilla bean glaze.",
     price: "$8.50",
@@ -68,7 +56,6 @@ const products: ProductItem[] = [
   },
   {
     id: "french-baguette",
-    tab: "vetris",
     title: "French Baguette",
     desc: "Classic baguette with a crisp crust and airy interior.",
     price: "$8.50",

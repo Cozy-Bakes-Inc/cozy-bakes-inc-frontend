@@ -21,8 +21,8 @@ export default function DeliveryAddressDetailsSection({
       <div className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2">
           <DeliveryDetailsFormInput
-            label="Apt & Flower / Vill No"
-            placeholder="Apt & Flower / Vill No"
+            label="Apt & Floor Number"
+            placeholder="Apt & Floor Number"
             errorMessage={errors.apt_villa?.message}
             register={register("apt_villa", {
               validate: (value) => {

@@ -5,6 +5,7 @@ const contactCards = [
     title: "Email us",
     description: "Speak to our friendly team.",
     detail: "marwa@cozybakesinc.com",
+    href: "mailto:marwa@cozybakesinc.com",
     Icon: Mail,
   },
   {
@@ -18,6 +19,7 @@ const contactCards = [
     description:
       "Reach out anytime with your order questions or sweet cravings.",
     detail: "+1 (612) 227-6186",
+    href: "tel:+16122276186",
     Icon: Phone,
   },
 ];
@@ -41,7 +43,16 @@ export default function ContactInfoSection() {
                 </p>
                 <p className="text-sm text-gray-500">{card.description}</p>
               </div>
-              <p className="text-sm font-semibold text-dark">{card.detail}</p>
+              {card.href ? (
+                <a
+                  href={card.href}
+                  className="text-sm font-semibold text-dark transition-colors hover:text-primary"
+                >
+                  {card.detail}
+                </a>
+              ) : (
+                <p className="text-sm font-semibold text-dark">{card.detail}</p>
+              )}
             </div>
           ))}
         </div>

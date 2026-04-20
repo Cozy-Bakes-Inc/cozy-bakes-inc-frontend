@@ -43,7 +43,7 @@ export default function ProductRecommendations() {
             <span>You May Also Like</span>
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-dark sm:text-4xl">
-            Our Bakery , <span className="text-heading-2">Recommendations</span>
+            Our Bakery <span className="text-heading-2">Recommendations</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-gray sm:text-base">
             Discover more freshly baked treats, made with care and the finest

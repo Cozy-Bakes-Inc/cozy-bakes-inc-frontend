@@ -31,9 +31,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const productPrice = Number(product?.final_price ?? product?.price ?? 0);
   const productRating = Number(product?.rating ?? 0);
   const productSlug = product?.slug;
-  const productFreshness =
-    product?.freshness_guarantee ??
-    "Freshness information is not available for this product.";
+  // const productFreshness =
+  //   product?.freshness_guarantee ??
+  //   "Freshness information is not available for this product.";
   const images = product?.images?.length
     ? product.images.map((src, index) => ({
         src,
@@ -57,7 +57,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   return (
     <section className="bg-bg-creamy py-12 sm:py-16">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 sm:px-10 lg:grid-cols-2 lg:items-stretch">
-        <div className="relative h-[320px] overflow-hidden rounded-3xl shadow-sm sm:h-[420px] lg:h-full lg:min-h-0">
+        <div className="relative h-80 overflow-hidden rounded-3xl shadow-sm sm:h-[420px] lg:h-full lg:min-h-0">
           <Swiper
             modules={[Autoplay]}
             slidesPerView={1}
@@ -132,14 +132,14 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </Button>
             </div>
 
-            <div className="rounded-2xl border border-secondary/10 bg-bg-creamy px-4 py-3">
+            {/* <div className="rounded-2xl border border-secondary/10 bg-bg-creamy px-4 py-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-card">
                 Freshness Guarantee
               </p>
               <p className="mt-1 text-xs leading-5 text-gray">
                 {productFreshness}
               </p>
-            </div>
+            </div> */}
 
             <div className="flex items-center justify-between gap-4">
               <h5 className="text-sm font-semibold text-dark">Quantity:</h5>

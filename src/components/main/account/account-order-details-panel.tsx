@@ -197,8 +197,7 @@ export default function AccountOrderDetailsPanel({
 
   const safeOrderNumber = order.order_number?.trim();
   const canCancelOrder =
-    Boolean(safeOrderNumber) &&
-    ["pending", "processed", "packed"].includes(order.status);
+    Boolean(safeOrderNumber) && order.status === "pending";
 
   const handleCancelOrder = async () => {
     if (!canCancelOrder || isCancelling) {
