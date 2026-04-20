@@ -24,7 +24,7 @@ export default function NavActions({ hasToken }: NavActionsProps) {
   const handleAccount = () => {
     router.push("/account");
   };
-  console.log(data);
+
   return (
     <>
       <div className="hidden sm:flex items-center gap-3">

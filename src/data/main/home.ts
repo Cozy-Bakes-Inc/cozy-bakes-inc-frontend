@@ -115,7 +115,7 @@ export const categoryItems: CategoryItem[] = [
 ];
 
 export const selectionTabs: SelectionTab[] = [
-  { label: "Best Selling", value: "best" },
+  { label: "Best Sellers", value: "best" },
   { label: "New Arrivals", value: "new" },
   { label: "Recommended", value: "recommended" },
 ];

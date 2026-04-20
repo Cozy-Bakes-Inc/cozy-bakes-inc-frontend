@@ -28,7 +28,7 @@ export default function MarketSection() {
             <span> Weekly Presence</span>
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">
-            Freshly Baked, <span className="text-heading-2">Locally Found</span>
+            Freshly Baked <span className="text-heading-2">Locally Found</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-slate-500 sm:text-base">
             We bring the warmth of our oven to local squares across the city.

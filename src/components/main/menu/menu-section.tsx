@@ -45,7 +45,7 @@ export default function MenuSection() {
               key={`${section.title}-${index}`}
               className="rounded-2xl border border-primary/15 bg-background p-6 shadow-sm"
             >
-              <h3 className="text-lg font-semibold text-dark">
+              <h3 className="text-2xl font-semibold tracking-tight text-primary sm:text-[2rem]">
                 {section.title}
               </h3>
               <div className="mt-4 space-y-2">

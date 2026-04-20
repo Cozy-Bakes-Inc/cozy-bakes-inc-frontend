@@ -3,7 +3,6 @@
 import {
   Facebook,
   Instagram,
-  MapPin,
   Phone,
   Twitter,
   Mail,
@@ -12,7 +11,7 @@ import {
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
-const links = ["Home", "Our Menu", "Gluten-free", "Our Story", "Contact us"];
+const links = ["Home", "Our Menu", "Our Categories", "Our Story", "Contact us"];
 
 const markets = [
   {
@@ -78,7 +77,7 @@ export default function Footer() {
             <p className="mt-3 text-sm text-white/70">By Marwa</p>
             <p className="mt-2 text-sm text-white/70">
               Handcrafted with love, baked to perfection. Experience the warmth
-              of artisan baking since 2020.
+              of artisan baking since 2024.
             </p>
           </div>
           <div>
@@ -93,7 +92,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-semibold text-primary">Farmers Day</h4>
+            <h4 className="text-sm font-semibold text-primary">Market Days</h4>
             <div className="mt-3 space-y-4 text-sm text-white/70">
               {markets.map((market) => (
                 <div key={market.name}>
@@ -110,19 +109,13 @@ export default function Footer() {
                 <div className="w-8 h-8 bg-background/16 flex items-center justify-center rounded-full overflow-hidden">
                   <Phone className="h-4 w-4 shrink-0" />
                 </div>
-                (555) 123-4567
+                (612) 227-6186
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-background/16 flex items-center justify-center rounded-full overflow-hidden">
                   <Mail className="h-4 w-4 shrink-0" />
                 </div>
-                hello@cozybakes.com
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-background/16 flex items-center justify-center rounded-full overflow-hidden">
-                  <MapPin className="h-4 w-4 shrink-0" />
-                </div>
-                123 Bakery Lane, Sweet City
+                marwa@cozybakesinc.com
               </div>
             </div>
           </div>

@@ -17,7 +17,7 @@ export default function CategoriesSectionHeader() {
         <span>Our Categories</span>
       </div>
       <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-dark sm:text-4xl">
-        Crafted for, <span className="text-heading-2">Every Taste</span>
+        Crafted for <span className="text-heading-2">Every Taste</span>
       </h2>
       <p className="mx-auto mt-3 max-w-2xl text-sm text-gray sm:text-base">
         From daily breads to handcrafted pastries and special orders, our

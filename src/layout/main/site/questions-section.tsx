@@ -10,7 +10,7 @@ export default function QuestionsSection() {
 
         <div className="relative mx-auto max-w-7xl px-5 py-20 text-center text-white sm:px-10">
           <h2 className="animate-in fade-in slide-in-from-bottom-4 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
-            We&apos;re Here to,{" "}
+            We&apos;re Here to{" "}
             <span className="text-card">Answer Your Questions</span>
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-sm text-white/85 sm:text-base animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">

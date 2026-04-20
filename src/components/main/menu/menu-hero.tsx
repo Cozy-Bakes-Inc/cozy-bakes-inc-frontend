@@ -5,7 +5,7 @@ export default function MenuHero() {
     <HeroSection
       badge="Explore Our"
       title="Our Freshly Baked Selection"
-      description="Our menu features a fresh selection of handcrafted baked goods, made daily using natural ingredients and time-honored recipes."
+      description="Our menu features a fresh selection of handcrafted baked goods, made daily using quality ingredients and time-honored recipes."
       image={{
         src: "/images/our-categories.png",
         alt: "Fresh bakery products",

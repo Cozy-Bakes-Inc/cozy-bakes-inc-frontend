@@ -45,7 +45,7 @@ export default function ContactFormSection() {
             <span> Contact Us</span>
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-dark sm:text-4xl">
-            We’d love to, <span className="text-heading-2">hear from you</span>
+            We’d love to <span className="text-heading-2">hear from you</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-gray sm:text-base">
             Have a question or special request? We&apos;d love to hear from you.
@@ -116,7 +116,8 @@ export default function ContactFormSection() {
                 <input
                   {...register("subject", {
                     validate: (value) => {
-                      const result = contactSchema.shape.subject.safeParse(value);
+                      const result =
+                        contactSchema.shape.subject.safeParse(value);
                       return result.success || result.error.issues[0]?.message;
                     },
                   })}
@@ -135,7 +136,8 @@ export default function ContactFormSection() {
                 <textarea
                   {...register("message", {
                     validate: (value) => {
-                      const result = contactSchema.shape.message.safeParse(value);
+                      const result =
+                        contactSchema.shape.message.safeParse(value);
                       return result.success || result.error.issues[0]?.message;
                     },
                   })}

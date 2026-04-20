@@ -29,8 +29,7 @@ export default function StorySection({ bg, circle = true }: Story) {
             <span> Our Story</span>
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-dark sm:text-4xl">
-            A Journey of,{" "}
-            <span className="text-heading-2">Passion & Craft</span>
+            A Journey of <span className="text-heading-2">Passion & Craft</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-gray sm:text-base">
             Every great bakery has a story, and ours is built on love,

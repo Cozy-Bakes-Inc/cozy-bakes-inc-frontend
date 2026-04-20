@@ -16,7 +16,9 @@ export default function MarketSection() {
     <section className="relative bg-[url('/images/farmer-market-bg.png')] bg-cover bg-center py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
         <div className="text-center">
-          <h2 className="text-heading-2 font-bold sm:text-2xl">Today Market</h2>
+          <h2 className="text-heading-2 font-bold sm:text-2xl">
+            Today’s Markets
+          </h2>
         </div>
         <div className="relative mt-10 rounded-2xl bg-background/90 shadow-lg">
           <Swiper

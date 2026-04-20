@@ -47,7 +47,7 @@ export default function CartPanel({ hasToken }: CartPanelProps) {
         <div className="flex h-20 items-center justify-between bg-bg-creamy px-6">
           <div className="flex items-center gap-2 text-primary">
             <ShoppingCart className="size-5" />
-            <p className="text-xs font-medium sm:text-sm">My Select Item</p>
+            <p className="text-xs font-medium sm:text-sm">My Selected Items</p>
           </div>
 
           <Button

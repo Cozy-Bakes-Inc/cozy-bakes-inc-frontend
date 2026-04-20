@@ -71,7 +71,9 @@ export default function CartPanelMyLikeCarousel({
   return (
     <div className="rounded-2xl border border-border/24 bg-bg-creamy p-2.5">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-medium text-dark sm:text-sm">Also My Like</p>
+        <p className="text-xs font-medium text-dark sm:text-sm">
+          Recommended for you
+        </p>
 
         <div className="flex items-center gap-1">
           <button

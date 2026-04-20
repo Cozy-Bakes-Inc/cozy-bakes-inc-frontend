@@ -2,21 +2,22 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 const contactCards = [
   {
-    title: "Chat to us",
+    title: "Email us",
     description: "Speak to our friendly team.",
-    detail: "hello@cozybakes.com",
+    detail: "marwa@cozybakesinc.com",
     Icon: Mail,
   },
   {
     title: "Visit us",
-    description: "Pickup in-store.",
-    detail: "100 Smith Street, Collingwood VIC 3066 AU",
+    description: "See our weekly market schedule.",
+    detail: "",
     Icon: MapPin,
   },
   {
-    title: "Call us",
-    description: "Mon-Fri from 8am to 5pm.",
-    detail: "+1 (555) 000-0000",
+    title: "Text us anytime",
+    description:
+      "Reach out anytime with your order questions or sweet cravings.",
+    detail: "+1 (612) 227-6186",
     Icon: Phone,
   },
 ];
