@@ -1,6 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
+import { Button } from "@/components/ui/button";
 
 import CartContentEmptyState from "./cart-content-empty-state";
 import CartContentItemsList from "./cart-content-items-list";
@@ -11,6 +14,7 @@ type CartContentProps = {
 };
 
 export default function CartContent({ hasToken }: CartContentProps) {
+  const router = useRouter();
   const { items, updateQuantity, removeItem } = useCartStore();
 
   const total = items.reduce(
@@ -33,9 +37,27 @@ export default function CartContent({ hasToken }: CartContentProps) {
           )}
 
           {items.length > 0 && (
-            <CartContentSummary hasToken={hasToken} items={items} total={total} />
+            <CartContentSummary
+              hasToken={hasToken}
+              items={items}
+              total={total}
+            />
           )}
         </div>
+
+        {items.length > 0 && (
+          <div className="mt-8 flex justify-center">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => router.push("/menu")}
+              className="h-11 min-w-60 rounded-md border-primary bg-background px-8 text-sm font-medium text-primary shadow-[0_10px_25px_rgba(102,72,28,0.08)] hover:bg-bg-creamy hover:border-secondary hover:text-secondary"
+            >
+              <ShoppingCart className="size-4" />
+              Continue Shopping
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

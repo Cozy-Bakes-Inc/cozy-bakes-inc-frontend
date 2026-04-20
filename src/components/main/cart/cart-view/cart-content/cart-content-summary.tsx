@@ -47,7 +47,7 @@ export default function CartContentSummary({
               ))}
             </div>
 
-            <div className="mt-4 flex items-center justify-between">
+          <div className="mt-4 flex items-center justify-between">
               <p className="text-base font-semibold text-dark">Total</p>
               <p className="text-2xl font-semibold text-primary">
                 ${total.toFixed(2)}
