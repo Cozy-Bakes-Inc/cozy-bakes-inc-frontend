@@ -48,10 +48,11 @@ export default function SelectionCard({ item, badge: badgeOverride }: SelectionC
   const price = formatProductPrice(item);
 
   return (
-    <Link href={productHref}>
-      <article className="flex h-full flex-col overflow-hidden rounded-2xl bg-background shadow-sm">
-        <div className="relative overflow-hidden">
+    <Link href={productHref} className="block h-full min-w-0">
+      <article className="flex h-full w-full min-w-0 flex-col overflow-hidden rounded-2xl bg-background shadow-sm">
+        <div className="relative min-w-0 overflow-hidden">
           <motion.div
+            className="min-w-0"
             animate={{ scale: isHovered ? 1.04 : 1 }}
             transition={{ duration: 0.35 }}
           >
@@ -100,12 +101,12 @@ export default function SelectionCard({ item, badge: badgeOverride }: SelectionC
             </div>
           )}
         </div>
-        <div className="flex flex-1 flex-col p-4">
-          <h3 className="text-base font-semibold text-secondary">
+        <div className="flex min-w-0 flex-1 flex-col p-4">
+          <h3 className="min-w-0 text-base font-semibold text-secondary">
             {item.title}
           </h3>
           <motion.p
-            className="mt-2 text-xs leading-5 text-gray"
+            className="mt-2 min-w-0 text-xs leading-5 text-gray"
             animate={{
               height: isHovered ? "auto" : "2em",
               opacity: isHovered ? 1 : 0.7,
