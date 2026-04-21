@@ -1,3 +1,6 @@
+import { Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
 type MenuItem = {
   name: string;
   price: string;
@@ -140,6 +143,15 @@ export default function MenuSection() {
   return (
     <section className="bg-background py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-5 sm:px-10">
+        <div className="mb-6 flex justify-end">
+          <Button asChild className="h-11 px-5">
+            <a href="/cozy-bakes-menu.pdf" download="cozy-bakes-menu.pdf">
+              <Download className="size-4" />
+              Download Menu PDF
+            </a>
+          </Button>
+        </div>
+
         <div className="space-y-6">
           {menuSections.map((section, index) => (
             <article

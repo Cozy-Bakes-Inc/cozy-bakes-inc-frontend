@@ -7,7 +7,7 @@ import StorySection from "./story-section";
 function Home() {
   return (
     <>
-      <HeroVideoSlider />
+      {/* <HeroVideoSlider /> */}
       <MarketSection />
       <SelectionSection />
       <CategoriesSection />

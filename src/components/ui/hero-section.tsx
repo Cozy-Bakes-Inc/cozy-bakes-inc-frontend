@@ -34,7 +34,7 @@ export default function HeroSection({
         </div>
 
         <div className="hidden justify-self-end lg:block">
-          <div className="relative w-100 h-82.5">
+          <div className="relative w-87.5 h-88">
             <Image
               src={image.src}
               alt={image.alt}

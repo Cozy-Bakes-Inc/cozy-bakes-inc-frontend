@@ -7,8 +7,8 @@ export default function ContactHero() {
       title="We can’t wait to hear from you!"
       description="Whether it’s about our market days, customer orders, or freshly baked goods, reach out and we’ll be happy to help you!"
       image={{
-        src: "/images/our-categories.png",
-        alt: "Fresh bakery products",
+        src: "/images/logo-hero-section.png",
+        alt: "Cozy Bakes Inc",
       }}
     />
   );

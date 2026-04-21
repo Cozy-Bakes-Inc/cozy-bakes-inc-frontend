@@ -1,93 +1,16 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import SliderDots from "@/components/ui/slider-dots";
+import MarketShowcase from "@/components/main/market-showcase";
 import { marketSlides } from "@/data";
-import { CalendarDays, MapPin, Navigation } from "lucide-react";
-import Image from "next/image";
-import { useRef, useState } from "react";
-import type { Swiper as SwiperType } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
 
 function FarmersMarketDays() {
-  const swiperRef = useRef<SwiperType | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
   return (
-    <section className="py-20">
-      <div className="mx-auto  max-w-7xl  px-5 sm:px-10">
-        <div>
-          <h2 className="text-heading-2 font-bold sm:text-2xl text-center">
-            Friday Market
-          </h2>
-        </div>
-        <div className="relative mt-10 rounded-2xl bg-background/90 shadow-lg">
-          <Swiper
-            className="pb-10"
-            onSwiper={(swiper) => {
-              swiperRef.current = swiper;
-              setActiveIndex(swiper.realIndex);
-            }}
-            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-          >
-            {marketSlides.map((slide) => (
-              <SwiperSlide key={slide.title}>
-                <div className="grid items-stretch md:grid-cols-2">
-                  <div className="relative h-50 overflow-hidden rounded-t-2xl md:h-120 md:rounded-l-2xl md:rounded-tr-none">
-                    <Image
-                      src={slide.image}
-                      alt={slide.title}
-                      width={720}
-                      height={520}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="flex h-full flex-col justify-center rounded-b-2xl border-t-4 border-primary/10 bg-background p-6 sm:p-8 md:rounded-r-2xl md:rounded-bl-none md:border-r-4 md:p-10">
-                    <span className="inline-flex w-fit rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
-                      {slide.badge}
-                    </span>
-                    <h3 className="mt-3 text-xl font-bold text-slate-800 sm:text-2xl">
-                      {slide.title}
-                    </h3>
-                    <p className="mt-3 rounded-xl border border-primary/20 bg-primary/5 p-3 text-sm text-primary sm:text-base">
-                      {slide.desc}
-                    </p>
-                    <div className="mt-4 space-y-2 text-sm text-slate-600 sm:text-base">
-                      <div className="flex items-center gap-2">
-                        <CalendarDays className="size-4 text-primary shrink-0" />
-                        {slide.date} - {slide.time}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="size-4 text-primary shrink-0" />
-                        {slide.address}
-                      </div>
-                    </div>
-                    <div className="mt-5 flex flex-wrap gap-3">
-                      <Button className="bg-primary hover:bg-primary/90">
-                        <Navigation className="size-4 shrink-0" />
-                        {slide.primaryCta}
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="border-primary/30 text-primary"
-                      >
-                        {slide.secondaryCta}
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <SliderDots
-            count={marketSlides.length}
-            activeIndex={activeIndex}
-            onSelect={(index) => swiperRef.current?.slideTo(index)}
-            bottom="-bottom-13"
-            inActiveBg="h-2.5 w-2.5 bg-primary/25 hover:bg-primary/40"
-          />
-        </div>
-      </div>
-    </section>
+    <MarketShowcase
+      slides={marketSlides}
+      dotsBottom="-bottom-13"
+      sectionClassName="py-20"
+      title="Friday Market"
+    />
   );
 }
 

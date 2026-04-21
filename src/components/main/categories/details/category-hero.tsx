@@ -7,8 +7,8 @@ export default function CategoryHeroSection() {
       title="Breads"
       description="Artisan sourdough, rustic baguettes, and handcrafted loaves baked fresh daily with premium organic flour."
       image={{
-        src: "/images/bread-category.png",
-        alt: "Fresh bakery products",
+        src: "/images/logo-hero-section.png",
+        alt: "Cozy Bakes Inc",
       }}
     />
   );
