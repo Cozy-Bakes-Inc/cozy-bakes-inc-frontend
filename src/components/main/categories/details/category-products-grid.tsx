@@ -32,7 +32,7 @@ export default function CategoryProductsGrid() {
         {isProductsLoading ? (
           <GridShimmer count={3} />
         ) : (
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             <AnimatePresence mode="popLayout" initial={false}>
               {products.map((product, index) => (
                 <motion.div
