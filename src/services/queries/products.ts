@@ -12,10 +12,13 @@ export const listProductsInfiniteAPI = async (
     `/product/list?sort=${sort}&page=${page}&per_page=${PAGE_SIZE}`,
   );
 
-export const listProductsPreviewAPI = async (sort: string = "random") =>
+export const listProductsPreviewAPI = async (
+  sort: string = "random",
+  pageSize: number = 3,
+) =>
   await baseAPI<PaginatedApiResponse<ApiProductItem>>(
     "GET",
-    `/product/list?sort=${sort}&page=1&per_page=3`,
+    `/product/list?sort=${sort}&page=1&per_page=${pageSize}`,
   );
 
 export const bestSellingInfiniteAPI = async (page: number) =>

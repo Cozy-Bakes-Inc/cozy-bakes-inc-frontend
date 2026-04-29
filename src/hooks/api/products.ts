@@ -32,10 +32,14 @@ export function useProductsInfinite(sort: string) {
   );
 }
 
-export function useProductsPreview(sort: string, enabled: boolean = true) {
+export function useProductsPreview(
+  sort: string = "random",
+  pageSize: number = 3,
+  enabled: boolean = true,
+) {
   return useCustomQuery(
     ["products", "preview", sort],
-    () => listProductsPreviewAPI(sort),
+    () => listProductsPreviewAPI(sort, pageSize),
     { enabled },
   );
 }

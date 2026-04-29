@@ -8,5 +8,5 @@ export default async function ProductPage({
   }>;
 }) {
   const { slug } = await params;
-  return <Product />;
+  return <>{/* <Product /> */}</>;
 }

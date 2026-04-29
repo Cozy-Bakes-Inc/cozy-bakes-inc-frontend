@@ -26,7 +26,7 @@ export function GridShimmer({
   return (
     <div
       className={cn(
-        "mt-10 grid animate-in gap-6 fade-in slide-in-from-bottom-6 duration-700 sm:grid-cols-2 lg:grid-cols-3",
+        "mt-10 grid animate-in gap-6 fade-in slide-in-from-bottom-6 duration-700 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
         className,
       )}
     >

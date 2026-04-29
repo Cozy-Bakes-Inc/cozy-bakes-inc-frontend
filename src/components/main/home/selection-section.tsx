@@ -37,10 +37,10 @@ export default function SelectionSection() {
   const { data: bestSellingData, isLoading: isBestSellingLoading } =
     useBestSellingPreview(activeTab === "best");
   const { data: newArrivalsData, isLoading: isNewArrivalsLoading } =
-    useProductsPreview("latest", activeTab === "new");
+    useProductsPreview("latest", 3, activeTab === "new");
   const { data: recommendedData, isLoading: isRecommendedLoading } =
     useRecommendedProductsPreview(activeTab === "recommended");
-  console.log(bestSellingData?.data?.data);
+
   const bestSellingItems = useMemo(
     () =>
       mapProductsToSelectionItems(bestSellingData?.data?.data ?? [], "best"),
