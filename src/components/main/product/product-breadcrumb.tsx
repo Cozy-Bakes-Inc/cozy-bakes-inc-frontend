@@ -11,11 +11,12 @@ export default function ProductBreadcrumb() {
   const slug = params.slug;
   const { data, isError, error } = useSingleProduct(slug);
   const product = data?.data;
-  const isNotFound = isError && isAxiosError(error) && error.response?.status === 404;
+  const isNotFound =
+    isError && isAxiosError(error) && error.response?.status === 404;
   const productTitle = isNotFound
     ? "Product Not Available"
     : (product?.title ?? "Product");
-  const subCategory = product?.sub_categories?.[0];
+  const subCategory = product?.sub_category;
   const subCategoryTitle = isNotFound
     ? "Unavailable"
     : (subCategory?.title ?? "Category");

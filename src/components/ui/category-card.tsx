@@ -7,7 +7,6 @@ type CategoryCardProps = {
 };
 
 export default function CategoryCard({ item }: CategoryCardProps) {
-  console.log(item?.image);
   return (
     <Link href={item.href ?? "/categories/1"}>
       <article className="group relative h-full overflow-hidden rounded-4xl bg-background shadow-sm">

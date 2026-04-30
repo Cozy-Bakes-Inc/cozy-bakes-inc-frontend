@@ -82,10 +82,10 @@ export default function Account({
   return (
     <>
       <AccountBreadcrumb activeTab={activeTab} />
-      <section className="bg-background py-6 sm:py-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-10">
-          <div className="grid gap-4 sm:gap-6 lg:grid-cols-[311px_1fr] lg:items-start">
-            <div className="space-y-4 lg:sticky lg:top-24">
+      <section className="w-full overflow-x-hidden bg-background py-6 sm:py-14">
+        <div className="mx-auto w-full max-w-7xl px-3 sm:px-10">
+          <div className="grid w-full min-w-0 gap-4 sm:gap-6 lg:grid-cols-[minmax(0,311px)_minmax(0,1fr)] lg:items-start">
+            <div className="min-w-0 space-y-4 lg:sticky lg:top-24">
               <ProfileSummaryCard profile={profileUser} />
 
               <AccountMobileSidebarPanel
@@ -94,13 +94,16 @@ export default function Account({
               />
 
               <div className="hidden lg:block">
-                <SidebarSection activeTab={activeTab} sections={sidebarSections} />
+                <SidebarSection
+                  activeTab={activeTab}
+                  sections={sidebarSections}
+                />
               </div>
             </div>
 
             {activeOrderListTab ? (
-              <section className="rounded-3xl bg-bg-creamy p-2.5 sm:p-6 bg">
-                <div className="rounded-3xl border border-border/24 bg-background p-4 sm:p-6">
+              <section className="min-w-0 rounded-3xl bg-bg-creamy p-2.5 sm:p-6">
+                <div className="min-w-0 rounded-3xl border border-border/24 bg-background p-3 sm:p-6">
                   <h2 className="text-base font-medium capitalize leading-7 text-primary sm:text-lg sm:leading-7.5">
                     {activeTabDefinition.title}
                   </h2>

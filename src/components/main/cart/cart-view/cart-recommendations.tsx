@@ -1,36 +1,30 @@
 "use client";
+
+import { useMemo } from "react";
 import SelectionCard from "@/components/ui/selection-card";
-import type { SelectionItem } from "@/interfaces";
+import type { ApiProductItem, SelectionItem } from "@/interfaces";
+import { useRecommendedProductsPreview } from "@/hooks";
 import { Sparkles } from "lucide-react";
 
-const recommendations: SelectionItem[] = [
-  {
-    id: "artisan-sourdough",
-    title: "Artisan Sourdough",
-    desc: "Traditional sourdough with a crisp crust and soft, tangy interior.",
-    price: "$8.50",
-    image: "/images/artisan-sourdough.jpg",
-    category: "best",
-  },
-  {
-    id: "vanilla-bean-cake",
-    title: "Vanilla Bean Cake",
-    desc: "Light vanilla cake with Madagascar beans and silky buttercream.",
-    price: "$8.50",
-    image: "/images/vanilla-bean-cake.jpg",
-    category: "best",
-  },
-  {
-    id: "chocolate-croissant",
-    title: "Chocolate Croissant",
-    desc: "Buttery, flaky pastry with premium chocolate and golden layers.",
-    price: "$8.50",
-    image: "/images/chocolate-croissant.jpg",
-    category: "best",
-  },
-];
+function mapProductsToSelectionItems(
+  products: ApiProductItem[],
+): SelectionItem[] {
+  return products.map((product) => ({
+    ...product,
+    id: product.id,
+    actionLabel: "Add",
+  }));
+}
 
 export default function CartRecommendations() {
+  const { data, isLoading } = useRecommendedProductsPreview();
+  const recommendations = useMemo(
+    () => mapProductsToSelectionItems(data?.data?.data ?? []),
+    [data],
+  );
+  console.log(data);
+  if (isLoading || recommendations.length === 0) return null;
+
   return (
     <section className="bg-bg-creamy py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-10">

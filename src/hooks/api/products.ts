@@ -105,5 +105,7 @@ export function useRecommendedProductsPreview(enabled: boolean = true) {
 }
 
 export function useSingleProduct(slug: string) {
-  return useCustomQuery(["singleProduct", slug], () => singleProductAPI(slug));
+  return useCustomQuery(["singleProduct", slug], () => singleProductAPI(slug), {
+    enabled: !!slug,
+  });
 }

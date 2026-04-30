@@ -1,5 +1,5 @@
 import HeroVideoSlider from "./hero";
-import CategoriesSection from "./categories-section";
+import CategoriesSection from "./categories";
 import MarketSection from "./market-section";
 import SelectionSection from "./selection-section";
 import StorySection from "./story-section";

@@ -1,9 +1,9 @@
 import { PAGE_SIZE } from "@/constants";
 import type {
-  ApiProductItem,
   CategoriesApiResponse,
   CategorySubcategoriesApiResponse,
   PaginatedApiResponse,
+  ProductsBySubcategoryApiResponse,
   SubcategoryItem,
 } from "@/interfaces";
 import { baseAPI } from "..";
@@ -26,11 +26,16 @@ export const listSubcategoriesAPI = async (page: number) =>
     `/sub-category/list?sort=most_products&page=${page}&per_page=${PAGE_SIZE}`,
   );
 
+export const listSubcategoriesPreviewAPI = async (pageSize: number = 3) =>
+  await baseAPI<PaginatedApiResponse<SubcategoryItem>>(
+    "GET",
+    `/sub-category/list?sort=most_products&page=1&per_page=${pageSize}`,
+  );
 export const listProductsBySubcategoryAPI = async (
   slug: string,
   page: number,
 ) =>
-  await baseAPI<PaginatedApiResponse<ApiProductItem>>(
+  await baseAPI<ProductsBySubcategoryApiResponse>(
     "GET",
     `/sub-category/${slug}/products?sort=latest&page=${page}&per_page=${PAGE_SIZE}`,
   );

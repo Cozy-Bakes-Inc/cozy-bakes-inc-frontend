@@ -35,9 +35,22 @@ export interface CategorySubcategoryItem {
 }
 
 export interface ProductSubCategoryItem {
-  id?: number | string;
-  slug?: string;
+  id: number;
+  slug: string;
+  category_id: string;
   title: string;
+  description: string;
+  image: string;
+  deleted_at: null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ProductSubcategoryDetails {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
 }
 
 export interface ApiProductItem {
@@ -59,7 +72,7 @@ export interface ApiProductItem {
   quantity?: number | string | null;
   status?: number | string;
   total_sold?: number;
-  sub_categories?: ProductSubCategoryItem[];
+  sub_category?: ProductSubCategoryItem;
   created_at?: string;
   updated_at?: string;
 }
@@ -94,4 +107,11 @@ export interface CategorySubcategoriesApiResponse {
       sub_categories: PaginationMeta<CategorySubcategoryItem>;
     };
   };
+}
+
+export interface ProductsBySubcategoryApiResponse {
+  status: string;
+  message: string;
+  data: PaginationMeta<ApiProductItem>;
+  sub_category: ProductSubcategoryDetails;
 }

@@ -2,16 +2,17 @@
 
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useSubcategories } from "@/hooks/api/categories";
+import { useSubcategoriesPreview } from "@/hooks/api/categories";
 import type { SubcategoryItem } from "@/interfaces/main/categories";
 import CategoriesSectionGrid from "./categories-section-grid";
 import CategoriesSectionHeader from "./categories-section-header";
 
 export default function CategoriesSection() {
-  const { data, isLoading } = useSubcategories();
+  const { data, isLoading } = useSubcategoriesPreview(4);
 
-  const subcategories: SubcategoryItem[] =
-    data?.pages?.flatMap((page) => page?.data?.data ?? []) ?? [];
+  const subcategories: SubcategoryItem[] = data?.data?.data ?? [];
+  const visibleSubcategories = subcategories.slice(0, 3);
+  const hasMoreCategories = subcategories.length > 3;
 
   return (
     <section className="relative overflow-x-hidden bg-background py-20">
@@ -20,9 +21,12 @@ export default function CategoriesSection() {
 
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
         <CategoriesSectionHeader />
-        <CategoriesSectionGrid items={subcategories} isLoading={isLoading} />
+        <CategoriesSectionGrid
+          items={visibleSubcategories}
+          isLoading={isLoading}
+        />
 
-        {subcategories.length >= 3 && (
+        {hasMoreCategories && (
           <div className="mt-10 flex justify-center animate-in fade-in slide-in-from-bottom-6 duration-700">
             <Link
               href="/categories"

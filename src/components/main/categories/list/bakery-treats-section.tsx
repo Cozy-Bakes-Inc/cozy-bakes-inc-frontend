@@ -24,6 +24,9 @@ export default function BakeryTreatsSection() {
     () => mapProductsToSelectionItems(data?.data?.data ?? []),
     [data],
   );
+
+  if (!isLoading && products.length === 0) return null;
+
   return (
     <section className="bg-bg-creamy py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
@@ -48,9 +51,7 @@ export default function BakeryTreatsSection() {
           </p>
         </motion.div>
         {isLoading ? (
-          <GridShimmer
-            cardClassName="bg-background"
-          />
+          <GridShimmer cardClassName="bg-background" />
         ) : (
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             <AnimatePresence mode="popLayout" initial={false}>

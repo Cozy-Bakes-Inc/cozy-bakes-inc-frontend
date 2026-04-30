@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { accountStatusTabsBreakpoints } from "@/data";
 import type { OrderStatus } from "@/types";
 import { cn } from "@/lib";
 import AccountOrdersListPanel from "./account-orders-list-panel";
@@ -40,29 +42,34 @@ export default function AccountNewOrderPanel() {
     newOrderStatusTabs[0];
 
   return (
-    <div className="mt-4 space-y-4">
-      <div className="overflow-x-auto">
-        <div className="flex min-w-max gap-2 rounded-2xl border border-border/24 bg-bg-creamy p-1.5">
+    <div className="mt-4 min-w-0 space-y-4">
+      <div className="max-w-full overflow-hidden rounded-2xl border border-border/24 bg-bg-creamy p-1.5">
+        <Swiper
+          slidesPerView={2}
+          spaceBetween={8}
+          breakpoints={accountStatusTabsBreakpoints}
+        >
           {newOrderStatusTabs.map((tab) => {
             const isActive = tab.id === activeStatus;
 
             return (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveStatus(tab.id)}
-                className={cn(
-                  "rounded-xl px-4 py-2 text-sm font-medium transition-colors",
-                  isActive
-                    ? "bg-primary text-white shadow-sm"
-                    : "text-gray hover:bg-white hover:text-primary",
-                )}
-              >
-                {tab.label}
-              </button>
+              <SwiperSlide key={tab.id}>
+                <button
+                  type="button"
+                  onClick={() => setActiveStatus(tab.id)}
+                  className={cn(
+                    "h-10 w-full rounded-xl px-3 text-xs font-medium transition-colors sm:px-4 sm:text-sm",
+                    isActive
+                      ? "bg-primary text-white shadow-sm"
+                      : "text-gray hover:bg-white hover:text-primary",
+                  )}
+                >
+                  {tab.label}
+                </button>
+              </SwiperSlide>
             );
           })}
-        </div>
+        </Swiper>
       </div>
 
       <AccountOrdersListPanel

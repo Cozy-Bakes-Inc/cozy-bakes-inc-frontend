@@ -3,8 +3,9 @@ import {
   listCategoriesAPI,
   listProductsBySubcategoryAPI,
   listSubcategoriesAPI,
+  listSubcategoriesPreviewAPI,
 } from "@/services/queries";
-import { useCustomInfiniteQuery } from "../useCustomQuery";
+import { useCustomInfiniteQuery, useCustomQuery } from "../useCustomQuery";
 
 export function useCategories() {
   return useCustomInfiniteQuery(
@@ -73,6 +74,12 @@ export function useSubcategories() {
         return undefined;
       },
     },
+  );
+}
+
+export function useSubcategoriesPreview(pageSize: number = 3) {
+  return useCustomQuery(["subcategories", "preview", pageSize], () =>
+    listSubcategoriesPreviewAPI(pageSize),
   );
 }
 

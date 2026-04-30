@@ -30,7 +30,7 @@ export default function CategoryProductsGrid() {
     <section className="bg-bg-creamy py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
         {isProductsLoading ? (
-          <GridShimmer count={3} />
+          <GridShimmer count={3} cardClassName="bg-background" />
         ) : (
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             <AnimatePresence mode="popLayout" initial={false}>

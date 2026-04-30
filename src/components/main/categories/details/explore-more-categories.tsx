@@ -1,79 +1,36 @@
 "use client";
 
 import CategoryCard from "@/components/ui/category-card";
-import type { CategoryItem } from "@/interfaces";
+import { Shimmer } from "@/components/ui/shimmer";
+import type { CategoryCardItem, SubcategoryItem } from "@/interfaces";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
 import Image from "next/image";
 import { breakpoints } from "@/data";
+import { useSubcategoriesPreview } from "@/hooks";
+import { useMemo } from "react";
 
-const cards: CategoryItem[] = [
-  {
-    id: "breads",
-    title: "Breads",
-    subtitle: "Explore Collection",
-    image: "/images/artisan-sourdough.jpg",
-    desc: "Artisan sourdough and handcrafted daily loaves.",
-  },
-  {
-    id: "croissants",
-    title: "Croissants & Pastries",
-    subtitle: "Explore Collection",
-    image: "/images/chocolate-croissant.jpg",
-    desc: "Flaky, buttery pastries baked fresh every morning.",
-  },
-  {
-    id: "cakes",
-    title: "Cakes & Desserts",
-    subtitle: "Explore Collection",
-    image: "/images/vanilla-bean-cake.jpg",
-    desc: "Celebration cakes and rich homemade desserts.",
-  },
-  {
-    id: "cookies",
-    title: "Cookies & Biscuits",
-    subtitle: "Explore Collection",
-    image: "/images/triple-chocolate-cookies.png",
-    desc: "Crunchy cookies and soft biscuits for every bite.",
-  },
-  {
-    id: "donuts",
-    title: "Donuts",
-    subtitle: "Explore Collection",
-    image: "/images/cinnamon-rolls.jpg",
-    desc: "Soft donuts and sweet rings with seasonal glazes.",
-  },
-  {
-    id: "savory-bakery",
-    title: "Savory Bakery",
-    subtitle: "Explore Collection",
-    image: "/images/french-baguette.jpg",
-    desc: "Savory loaves and bakery favorites for lunch and dinner.",
-  },
-  {
-    id: "savory",
-    title: "Savory",
-    subtitle: "Explore Collection",
-    image: "/images/farmer-market-1.png",
-    desc: "Market-style savory bakes and handcrafted specialties.",
-  },
-  {
-    id: "specialty-rolls",
-    title: "Specialty Rolls",
-    subtitle: "Explore Collection",
-    image: "/images/cinnamon-rolls.jpg",
-    desc: "Soft signature rolls with custom fillings and toppings.",
-  },
-  {
-    id: "danish-rolls",
-    title: "Danish Rolls",
-    subtitle: "Explore Collection",
-    image: "/images/vanilla-bean-cake.jpg",
-    desc: "Layered Danish rolls with creamy and fruity flavors.",
-  },
-];
+function mapSubcategoryToCard(item: SubcategoryItem): CategoryCardItem {
+  return {
+    id: item.id,
+    image: item.image,
+    title: item.title,
+    subtitle: item.parent_category,
+    desc: item.description,
+    href: `/categories/${item.slug}`,
+    footerLabel: item.products_count,
+  };
+}
 
 export default function ExploreMoreCategories() {
+  const { data, isLoading } = useSubcategoriesPreview();
+  const subcategories = useMemo(
+    () => (data?.data?.data ?? []).map(mapSubcategoryToCard),
+    [data],
+  );
+
+  if (!isLoading && subcategories.length === 0) return null;
+
   return (
     <section className="bg-background py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
@@ -90,7 +47,7 @@ export default function ExploreMoreCategories() {
             <span> Explore More</span>
           </div>
           <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-dark sm:text-4xl">
-            Explore Our Other,{" "}
+            Explore Our Other{" "}
             <span className="text-heading-2">Bakery Delights</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-gray sm:text-base">
@@ -109,11 +66,17 @@ export default function ExploreMoreCategories() {
           className="mt-10 pb-6"
           breakpoints={breakpoints}
         >
-          {cards.map((item) => (
-            <SwiperSlide key={item.id} className="h-auto!">
-              <CategoryCard item={item} />
-            </SwiperSlide>
-          ))}
+          {isLoading
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <SwiperSlide key={index} className="h-auto!">
+                  <Shimmer className="h-80 w-full rounded-4xl bg-bg-creamy" />
+                </SwiperSlide>
+              ))
+            : subcategories.map((item) => (
+                <SwiperSlide key={item.id} className="h-auto!">
+                  <CategoryCard item={item} />
+                </SwiperSlide>
+              ))}
         </Swiper>
       </div>
     </section>

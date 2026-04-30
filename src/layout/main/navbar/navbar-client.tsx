@@ -21,7 +21,7 @@ export default function NavbarClient({ hasToken }: NavbarClientProps) {
   });
 
   return (
-    <header className="sticky top-0 z-50 border-b shadow-sm bg-background">
+    <header className="sticky top-0 z-50 border-b bg-background shadow-sm">
       <nav className="mx-auto max-w-7xl px-4 py-2.5">
         <div className="flex h-16 items-center justify-between">
           <NavLogo />
@@ -47,7 +47,7 @@ export default function NavbarClient({ hasToken }: NavbarClientProps) {
       </nav>
 
       {open && (
-        <div className="lg:hidden border-t bg-background">
+        <div className="absolute left-0 top-full w-full border-t bg-background shadow-lg lg:hidden">
           <NavLinks mobile onNavigate={() => setOpen(false)} />
         </div>
       )}

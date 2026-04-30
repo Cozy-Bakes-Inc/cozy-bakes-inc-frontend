@@ -6,15 +6,9 @@ import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import { useRecommendedProductsPreview } from "@/hooks";
+import type { ApiProductItem } from "@/interfaces";
 import type { CartItem } from "@/store/cart-store";
-
-type RecommendationItem = {
-  id: string;
-  title: string;
-  image: string;
-  price: number;
-  description: string;
-};
 
 type AddCartItemInput = {
   id: string;
@@ -29,44 +23,42 @@ type CartPanelMyLikeCarouselProps = {
   onAddItem: (item: AddCartItemInput) => void;
 };
 
-const recommendations: RecommendationItem[] = [
-  {
-    id: "multigrain-bread",
-    title: "Multigrain Bread",
-    image: "/images/french-baguette.jpg",
-    price: 8.5,
-    description:
-      "Traditional sourdough with a crispy crust and soft, tangy interior.",
-  },
-  {
-    id: "whole-grain-bread",
-    title: "Whole Grain Bread",
-    image: "/images/artisan-sourdough.jpg",
-    price: 8.5,
-    description:
-      "Light and moist loaf with nutty texture and rich, wholesome flavor.",
-  },
-  {
-    id: "sourdough-bread-liked",
-    title: "Sourdough Bread",
-    image: "/images/artisan-sourdough.jpg",
-    price: 8.5,
-    description:
-      "Traditional sourdough with a crispy crust and soft, tangy interior.",
-  },
-];
+function getProductPrice(product: ApiProductItem) {
+  const rawPrice = product.final_price ?? product.price;
+  const parsedPrice =
+    typeof rawPrice === "number" ? rawPrice : Number(rawPrice ?? 0);
+
+  return Number.isFinite(parsedPrice) ? parsedPrice : 0;
+}
+
+function mapProductToRecommendation(product: ApiProductItem) {
+  return {
+    id: String(product.id),
+    title: product.title,
+    image: product.image || "/images/artisan-sourdough.jpg",
+    price: getProductPrice(product),
+    description: product.description ?? "Freshly baked and ready to order.",
+  };
+}
 
 export default function CartPanelMyLikeCarousel({
   items,
   onAddItem,
 }: CartPanelMyLikeCarouselProps) {
   const swiperRef = useRef<SwiperType | null>(null);
+  const { data, isLoading } = useRecommendedProductsPreview();
+  const recommendations = useMemo(
+    () => (data?.data?.data ?? []).map(mapProductToRecommendation),
+    [data],
+  );
   const myLikeItems = useMemo(() => {
     const filtered = recommendations.filter(
       (recommendation) => !items.some((item) => item.id === recommendation.id),
     );
-    return filtered.length > 0 ? filtered : recommendations;
-  }, [items]);
+    return filtered;
+  }, [items, recommendations]);
+
+  if (isLoading || myLikeItems.length === 0) return null;
 
   return (
     <div className="rounded-2xl border border-border/24 bg-bg-creamy p-2.5">

@@ -56,17 +56,13 @@ export default function SelectionCard({ item }: SelectionCardProps) {
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="relative w-full max-w-full min-w-0 overflow-hidden">
-          <motion.div
-            className="w-full max-w-full min-w-0 origin-center overflow-hidden"
-            animate={{ scale: isHovered ? 1.04 : 1 }}
-            transition={{ duration: 0.35 }}
-          >
+          <motion.div className="w-full max-w-full min-w-0 origin-center overflow-hidden">
             {hasMultipleImages ? (
               <Swiper
                 modules={[Autoplay]}
                 slidesPerView={1}
                 autoplay={{
-                  delay: 2500,
+                  delay: 3000,
                   disableOnInteraction: false,
                   pauseOnMouseEnter: true,
                 }}

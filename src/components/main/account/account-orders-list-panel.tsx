@@ -109,7 +109,7 @@ export default function AccountOrdersListPanel({
   const EmptyStateIcon = emptyState.icon;
 
   return (
-    <div className="mt-3 space-y-3">
+    <div className="mt-3 min-w-0 space-y-3">
       {isLoading ? (
         Array.from({ length: 3 }).map((_, index) => (
           <AccountOrderCardSkeleton key={index} />
@@ -122,13 +122,13 @@ export default function AccountOrdersListPanel({
           return (
             <article
               key={order.id}
-              className="rounded-2xl border border-border/24 bg-bg-creamy p-2.5"
+              className="min-w-0 rounded-2xl border border-border/24 bg-bg-creamy p-2.5"
             >
-              <div className="flex items-start gap-2">
+              <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-start">
                 {productHref ? (
                   <Link
                     href={productHref}
-                    className="block shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="block w-fit shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:w-auto"
                   >
                     <Image
                       src={orderImage}
@@ -149,7 +149,7 @@ export default function AccountOrdersListPanel({
                 )}
                 <div className="min-w-0 flex-1">
                   <div className="mb-0.5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-lg font-semibold leading-7 text-dark sm:text-[18px]">
+                    <p className="min-w-0 break-words text-base font-semibold leading-7 text-dark sm:text-[18px]">
                       Order #{order.order_number}
                     </p>
                     <span
@@ -169,7 +169,7 @@ export default function AccountOrdersListPanel({
                           {item.title} * {item.quantity}
                         </p>
                         {item.description?.trim() ? (
-                          <p className="text-sm text-gray/90">
+                          <p className="break-words text-sm text-gray/90">
                             {item.description.trim()}
                           </p>
                         ) : null}

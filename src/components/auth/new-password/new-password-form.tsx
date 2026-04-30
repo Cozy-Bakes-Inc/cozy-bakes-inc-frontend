@@ -80,7 +80,7 @@ export function NewPasswordForm({ email }: NewPasswordFormProps) {
     }
 
     const result = await resetPasswordAPI(validationResult.data);
-    console.log(result);
+
     if (result?.ok) {
       sessionStorage.removeItem(RESET_CONTEXT_KEY);
       toast.success(result?.message || "Password changed successfully");
