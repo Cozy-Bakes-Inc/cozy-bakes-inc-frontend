@@ -10,7 +10,6 @@ const recommendations: SelectionItem[] = [
     desc: "Traditional sourdough with a crisp crust and soft, tangy interior.",
     price: "$8.50",
     image: "/images/artisan-sourdough.jpg",
-    badge: "Best Seller",
     category: "best",
   },
   {
@@ -19,7 +18,6 @@ const recommendations: SelectionItem[] = [
     desc: "Light vanilla cake with Madagascar beans and silky buttercream.",
     price: "$8.50",
     image: "/images/vanilla-bean-cake.jpg",
-    badge: "Best Seller",
     category: "best",
   },
   {
@@ -28,7 +26,6 @@ const recommendations: SelectionItem[] = [
     desc: "Buttery, flaky pastry with premium chocolate and golden layers.",
     price: "$8.50",
     image: "/images/chocolate-croissant.jpg",
-    badge: "Best Seller",
     category: "best",
   },
 ];

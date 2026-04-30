@@ -13,12 +13,6 @@ import {
 } from "@/hooks";
 import { GridShimmer } from "@/components/ui/shimmer";
 
-const tabBadgeMap: Record<SelectionTab["value"], string> = {
-  best: "Best Seller",
-  new: "New Arrival",
-  recommended: "Recommended",
-};
-
 function mapProductsToSelectionItems(
   products: ApiProductItem[],
   category: SelectionTab["value"],
@@ -26,7 +20,6 @@ function mapProductsToSelectionItems(
   return products.slice(0, 3).map((product, index) => ({
     ...product,
     id: product.id ?? product.slug ?? `${category}-${index}`,
-    badge: tabBadgeMap[category],
     category,
     actionLabel: "Add",
   }));

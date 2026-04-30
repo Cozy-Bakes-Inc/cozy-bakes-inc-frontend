@@ -52,7 +52,7 @@ export default function CategoryProductsGrid() {
                     layout: { type: "spring", stiffness: 280, damping: 30 },
                   }}
                 >
-                  <SelectionCard item={product} badge="Fresh Pick" />
+                  <SelectionCard item={product} />
                 </motion.div>
               ))}
             </AnimatePresence>

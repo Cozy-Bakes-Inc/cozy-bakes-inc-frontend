@@ -14,7 +14,6 @@ function mapProductsToSelectionItems(
   return products.map((product) => ({
     ...product,
     id: product.id,
-    badge: "Fresh Pick",
     actionLabel: "Add",
   }));
 }
