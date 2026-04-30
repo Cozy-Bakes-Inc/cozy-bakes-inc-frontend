@@ -1,7 +1,11 @@
 import Menu from "@/components/main/menu";
 
 function MenuPage() {
-  return <>{/* <Menu /> */}</>;
+  return (
+    <>
+      <Menu />
+    </>
+  );
 }
 
 export default MenuPage;

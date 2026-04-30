@@ -1,7 +1,11 @@
 import FarmersMarket from "@/components/main/farmers-market";
 
 function FarmersMarketPage() {
-  return <>{/* <FarmersMarket /> */}</>;
+  return (
+    <>
+      <FarmersMarket />
+    </>
+  );
 }
 
 export default FarmersMarketPage;

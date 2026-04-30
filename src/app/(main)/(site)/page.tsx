@@ -1,7 +1,11 @@
 import Home from "@/components/main/home";
 
 function HomePage() {
-  return <>{/* <Home /> */}</>;
+  return (
+    <>
+      <Home />
+    </>
+  );
 }
 
 export default HomePage;
