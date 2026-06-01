@@ -13,7 +13,7 @@ export default function CartContentItemsList({
   onRemoveItem,
 }: CartContentItemsListProps) {
   return (
-    <div className="space-y-3">
+    <div className="divide-y divide-secondary/10">
       {items.map((item) => (
         <CartContentItemCard
           key={item.id}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { resolveCartDisplay } from "@/lib/utils/cart-display";
 import { OrderLineItem } from "./types";
 
 type OrderDetailItemProps = {
@@ -6,36 +7,53 @@ type OrderDetailItemProps = {
 };
 
 export default function OrderDetailItem({ item }: OrderDetailItemProps) {
-  return (
-    <article className="rounded-xl border border-border/24 bg-background p-3">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-start gap-2.5">
-          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md bg-bg-creamy">
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              className="object-cover"
-            />
-          </div>
+  const { flavorLines, displayQuantity } = resolveCartDisplay(item);
+  const total = item.price * item.quantity;
 
-          <div className="min-w-0 flex-1 sm:max-w-65">
-            <h3 className="text-sm font-semibold text-dark">{item.title}</h3>
-            <p className="text-[11px] leading-4 text-gray-500 wrap-break-word">
-              {item.subtitle}
-            </p>
-            <p className="mt-1 text-[10px] uppercase tracking-wide text-warm-brown">
-              Total Price
-            </p>
-            <p className="text-base font-semibold text-primary">
+  return (
+    <article className="py-4">
+      {/* Image + info */}
+      <div className="flex gap-3">
+        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-bg-creamy">
+          <Image src={item.image} alt={item.title} fill sizes="64px" className="object-cover" />
+        </div>
+
+        <div className="min-w-0 flex-1">
+          {/* Product title + unit price */}
+          <div className="flex items-start justify-between gap-3">
+            <p className="text-sm font-bold text-dark">{item.title}</p>
+            <p className="shrink-0 text-sm font-medium text-secondary/60">
               ${item.price.toFixed(2)}
             </p>
           </div>
-        </div>
 
-        <div className="self-start rounded-lg border border-gray-100 bg-background px-2 py-1 text-xs text-chocolate sm:self-auto">
-          {item.title} * {item.quantity}
+          {/* Price label + total quantity */}
+          {item.priceLabel && (
+            <p className="mt-0.5 text-xs font-semibold capitalize text-primary">
+              {item.priceLabel}
+              <span className="text-secondary/50"> × {displayQuantity}</span>
+            </p>
+          )}
+
+          {/* Flavor lines */}
+          {flavorLines.length > 0 && (
+            <div className="mt-1 space-y-0.5">
+              {flavorLines.map(({ label, count }) => (
+                <p key={label} className="text-xs leading-4 text-secondary/60">
+                  {count}x {label}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
+      </div>
+
+      {/* Qty badge + total */}
+      <div className="mt-2.5 flex items-center justify-between">
+        <span className="rounded-lg border border-secondary/10 bg-background px-2.5 py-1 text-xs font-medium text-secondary/60">
+          Qty: {displayQuantity}
+        </span>
+        <p className="text-sm font-bold text-dark">${total.toFixed(2)}</p>
       </div>
     </article>
   );

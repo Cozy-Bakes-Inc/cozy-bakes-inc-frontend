@@ -1,10 +1,12 @@
 export type OrderLineItem = {
   id: string;
   title: string;
-  subtitle: string;
+  priceLabel?: string;
   price: number;
   quantity: number;
   image: string;
+  flavors?: Record<string, number>;
+  packQuantity?: number;
 };
 
 export type PaymentChannel = "card" | "cash";

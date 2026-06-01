@@ -16,6 +16,7 @@ import {
   PaymentCashMethod,
   PaymentChannel,
 } from "./types";
+import { resolveCartDisplay } from "@/lib/utils/cart-display";
 import { useShippingFee } from "@/hooks";
 import { getFulfillmentTypeFromSearchParams } from "@/lib/utils/checkout";
 import { checkoutSchema, type CheckoutSchemaValues } from "@/schemas";
@@ -198,19 +199,30 @@ export default function CheckoutCartSummary({
         <div className="space-y-3 rounded-2xl bg-background p-4">
           {hasItems ? (
             <>
-              {items.map((item) => (
-                <div
-                  key={`checkout-${item.id}`}
-                  className="flex items-center justify-between text-sm"
-                >
-                  <span className="text-gray-500">
-                    {item.title} * {item.quantity}
-                  </span>
-                  <span className="font-medium text-dark">
-                    ${(item.price * item.quantity).toFixed(0)}
-                  </span>
-                </div>
-              ))}
+              {items.map((item) => {
+                const { flavorLines, displayQuantity } = resolveCartDisplay(item);
+                return (
+                  <div key={`checkout-${item.id}`} className="flex items-start justify-between gap-3 text-sm">
+                    <div className="min-w-0">
+                      <p className="font-semibold text-dark">{item.title}</p>
+                      {item.priceLabel && (
+                        <p className="text-xs font-semibold capitalize text-primary">
+                          {item.priceLabel}
+                          <span className="text-secondary/50"> × {displayQuantity}</span>
+                        </p>
+                      )}
+                      {flavorLines.map(({ label, count }) => (
+                        <p key={label} className="text-xs text-secondary/60">
+                          {count}x {label}
+                        </p>
+                      ))}
+                    </div>
+                    <span className="shrink-0 font-semibold text-dark">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </span>
+                  </div>
+                );
+              })}
 
               {isDelivery ? (
                 <div className="flex items-center justify-between border-t border-primary/20 pt-2 text-sm">

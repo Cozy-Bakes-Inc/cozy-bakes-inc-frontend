@@ -53,6 +53,16 @@ export interface ProductSubcategoryDetails {
   category: string;
 }
 
+export interface ProductPriceOption {
+  id: number | string;
+  type: string;
+  product_id: string | number;
+  label: string;
+  quantity: number | null;
+  price?: number | string | null;
+  value?: number | string | null;
+}
+
 export interface ApiProductItem {
   id: number | string;
   slug?: string;
@@ -72,6 +82,11 @@ export interface ApiProductItem {
   quantity?: number | string | null;
   status?: number | string;
   total_sold?: number;
+  prices?: {
+    per_unit?: ProductPriceOption[];
+    [key: string]: ProductPriceOption[] | undefined;
+  };
+  flavors?: string[];
   sub_category?: ProductSubCategoryItem;
   created_at?: string;
   updated_at?: string;

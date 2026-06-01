@@ -69,11 +69,11 @@ export default function ProductTabs({
           </h2>
 
           {tabContent ? (
-            <p className="mt-4 text-sm sm:text-base">
+            <p className="mt-4 wrap-break-word text-sm sm:text-base">
               {tabContent}
             </p>
           ) : (
-            <p className="mt-4 text-sm sm:text-base">
+            <p className="mt-4 wrap-break-word text-sm sm:text-base">
               {activeTab === "ingredients"
                 ? "No ingredients available for this product."
                 : "No allergen information available for this product."}

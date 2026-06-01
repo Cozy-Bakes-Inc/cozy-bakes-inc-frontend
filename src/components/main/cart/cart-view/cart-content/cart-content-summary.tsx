@@ -9,6 +9,7 @@ import { getCheckoutPath, hasSavedCheckoutDetails } from "@/lib/utils/checkout";
 import { useCartStore } from "@/store/cart-store";
 import type { CartItem } from "@/store/cart-store";
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
+import { resolveCartDisplay } from "@/lib/utils/cart-display";
 
 type CartContentSummaryProps = {
   hasToken: boolean;
@@ -31,26 +32,37 @@ export default function CartContentSummary({
           </div>
 
           <div className="rounded-2xl bg-background p-4">
-            <div className="space-y-4">
-              {items.map((item) => (
-                <div
-                  key={`${item.id}-summary-fallback`}
-                  className="flex items-center justify-between border-b border-primary/30 pb-2"
-                >
-                  <p className="text-sm text-gray-500">
-                    {item.title} * {item.quantity}
-                  </p>
-                  <p className="text-sm font-medium text-dark">
-                    ${(item.price * item.quantity).toFixed(2)}
-                  </p>
-                </div>
-              ))}
+            <div className="space-y-3">
+              {items.map((item) => {
+                const { flavorLines, displayQuantity } = resolveCartDisplay(item);
+                return (
+                  <div key={`${item.id}-summary-fallback`} className="flex items-start justify-between gap-3 text-sm">
+                    <div className="min-w-0">
+                      <p className="font-semibold text-dark">{item.title}</p>
+                      {item.priceLabel && (
+                        <p className="text-xs font-semibold capitalize text-primary">
+                          {item.priceLabel}
+                          <span className="text-secondary/50"> × {displayQuantity}</span>
+                        </p>
+                      )}
+                      {flavorLines.map(({ label, count }) => (
+                        <p key={label} className="text-xs text-secondary/60">
+                          {count}x {label}
+                        </p>
+                      ))}
+                    </div>
+                    <span className="shrink-0 font-semibold text-dark">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
 
-          <div className="mt-4 flex items-center justify-between">
-              <p className="text-base font-semibold text-dark">Total</p>
+            <div className="mt-3 flex items-center justify-between border-t border-primary/20 pt-3">
+              <p className="text-lg font-semibold text-dark">Total</p>
               <p className="text-2xl font-semibold text-primary">
-                ${total.toFixed(2)}
+                ${total.toFixed(0)}
               </p>
             </div>
           </div>
@@ -122,26 +134,37 @@ function CartContentSummaryContent({
       </div>
 
       <div className="rounded-2xl bg-background p-4">
-        <div className="space-y-4">
-          {items.map((item) => (
-            <div
-              key={`${item.id}-summary`}
-              className="flex items-center justify-between border-b border-primary/30 pb-2"
-            >
-              <p className="text-sm text-gray-500">
-                {item.title} * {item.quantity}
-              </p>
-              <p className="text-sm font-medium text-dark">
-                ${(item.price * item.quantity).toFixed(2)}
-              </p>
-            </div>
-          ))}
+        <div className="space-y-3">
+          {items.map((item) => {
+            const { flavorLines, displayQuantity } = resolveCartDisplay(item);
+            return (
+              <div key={`${item.id}-summary`} className="flex items-start justify-between gap-3 text-sm">
+                <div className="min-w-0">
+                  <p className="font-semibold text-dark">{item.title}</p>
+                  {item.priceLabel && (
+                    <p className="text-xs font-semibold capitalize text-primary">
+                      {item.priceLabel}
+                      <span className="text-secondary/50"> × {displayQuantity}</span>
+                    </p>
+                  )}
+                  {flavorLines.map(({ label, count }) => (
+                    <p key={label} className="text-xs text-secondary/60">
+                      {count}x {label}
+                    </p>
+                  ))}
+                </div>
+                <span className="shrink-0 font-semibold text-dark">
+                  ${(item.price * item.quantity).toFixed(2)}
+                </span>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="mt-4 flex items-center justify-between">
-          <p className="text-base font-semibold text-dark">Total</p>
+        <div className="mt-3 flex items-center justify-between border-t border-primary/20 pt-3">
+          <p className="text-lg font-semibold text-dark">Total</p>
           <p className="text-2xl font-semibold text-primary">
-            ${total.toFixed(2)}
+            ${total.toFixed(0)}
           </p>
         </div>
       </div>

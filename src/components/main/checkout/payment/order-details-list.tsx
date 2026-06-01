@@ -9,7 +9,7 @@ type OrderDetailsListProps = {
 export default function OrderDetailsList({ items }: OrderDetailsListProps) {
   return (
     <CheckoutSectionCard title="Order Details">
-      <div className="space-y-2.5">
+      <div className="divide-y divide-secondary/10">
         {items.length ? (
           items.map((item) => <OrderDetailItem key={item.id} item={item} />)
         ) : (

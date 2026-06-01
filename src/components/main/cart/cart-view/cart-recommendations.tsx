@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import SelectionCard from "@/components/ui/selection-card";
+import { GridShimmer } from "@/components/ui/shimmer";
 import type { ApiProductItem, SelectionItem } from "@/interfaces";
 import { useRecommendedProductsPreview } from "@/hooks";
 import { Sparkles } from "lucide-react";
@@ -22,8 +23,8 @@ export default function CartRecommendations() {
     () => mapProductsToSelectionItems(data?.data?.data ?? []),
     [data],
   );
-  console.log(data);
-  if (isLoading || recommendations.length === 0) return null;
+
+  if (!isLoading && recommendations.length === 0) return null;
 
   return (
     <section className="bg-bg-creamy py-16">
@@ -43,11 +44,15 @@ export default function CartRecommendations() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {recommendations.map((item) => (
-            <SelectionCard key={item.id} item={item} />
-          ))}
-        </div>
+        {isLoading ? (
+          <GridShimmer count={3} cardClassName="bg-background" />
+        ) : (
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {recommendations.map((item) => (
+              <SelectionCard key={item.id} item={item} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

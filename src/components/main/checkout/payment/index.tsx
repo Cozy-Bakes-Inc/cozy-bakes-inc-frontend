@@ -21,9 +21,6 @@ import {
   PaymentChannel,
 } from "./types";
 
-const sampleSubtitle =
-  "Light and moist vanilla cake with Madagascar vanilla beans and silky buttercream frosting.";
-
 export default function CheckoutPaymentPage() {
   const pathname = usePathname();
   const router = useRouter();
@@ -40,10 +37,12 @@ export default function CheckoutPaymentPage() {
       cartItems.map((item) => ({
         id: item.id,
         title: item.title,
-        subtitle: sampleSubtitle,
+        priceLabel: item.priceLabel,
         price: item.price,
         quantity: item.quantity,
         image: item.image,
+        flavors: item.flavors,
+        packQuantity: item.packQuantity,
       })),
     [cartItems],
   );
