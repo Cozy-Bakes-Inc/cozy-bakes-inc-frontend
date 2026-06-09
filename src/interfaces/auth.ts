@@ -21,6 +21,7 @@ export interface AuthenticatedUser {
     latitude?: string | null;
     longitude?: string | null;
     street_landmark?: string | null;
+    distance_note?: string | null;
   } | null;
 }
 

@@ -12,6 +12,8 @@ import {
   type ShippingInformationSchemaValues,
 } from "@/schemas/main/account";
 import { updateShippingInformationAPI } from "@/services/mutations/account";
+import { listDeliveryFee } from "@/services/mutations/checkout";
+import { useCartStore } from "@/store/cart-store";
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
 import DeliveryAddressDetailsSection from "./delivery-address-details-section";
 import DeliveryReceiverDetailsSection from "./delivery-receiver-details-section";
@@ -31,7 +33,15 @@ export default function DeliveryDetailsView({
   onSaveLocation,
 }: DeliveryDetailsViewProps) {
   const queryClient = useQueryClient();
-  const { data: authenticatedUser } = useAuthenticatedUser(true);
+  const { data: authenticatedUser, refetch: refetchAuthenticatedUser } =
+    useAuthenticatedUser(true);
+  const setShippingFeeData = useDeliveryPickupModalStore(
+    (state) => state.setShippingFeeData,
+  );
+  const setShippingFeeError = useDeliveryPickupModalStore(
+    (state) => state.setShippingFeeError,
+  );
+  const cartItems = useCartStore((state) => state.items);
   const deliveryLocation = useDeliveryPickupModalStore(
     (state) => state.deliveryLocation,
   );
@@ -73,6 +83,7 @@ export default function DeliveryDetailsView({
       street_landmark: "",
       latitude: "",
       longitude: "",
+      address_line: "",
     },
   });
 
@@ -116,6 +127,7 @@ export default function DeliveryDetailsView({
       streetLandmark: payload.street_landmark ?? "",
       latitude: Number(payload.latitude),
       longitude: Number(payload.longitude),
+      fullAddress: payload.address_line ?? deliveryLocation.fullAddress,
     });
     setReceiverDetails({
       firstName: payload.first_name,
@@ -124,15 +136,41 @@ export default function DeliveryDetailsView({
     });
 
     reset(payload);
-    toast.success(result?.message || "Shipping information updated successfully");
+    toast.success(
+      result?.message || "Shipping information updated successfully",
+    );
     await queryClient.invalidateQueries({
       queryKey: ["authenticatedUser"],
     });
+    void refetchAuthenticatedUser();
+
+    const validItems = cartItems.filter(
+      (item): item is typeof item & { slug: string; price_id: number } =>
+        !!item.slug && item.price_id != null,
+    );
+    const feeResult = await listDeliveryFee({
+      items: validItems.map((item) => ({
+        product_slug: item.slug,
+        price_id: item.price_id,
+        quantity: item.quantity,
+      })),
+    });
+
+    if (feeResult.ok && feeResult.data) {
+      setShippingFeeData(feeResult.data);
+      setShippingFeeError(null);
+    } else {
+      setShippingFeeData(null);
+      setShippingFeeError(
+        feeResult.message ?? "Unable to calculate shipping fee.",
+      );
+    }
+
     onSaveLocation?.();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 p-4">
       <div className="flex flex-col gap-3 rounded-2xl border border-border/24 p-2.5 md:flex-row md:items-center md:justify-between">
         <div className="flex min-w-0 items-start gap-3">
           <div className="grid size-16.75 shrink-0 place-items-center rounded-lg bg-bg-creamy">
@@ -165,6 +203,7 @@ export default function DeliveryDetailsView({
 
       <input type="hidden" {...register("latitude")} />
       <input type="hidden" {...register("longitude")} />
+      <input type="hidden" {...register("address_line")} />
 
       <DeliveryAddressDetailsSection errors={errors} register={register} />
       <DeliveryReceiverDetailsSection errors={errors} register={register} />

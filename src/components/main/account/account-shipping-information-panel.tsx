@@ -50,6 +50,7 @@ export default function AccountShippingInformationPanel({
   const receiverPhone = receiver?.phone_number?.trim() ?? "";
   const shippingTitle = shipping?.building_cluster?.trim() ?? "";
   const shippingAddress = shipping?.address_line?.trim() ?? "";
+  const distanceNote = shipping?.distance_note?.trim() ?? "";
   const hasShippingInfo = Boolean(shippingTitle || shippingAddress);
   const hasReceiverInfo = Boolean(
     receiverFirstName || receiverLastName || receiverPhone,
@@ -91,6 +92,10 @@ export default function AccountShippingInformationPanel({
             {hasShippingInfo ? data.address.changeAddressLabel : "Add Address"}
           </Button>
         </div>
+
+        {distanceNote && (
+          <p className="mt-2 text-xs text-amber-600">{distanceNote}</p>
+        )}
 
         <article className="mt-3 rounded-2xl border border-border/24 bg-background p-4 sm:p-5">
           {isLoading ? (

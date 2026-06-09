@@ -1,6 +1,7 @@
 "use client";
 
 import { create } from "zustand";
+import type { ShippingFeeApiResponse } from "@/interfaces";
 
 export type ReceiverDetails = {
   firstName: string;
@@ -34,10 +35,10 @@ const defaultReceiverDetails: ReceiverDetails = {
 };
 
 const defaultDeliveryLocation: DeliveryLocationDetails = {
-  label: "Minneapolis",
-  fullAddress: "425 S 7th St, Minneapolis, Minnesota 55415, USA",
-  latitude: 44.97399,
-  longitude: -93.26677,
+  label: "",
+  fullAddress: "",
+  latitude: 0,
+  longitude: 0,
   aptVilla: "",
   buildingCluster: "",
   streetLandmark: "",
@@ -58,6 +59,8 @@ type DeliveryPickupModalState = {
   receiverDetails: ReceiverDetails;
   deliveryLocation: DeliveryLocationDetails;
   pickupLocation: PickupLocationDetails;
+  shippingFeeData: ShippingFeeApiResponse | null;
+  shippingFeeError: string | null;
   openModal: () => void;
   closeModal: () => void;
   setShouldRedirectToCheckout: (value: boolean) => void;
@@ -72,6 +75,8 @@ type DeliveryPickupModalState = {
     field: K,
     value: ReceiverDetails[K],
   ) => void;
+  setShippingFeeData: (data: ShippingFeeApiResponse | null) => void;
+  setShippingFeeError: (error: string | null) => void;
 };
 
 export const useDeliveryPickupModalStore = create<DeliveryPickupModalState>(
@@ -81,6 +86,8 @@ export const useDeliveryPickupModalStore = create<DeliveryPickupModalState>(
     receiverDetails: defaultReceiverDetails,
     deliveryLocation: defaultDeliveryLocation,
     pickupLocation: defaultPickupLocation,
+    shippingFeeData: null,
+    shippingFeeError: null,
     openModal: () => set({ isOpen: true }),
     closeModal: () => set({ isOpen: false, shouldRedirectToCheckout: false }),
     setShouldRedirectToCheckout: (value) =>
@@ -102,5 +109,7 @@ export const useDeliveryPickupModalStore = create<DeliveryPickupModalState>(
           [field]: value,
         },
       })),
+    setShippingFeeData: (data) => set({ shippingFeeData: data }),
+    setShippingFeeError: (error) => set({ shippingFeeError: error }),
   }),
 );

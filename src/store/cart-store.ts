@@ -8,6 +8,7 @@ const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
 export type CartItem = {
   id: string;
   slug?: string;
+  price_id?: number;
   title: string;
   price: number;
   unitPrice?: number;   // price per single item — used to recalculate price when flavors change
@@ -57,6 +58,7 @@ function readCartCookie(): CartItem[] {
           typeof item.slug === "string" && item.slug.length > 0
             ? item.slug
             : item.id,
+        price_id: typeof item.price_id === "number" ? item.price_id : undefined,
         title: String(item.title ?? ""),
         price: Number(item.price ?? 0),
         unitPrice: typeof item.unitPrice === "number" ? item.unitPrice : undefined,

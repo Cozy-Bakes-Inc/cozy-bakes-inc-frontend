@@ -99,6 +99,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const cartProduct = {
     id: `${productBaseId}${priceOptionId}`,
     slug: product?.slug,
+    price_id: selectedOption
+      ? (selectedOption.price_id ?? Number(selectedOption.id))
+      : undefined,
     title: productTitle,
     price: cartPrice,
     unitPrice: showFlavorPicker && !isPackMode ? selectedPrice : undefined,

@@ -21,7 +21,7 @@ export function hasSavedCheckoutDetails(user?: AuthenticatedUser | null) {
 export function getCheckoutPath(lastFulfillmentType?: string | null) {
   const fulfillmentType = getFulfillmentType(lastFulfillmentType);
 
-  return `/checkout?fulfillment_type=${fulfillmentType}`;
+  return `/checkout?fulfillment-type=${fulfillmentType}`;
 }
 
 export function getFulfillmentType(value?: string | null) {
@@ -31,7 +31,7 @@ export function getFulfillmentType(value?: string | null) {
 export function getFulfillmentTypeFromSearchParams(
   searchParams: URLSearchParams | ReadonlyURLSearchParams,
 ) {
-  return getFulfillmentType(searchParams.get("fulfillment_type"));
+  return getFulfillmentType(searchParams.get("fulfillment-type"));
 }
 
 export function getCheckoutUrlWithFulfillmentType(
@@ -40,7 +40,7 @@ export function getCheckoutUrlWithFulfillmentType(
   fulfillmentType?: string | null,
 ) {
   const params = new URLSearchParams(searchParams.toString());
-  params.set("fulfillment_type", getFulfillmentType(fulfillmentType));
+  params.set("fulfillment-type", getFulfillmentType(fulfillmentType));
 
   const query = params.toString();
 

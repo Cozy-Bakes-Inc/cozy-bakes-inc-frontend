@@ -55,6 +55,7 @@ export interface ProductSubcategoryDetails {
 
 export interface ProductPriceOption {
   id: number | string;
+  price_id?: number;
   type: string;
   product_id: string | number;
   label: string;

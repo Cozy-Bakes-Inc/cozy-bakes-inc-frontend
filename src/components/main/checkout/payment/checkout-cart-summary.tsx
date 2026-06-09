@@ -17,7 +17,7 @@ import {
   PaymentChannel,
 } from "./types";
 import { resolveCartDisplay } from "@/lib/utils/cart-display";
-import { useShippingFee } from "@/hooks";
+import { useAuthenticatedUser, useShippingFee } from "@/hooks";
 import { getFulfillmentTypeFromSearchParams } from "@/lib/utils/checkout";
 import { checkoutSchema, type CheckoutSchemaValues } from "@/schemas";
 import { checkoutAPI } from "@/services/mutations";
@@ -27,7 +27,6 @@ import toast from "react-hot-toast";
 
 type CheckoutCartSummaryProps = {
   items: OrderLineItem[];
-  shippingFee?: number;
   isCheckoutEnabled: boolean;
   paymentChannel: PaymentChannel;
   selectedMethod: PaymentCardMethod | null;
@@ -38,7 +37,6 @@ const ACCOUNT_REDIRECT_DELAY_MS = 1200;
 
 export default function CheckoutCartSummary({
   items,
-  shippingFee = 25,
   isCheckoutEnabled,
   paymentChannel,
   selectedMethod,
@@ -55,7 +53,10 @@ export default function CheckoutCartSummary({
   );
   const isDelivery =
     getFulfillmentTypeFromSearchParams(searchParams) === "delivery";
-  const { data, isLoading } = useShippingFee(isDelivery);
+  const { data: userData } = useAuthenticatedUser(true);
+  const distanceNote = userData?.data?.user?.shipping?.distance_note;
+  const { isLoading, errorMessage, shippingFeeData } =
+    useShippingFee(isDelivery);
   const {
     handleSubmit,
     setError,
@@ -69,25 +70,17 @@ export default function CheckoutCartSummary({
       products: [],
     },
   });
-  const currentShippingFee = isDelivery
-    ? Number(data?.data?.fee ?? shippingFee)
-    : 0;
+  const shippingRate = shippingFeeData?.shipping_rate;
+  const deliveryType = shippingFeeData?.delivery_type;
+  const resolvedFee =
+    shippingRate?.amount != null ? Number(shippingRate.amount) : null;
+  const currentShippingFee = isDelivery ? (resolvedFee ?? 0) : 0;
   const subtotal = items.reduce(
     (total, item) => total + item.price * item.quantity,
     0,
   );
   const total = subtotal + (items.length ? currentShippingFee : 0);
   const hasItems = items.length > 0;
-
-  const redirectToOrders = () => {
-    setIsRedirecting(true);
-    queryClient.removeQueries({
-      queryKey: ["orders"],
-    });
-    window.setTimeout(() => {
-      router.push("/account?tab=new-order");
-    }, ACCOUNT_REDIRECT_DELAY_MS);
-  };
 
   const onSubmit = async () => {
     clearErrors();
@@ -116,14 +109,30 @@ export default function CheckoutCartSummary({
       return;
     }
 
-    const payload: CheckoutSchemaValues = {
+    const payload = {
       fulfillment_type: isDelivery ? "delivery" : "pickup",
       payment_method: paymentChannel === "card" ? "stripe" : "cod",
       note: "",
-      products: cartItems.map((item) => ({
-        slug: item.slug || item.id,
-        quantity: item.quantity,
-      })),
+      products: cartItems.map((item) => {
+        const flavorTotal = item.flavors
+          ? Object.values(item.flavors).reduce((a, b) => a + b, 0)
+          : null;
+        return {
+          slug: item.slug || item.id,
+          price_id: item.price_id ?? 0,
+          quantity: flavorTotal ?? item.quantity,
+          ...(item.flavors
+            ? {
+                meta: {
+                  flavors: Object.entries(item.flavors).map(([name, qty]) => ({
+                    name,
+                    qty,
+                  })),
+                },
+              }
+            : {}),
+        };
+      }),
       ...(isDelivery ? {} : { shop_id: pickupLocation.id ?? undefined }),
       ...(paymentChannel === "cash"
         ? {
@@ -149,8 +158,8 @@ export default function CheckoutCartSummary({
       });
       return;
     }
-
     const result = await checkoutAPI(schemaResult.data);
+    console.log("checkoutAPI result", result);
     if (!result?.ok) {
       setError("root", {
         type: "server",
@@ -167,7 +176,16 @@ export default function CheckoutCartSummary({
       await queryClient.invalidateQueries({
         queryKey: ["orders"],
       });
-      redirectToOrders();
+      const orderNumber = result.data?.order_number;
+      setIsRedirecting(true);
+      queryClient.removeQueries({ queryKey: ["orders"] });
+      window.setTimeout(() => {
+        router.push(
+          orderNumber
+            ? `/account?tab=new-order&order_number=${orderNumber}`
+            : "/account?tab=new-order",
+        );
+      }, ACCOUNT_REDIRECT_DELAY_MS);
       return;
     }
 
@@ -180,7 +198,6 @@ export default function CheckoutCartSummary({
     await queryClient.invalidateQueries({
       queryKey: ["orders"],
     });
-    redirectToOrders();
   };
 
   return (
@@ -200,15 +217,22 @@ export default function CheckoutCartSummary({
           {hasItems ? (
             <>
               {items.map((item) => {
-                const { flavorLines, displayQuantity } = resolveCartDisplay(item);
+                const { flavorLines, displayQuantity } =
+                  resolveCartDisplay(item);
                 return (
-                  <div key={`checkout-${item.id}`} className="flex items-start justify-between gap-3 text-sm">
+                  <div
+                    key={`checkout-${item.id}`}
+                    className="flex items-start justify-between gap-3 text-sm"
+                  >
                     <div className="min-w-0">
                       <p className="font-semibold text-dark">{item.title}</p>
                       {item.priceLabel && (
                         <p className="text-xs font-semibold capitalize text-primary">
                           {item.priceLabel}
-                          <span className="text-secondary/50"> × {displayQuantity}</span>
+                          <span className="text-secondary/50">
+                            {" "}
+                            × {displayQuantity}
+                          </span>
                         </p>
                       )}
                       {flavorLines.map(({ label, count }) => (
@@ -225,15 +249,45 @@ export default function CheckoutCartSummary({
               })}
 
               {isDelivery ? (
-                <div className="flex items-center justify-between border-t border-primary/20 pt-2 text-sm">
-                  <span className="text-gray-500">Shipping Fee</span>
-                  {isLoading ? (
-                    <Shimmer className="h-5 w-16 rounded-full bg-primary/10" />
-                  ) : (
-                    <span className="font-medium text-primary">
-                      ${currentShippingFee.toFixed(0)}
-                    </span>
+                <div className="border-t border-primary/20 pt-2 text-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-500">Shipping Fee</span>
+                    {isLoading ? (
+                      <Shimmer className="h-5 w-16 rounded-full bg-primary/10" />
+                    ) : resolvedFee != null ? (
+                      <span className="font-medium text-primary">
+                        ${resolvedFee.toFixed(2)}
+                      </span>
+                    ) : null}
+                  </div>
+
+                  {!isLoading && shippingRate && (
+                    <div className="mt-1 flex items-center justify-between text-xs text-secondary/60">
+                      <span>
+                        {shippingRate.provider} · {shippingRate.service}
+                        {deliveryType === "usps_shipping" &&
+                          shippingRate.days != null &&
+                          ` · ${shippingRate.days} day${shippingRate.days !== 1 ? "s" : ""}`}
+                      </span>
+                      {deliveryType === "local_delivery" && (
+                        <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+                          Local
+                        </span>
+                      )}
+                      {deliveryType === "usps_shipping" && (
+                        <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700">
+                          USPS
+                        </span>
+                      )}
+                    </div>
                   )}
+
+                  {distanceNote && (
+                    <p className="mt-1 text-xs text-amber-600">
+                      {distanceNote}
+                    </p>
+                  )}
+                  <InputErrorMessage msg={errorMessage ?? undefined} className="pt-1" />
                 </div>
               ) : null}
 
@@ -259,7 +313,7 @@ export default function CheckoutCartSummary({
           {isSubmitting ? <Loader /> : "Check Out"}
         </Button>
 
-        <InputErrorMessage msg={errors.root?.message} className="pt-0" />
+        <InputErrorMessage msg={errors.root?.message} />
       </form>
     </>
   );

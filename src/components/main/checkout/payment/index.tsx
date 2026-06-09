@@ -53,8 +53,8 @@ export default function CheckoutPaymentPage() {
       : Boolean(selectedCashMethod);
 
   useEffect(() => {
-    if (searchParams.get("fulfillment_type") === "delivery") return;
-    if (searchParams.get("fulfillment_type") === "pickup") return;
+    if (searchParams.get("fulfillment-type") === "delivery") return;
+    if (searchParams.get("fulfillment-type") === "pickup") return;
 
     router.replace(
       getCheckoutUrlWithFulfillmentType(pathname, searchParams, "delivery"),

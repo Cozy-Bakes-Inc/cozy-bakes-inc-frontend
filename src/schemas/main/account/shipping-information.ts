@@ -12,6 +12,7 @@ export const shippingInformationSchema = z.object({
   street_landmark: z.string().trim().optional(),
   latitude: z.string().trim().min(1, "Latitude is required"),
   longitude: z.string().trim().min(1, "Longitude is required"),
+  address_line: z.string().trim().optional(),
 });
 
 export const receiverDetailsSchema = z.object({

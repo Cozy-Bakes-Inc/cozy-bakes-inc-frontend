@@ -14,7 +14,7 @@ export default function DeliveryPickupModalHeader({
       <button
         type="button"
         onClick={onBackToMap}
-        className="flex items-center gap-2 pr-8"
+        className="flex items-center gap-2"
       >
         <span className="grid size-10 place-items-center rounded-lg bg-bg-creamy">
           <ArrowLeft className="size-5 text-primary shrink-0" />

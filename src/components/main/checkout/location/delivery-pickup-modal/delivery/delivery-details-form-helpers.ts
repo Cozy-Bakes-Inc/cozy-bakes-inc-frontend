@@ -17,6 +17,7 @@ export function normalizeShippingInformationValues(
     street_landmark: values.street_landmark?.trim() ?? "",
     latitude: values.latitude.trim(),
     longitude: values.longitude.trim(),
+    address_line: values.address_line?.trim() ?? "",
   };
 }
 
@@ -32,6 +33,7 @@ export function buildInitialShippingInformationValues(
     street_landmark: user?.shipping?.street_landmark?.trim() ?? "",
     latitude: user?.shipping?.latitude?.trim() ?? "",
     longitude: user?.shipping?.longitude?.trim() ?? "",
+    address_line: user?.shipping?.address_line?.trim() ?? "",
   };
 }
 
@@ -54,6 +56,7 @@ export function buildCurrentShippingInformationValues({
     street_landmark: deliveryLocation.streetLandmark,
     latitude: String(deliveryLocation.latitude),
     longitude: String(deliveryLocation.longitude),
+    address_line: deliveryLocation.fullAddress,
   };
 }
 

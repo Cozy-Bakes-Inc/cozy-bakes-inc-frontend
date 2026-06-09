@@ -190,7 +190,7 @@ export default function AccountOrdersListPanel({
                 </div>
 
                 <Link
-                  href={`/account?tab=${activeTab}&orderNumber=${order.order_number}`}
+                  href={`/account?tab=${activeTab}&order-number=${order.order_number}`}
                   className="flex h-10 w-full shrink-0 items-center justify-center rounded-full bg-primary px-4 text-sm font-medium text-white sm:w-auto"
                 >
                   View Order Details

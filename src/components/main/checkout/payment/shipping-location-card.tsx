@@ -5,44 +5,21 @@ import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store
 import { getFulfillmentTypeFromSearchParams } from "@/lib/utils/checkout";
 import { ArrowLeftRight, MapPin, PackageCheck } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
 import CheckoutSectionCard from "./checkout-section-card";
 
 export default function ShippingLocationCard() {
   const { data: authenticatedUser } = useAuthenticatedUser(true);
   const searchParams = useSearchParams();
   const openModal = useDeliveryPickupModalStore((state) => state.openModal);
-  const deliveryLocation = useDeliveryPickupModalStore(
-    (state) => state.deliveryLocation,
-  );
   const pickupLocation = useDeliveryPickupModalStore(
     (state) => state.pickupLocation,
   );
-  const setDeliveryLocation = useDeliveryPickupModalStore(
-    (state) => state.setDeliveryLocation,
-  );
   const fulfillmentType = getFulfillmentTypeFromSearchParams(searchParams);
   const isPickup = fulfillmentType === "pickup";
-  const hasHydratedLocation = useRef(false);
 
-  useEffect(() => {
-    if (hasHydratedLocation.current) return;
-
-    const shipping = authenticatedUser?.data?.user?.shipping;
-    if (!shipping?.address_line) return;
-
-    setDeliveryLocation({
-      ...deliveryLocation,
-      label: shipping.building_cluster?.trim() || "Saved Address",
-      fullAddress: shipping.address_line.trim(),
-      latitude: Number(shipping.latitude) || deliveryLocation.latitude,
-      longitude: Number(shipping.longitude) || deliveryLocation.longitude,
-      aptVilla: shipping.apt_villa?.trim() || "",
-      buildingCluster: shipping.building_cluster?.trim() || "",
-      streetLandmark: shipping.street_landmark?.trim() || "",
-    });
-    hasHydratedLocation.current = true;
-  }, [authenticatedUser, deliveryLocation, setDeliveryLocation]);
+  const shipping = authenticatedUser?.data?.user?.shipping;
+  const deliveryLabel = shipping?.building_cluster?.trim() || "";
+  const deliveryAddress = shipping?.address_line?.trim() || "";
 
   return (
     <CheckoutSectionCard
@@ -76,13 +53,13 @@ export default function ShippingLocationCard() {
             <p className="text-sm font-semibold text-dark">
               {isPickup
                 ? pickupLocation.name || "Cozy Bakes Pickup Point"
-                : deliveryLocation.label}
+                : deliveryLabel}
             </p>
             <p className="mt-0.5 text-xs text-gray-500">
               {isPickup
                 ? pickupLocation.fullAddress ||
                   "Choose your pickup location from the list."
-                : deliveryLocation.fullAddress}
+                : deliveryAddress}
             </p>
           </div>
         </div>

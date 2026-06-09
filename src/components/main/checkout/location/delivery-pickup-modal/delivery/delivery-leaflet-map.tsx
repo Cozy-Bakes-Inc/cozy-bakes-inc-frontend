@@ -13,9 +13,11 @@ interface DeliveryLeafletMapProps {
   onSelect: (coordinates: Coordinates) => void;
 }
 
-function RecenterMap({ center }: { center: Coordinates }) {
+function RecenterMap({ center, hasLocation }: { center: Coordinates; hasLocation: boolean }) {
   const map = useMap();
-  map.setView(center, map.getZoom(), { animate: true });
+  if (hasLocation) {
+    map.setView(center, map.getZoom(), { animate: true });
+  }
   return null;
 }
 
@@ -40,10 +42,12 @@ export default function DeliveryLeafletMap({
   center,
   onSelect,
 }: DeliveryLeafletMapProps) {
+  const hasLocation = center.lat !== 0 || center.lng !== 0;
+
   return (
     <MapContainer
-      center={center}
-      zoom={15}
+      center={hasLocation ? center : { lat: 20, lng: 0 }}
+      zoom={hasLocation ? 15 : 2}
       scrollWheelZoom
       className="h-full w-full"
     >
@@ -51,18 +55,21 @@ export default function DeliveryLeafletMap({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <RecenterMap center={center} />
+      <RecenterMap center={center} hasLocation={hasLocation} />
+
       <MapClickHandler onSelect={onSelect} />
-      <CircleMarker
-        center={center}
-        pathOptions={{
-          color: "#d19628",
-          fillColor: "#d19628",
-          fillOpacity: 0.9,
-          weight: 3,
-        }}
-        radius={10}
-      />
+      {hasLocation && (
+        <CircleMarker
+          center={center}
+          pathOptions={{
+            color: "#d19628",
+            fillColor: "#d19628",
+            fillOpacity: 0.9,
+            weight: 3,
+          }}
+          radius={10}
+        />
+      )}
     </MapContainer>
   );
 }

@@ -81,8 +81,8 @@ export default function DeliveryPickupModal({
     <Modal
       open={open}
       onClose={handleClose}
-      contentClassName="md:max-w-xl lg:max-w-4xl 2xl:max-w-6xl rounded-[24px] border border-border/24 bg-background p-4 shadow-none sm:p-6"
-      titleClassName="text-dark text-lg font-semibold leading-7 md:text-xl md:leading-[30px]"
+      contentClassName="gap-0 p-0 md:max-w-xl lg:max-w-4xl 2xl:max-w-6xl rounded-[24px] border border-border/24 bg-background shadow-none"
+      titleClassName="text-dark p-4 text-lg font-semibold leading-7 md:text-xl md:leading-[30px]"
       closeButtonClassname="border-primary text-primary"
       title={
         <DeliveryPickupModalHeader
@@ -104,7 +104,7 @@ export default function DeliveryPickupModal({
           }}
         />
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-4 p-4">
           <DeliveryPickupTabs
             activeTab={activeTab}
             onDeliveryClick={() => handleTabChange("delivery")}
