@@ -3,7 +3,11 @@ import { z } from "zod";
 export const shippingInformationSchema = z.object({
   first_name: z.string().trim().min(1, "First name is required"),
   last_name: z.string().trim().min(1, "Last name is required"),
-  phone_number: z.string().trim().min(1, "Phone number is required"),
+  phone_number: z
+    .string()
+    .trim()
+    .min(1, "Phone number is required")
+    .refine((val) => /^\d{10}$/.test(val.replace(/\D/g, "")), "Phone number must be 10 digits"),
   apt_villa: z.string().trim().min(1, "Apt / Villa is required"),
   building_cluster: z
     .string()
@@ -18,7 +22,11 @@ export const shippingInformationSchema = z.object({
 export const receiverDetailsSchema = z.object({
   first_name: z.string().trim().min(1, "First name is required"),
   last_name: z.string().trim().min(1, "Last name is required"),
-  phone_number: z.string().trim().min(1, "Phone number is required"),
+  phone_number: z
+    .string()
+    .trim()
+    .min(1, "Phone number is required")
+    .refine((val) => /^\d{10}$/.test(val.replace(/\D/g, "")), "Phone number must be 10 digits"),
 });
 
 export type ShippingInformationSchemaValues = z.infer<

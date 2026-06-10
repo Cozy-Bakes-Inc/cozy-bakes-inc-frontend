@@ -39,7 +39,8 @@ export default function DeliveryMapView({ onConfirmLocation }: DeliveryMapViewPr
 
         <Button
           onClick={onConfirmLocation}
-          className="h-11.5 rounded-lg bg-primary px-6 text-sm font-medium text-white hover:bg-primary/90 md:text-base"
+          disabled={!deliveryLocation.latitude && !deliveryLocation.longitude}
+          className="h-11.5 rounded-lg bg-primary px-6 text-sm font-medium text-white hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 md:text-base"
         >
           Confirm Location
         </Button>

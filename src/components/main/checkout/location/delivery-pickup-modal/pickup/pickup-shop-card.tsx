@@ -1,7 +1,7 @@
 "use client";
 
 import type { ShopListItem } from "@/interfaces";
-import { cn } from "@/lib";
+import { cn, formatPhoneDisplay } from "@/lib";
 import { Check, Mail, MapPin, Phone } from "lucide-react";
 
 interface PickupShopCardProps {
@@ -55,7 +55,7 @@ export default function PickupShopCard({
         <div className="grid gap-2 text-sm text-gray-600 sm:grid-cols-2">
           <div className="flex items-center gap-2">
             <Phone className="size-4 shrink-0 text-primary" />
-            <span>{shop.phone_number}</span>
+            <span>{formatPhoneDisplay(shop.phone_number)}</span>
           </div>
 
           <div className="flex items-center gap-2">

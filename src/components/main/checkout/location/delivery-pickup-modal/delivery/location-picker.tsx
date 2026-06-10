@@ -105,7 +105,6 @@ export function LocationPicker({ lat, lng, onChange }: LocationPickerProps) {
         const data = (await res.json()) as NominatimResult[];
         setSuggestions(data);
         setShowDropdown(data.length > 0);
-        if (!data.length) toast.error("No locations found");
       } catch {
         setSuggestions([]);
         toast.error("Failed to search for location");

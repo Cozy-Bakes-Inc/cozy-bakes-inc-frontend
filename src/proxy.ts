@@ -18,6 +18,21 @@ export function proxy(request: NextRequest) {
   const token = request.cookies.get(TOKEN_KEY)?.value;
 
   if (!token && matchesRoute(pathname, PROTECTED_ROUTES)) {
+    // Stripe's redirect chain can involve a cross-site POST which drops SameSite=Lax
+    // cookies. Redirect to an unprotected intermediate page so the browser lands on
+    // our origin first; client-side navigation from there is same-site and carries
+    // the cookie correctly.
+    const params = new URLSearchParams(search);
+    const isStripeReturn =
+      (pathname === "/account" && params.has("order_number")) ||
+      (pathname === "/checkout" && params.has("fulfillment-type"));
+
+    if (isStripeReturn) {
+      const bridgeUrl = new URL("/payment/stripe-return", request.url);
+      bridgeUrl.searchParams.set("dest", `${pathname}${search}`);
+      return NextResponse.redirect(bridgeUrl);
+    }
+
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("returnTo", `${pathname}${search}`);
 

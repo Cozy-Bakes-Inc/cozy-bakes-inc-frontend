@@ -1,6 +1,7 @@
 "use client";
 
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
+import { formatPhoneDisplay, stripPhoneDigits } from "@/lib";
 
 export default function ReceiverDetailsFields() {
   const receiverDetails = useDeliveryPickupModalStore(
@@ -54,11 +55,11 @@ export default function ReceiverDetailsFields() {
           <input
             type="tel"
             className="h-full w-full bg-transparent text-sm text-dark outline-none placeholder:text-gray md:text-base"
-            value={receiverDetails.phoneNumber}
+            value={formatPhoneDisplay(receiverDetails.phoneNumber)}
             onChange={(event) =>
-              setReceiverField("phoneNumber", event.target.value)
+              setReceiverField("phoneNumber", stripPhoneDigits(event.target.value))
             }
-            placeholder="1234 5678 9564"
+            placeholder="(212) 555-7890"
           />
         </div>
       </label>

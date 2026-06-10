@@ -8,6 +8,7 @@ import { Shimmer } from "@/components/ui/shimmer";
 import { useAuthenticatedUser } from "@/hooks";
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
 import { useEffect, useRef } from "react";
+import { formatPhoneDisplay } from "@/lib";
 
 type AccountShippingInformationPanelProps = {
   data: AccountShippingInformationData;
@@ -187,7 +188,7 @@ export default function AccountShippingInformationPanel({
                 <div className="mt-4">
                   <ReadOnlyField
                     label={data.receiver.phoneLabel}
-                    value={receiverPhone}
+                    value={formatPhoneDisplay(receiverPhone)}
                   />
                 </div>
               </>

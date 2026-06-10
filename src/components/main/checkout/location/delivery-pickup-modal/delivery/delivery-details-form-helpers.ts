@@ -4,6 +4,7 @@ import type {
   ReceiverDetails,
 } from "@/store/delivery-pickup-modal-store";
 import type { ShippingInformationSchemaValues } from "@/schemas/main/account";
+import { stripPhoneDigits } from "@/lib";
 
 export function normalizeShippingInformationValues(
   values: ShippingInformationSchemaValues,
@@ -11,7 +12,7 @@ export function normalizeShippingInformationValues(
   return {
     first_name: values.first_name.trim(),
     last_name: values.last_name.trim(),
-    phone_number: values.phone_number.trim(),
+    phone_number: stripPhoneDigits(values.phone_number),
     apt_villa: values.apt_villa.trim(),
     building_cluster: values.building_cluster.trim(),
     street_landmark: values.street_landmark?.trim() ?? "",
@@ -27,7 +28,7 @@ export function buildInitialShippingInformationValues(
   return {
     first_name: user?.receiver?.first_name?.trim() ?? "",
     last_name: user?.receiver?.last_name?.trim() ?? "",
-    phone_number: user?.receiver?.phone_number?.trim() ?? "",
+    phone_number: stripPhoneDigits(user?.receiver?.phone_number?.trim() ?? ""),
     apt_villa: user?.shipping?.apt_villa?.trim() ?? "",
     building_cluster: user?.shipping?.building_cluster?.trim() ?? "",
     street_landmark: user?.shipping?.street_landmark?.trim() ?? "",
@@ -49,8 +50,9 @@ export function buildCurrentShippingInformationValues({
   return {
     first_name: user?.receiver?.first_name?.trim() || receiverDetails.firstName,
     last_name: user?.receiver?.last_name?.trim() || receiverDetails.lastName,
-    phone_number:
+    phone_number: stripPhoneDigits(
       user?.receiver?.phone_number?.trim() || receiverDetails.phoneNumber,
+    ),
     apt_villa: deliveryLocation.aptVilla,
     building_cluster: deliveryLocation.buildingCluster,
     street_landmark: deliveryLocation.streetLandmark,

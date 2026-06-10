@@ -4,3 +4,4 @@ export * from "./utils";
 export * from "./auth";
 export * from "./client-auth";
 export * from "./helper";
+export * from "./phone";

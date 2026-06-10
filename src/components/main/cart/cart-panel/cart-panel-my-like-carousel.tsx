@@ -2,9 +2,10 @@
 
 import { useMemo, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
 
 import { useRecommendedProductsPreview } from "@/hooks";
 import type { ApiProductItem } from "@/interfaces";
@@ -25,17 +26,39 @@ type CartPanelMyLikeCarouselProps = {
 
 function getProductPrice(product: ApiProductItem) {
   const rawPrice = product.final_price ?? product.price;
-  const parsedPrice =
+  const parsed =
     typeof rawPrice === "number" ? rawPrice : Number(rawPrice ?? 0);
+  if (Number.isFinite(parsed) && parsed > 0) return parsed;
 
-  return Number.isFinite(parsedPrice) ? parsedPrice : 0;
+  const perUnit = product.prices?.per_unit;
+  if (perUnit && perUnit.length > 0) {
+    const unitPrice = perUnit[0].price ?? perUnit[0].value;
+    const unitParsed =
+      typeof unitPrice === "number" ? unitPrice : Number(unitPrice ?? 0);
+    if (Number.isFinite(unitParsed) && unitParsed > 0) return unitParsed;
+  }
+
+  return 0;
+}
+
+function formatPrice(price: number) {
+  return `$${price.toFixed(2)}`;
 }
 
 function mapProductToRecommendation(product: ApiProductItem) {
+  const images = [product.image, ...(product.images ?? [])].filter(
+    (img): img is string => Boolean(img),
+  );
+  const uniqueImages =
+    images.length > 0
+      ? Array.from(new Set(images))
+      : ["/images/artisan-sourdough.jpg"];
+
   return {
     id: String(product.id),
+    slug: product.slug,
     title: product.title,
-    image: product.image || "/images/artisan-sourdough.jpg",
+    images: uniqueImages,
     price: getProductPrice(product),
     description: product.description ?? "Freshly baked and ready to order.",
   };
@@ -51,12 +74,14 @@ export default function CartPanelMyLikeCarousel({
     () => (data?.data?.data ?? []).map(mapProductToRecommendation),
     [data],
   );
-  const myLikeItems = useMemo(() => {
-    const filtered = recommendations.filter(
-      (recommendation) => !items.some((item) => item.id === recommendation.id),
-    );
-    return filtered;
-  }, [items, recommendations]);
+  console.log(data);
+  const myLikeItems = useMemo(
+    () =>
+      recommendations.filter(
+        (rec) => !items.some((item) => item.id === rec.id),
+      ),
+    [items, recommendations],
+  );
 
   if (isLoading || myLikeItems.length === 0) return null;
 
@@ -96,58 +121,69 @@ export default function CartPanelMyLikeCarousel({
           }}
           className="w-full"
         >
-          {myLikeItems.map((recommendation) => (
-            <SwiperSlide key={recommendation.id}>
-              <div className="space-y-2">
-                <div className="flex gap-2">
-                  <div className="relative size-16.5 shrink-0 overflow-hidden rounded-lg">
-                    <Image
-                      src={recommendation.image}
-                      alt={recommendation.title}
-                      fill
-                      sizes="66px"
-                      className="object-cover"
-                    />
-                  </div>
+          {myLikeItems.map((rec) => {
+            const href = rec.slug ? `/products/${rec.slug}` : `/products/1`;
+            return (
+              <SwiperSlide key={rec.id}>
+                <article className="overflow-hidden rounded-xl bg-background">
+                  <Link href={href} className="block">
+                    <div className="relative h-32 w-full overflow-hidden">
+                      <Image
+                        src={rec.images[0]}
+                        alt={rec.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, 320px"
+                        className="object-cover"
+                      />
+                    </div>
+                  </Link>
 
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium leading-5 text-dark sm:text-base sm:leading-6">
-                      {recommendation.title}
-                    </p>
-                    <p className="line-clamp-2 text-[11px] leading-[1.4] text-gray-500 sm:text-xs sm:leading-normal">
-                      {recommendation.description}
-                    </p>
-                  </div>
-                </div>
+                  <div className="flex flex-col gap-1.5 p-2.5">
+                    <Link href={href}>
+                      <h3 className="truncate text-xs font-semibold text-secondary sm:text-sm">
+                        {rec.title}
+                      </h3>
+                    </Link>
 
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.06em] text-[#6B5844] sm:text-[11px]">
-                      Price
+                    <p
+                      className="truncate text-[11px] leading-4 text-gray"
+                      title={rec.description}
+                    >
+                      {rec.description}
                     </p>
-                    <p className="text-sm font-medium leading-5 text-primary sm:text-base sm:leading-6">
-                      ${recommendation.price.toFixed(2)}
-                    </p>
+
+                    <div className="mt-1 flex items-center justify-between gap-2">
+                      <div>
+                        <p className="text-[10px] uppercase tracking-wide text-gray">
+                          Price
+                        </p>
+                        <p className="text-xs font-semibold text-primary">
+                          {formatPrice(rec.price)}
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          onAddItem({
+                            id: rec.id,
+                            title: rec.title,
+                            price: rec.price,
+                            image: rec.images[0],
+                            quantity: 1,
+                          })
+                        }
+                        className="flex h-7 items-center gap-1 rounded-xl bg-card px-2.5 text-[11px] font-medium text-white hover:bg-card/90 sm:h-8 sm:px-3 sm:text-xs"
+                      >
+                        <ShoppingBag className="size-3 shrink-0" />
+                        <span>Add to Cart</span>
+                      </button>
+                    </div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      onAddItem({
-                        id: recommendation.id,
-                        title: recommendation.title,
-                        price: recommendation.price,
-                        image: recommendation.image,
-                        quantity: 1,
-                      })
-                    }
-                    className="h-7 rounded-full bg-primary px-3 text-[11px] font-medium text-white sm:h-8 sm:px-4 sm:text-xs"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
+                </article>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </div>

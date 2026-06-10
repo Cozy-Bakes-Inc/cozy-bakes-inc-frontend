@@ -1,36 +1,22 @@
 "use client";
+import { useMemo } from "react";
 import SelectionCard from "@/components/ui/selection-card";
-import type { SelectionItem } from "@/interfaces";
+import { GridShimmer } from "@/components/ui/shimmer";
+import { useRecommendedProductsPreview } from "@/hooks";
+import type { ApiProductItem, SelectionItem } from "@/interfaces";
 import { Sparkles } from "lucide-react";
 
-const recommendations: SelectionItem[] = [
-  {
-    id: "artisan-sourdough",
-    title: "Artisan Sourdough",
-    desc: "Traditional sourdough with a crisp crust and soft, tangy interior.",
-    price: "$8.50",
-    image: "/images/artisan-sourdough.jpg",
-    category: "best",
-  },
-  {
-    id: "vanilla-bean-cake",
-    title: "Vanilla Bean Cake",
-    desc: "Light vanilla cake with Madagascar beans and silky buttercream.",
-    price: "$8.50",
-    image: "/images/vanilla-bean-cake.jpg",
-    category: "best",
-  },
-  {
-    id: "chocolate-croissant",
-    title: "Chocolate Croissant",
-    desc: "Buttery, flaky pastry with premium chocolate and golden layers.",
-    price: "$8.50",
-    image: "/images/chocolate-croissant.jpg",
-    category: "best",
-  },
-];
+function toSelectionItems(products: ApiProductItem[]): SelectionItem[] {
+  return products.map((p) => ({ ...p, actionLabel: "Add" }));
+}
 
 export default function ProductRecommendations() {
+  const { data, isLoading } = useRecommendedProductsPreview();
+  const products = useMemo(
+    () => toSelectionItems(data?.data?.data ?? []),
+    [data],
+  );
+
   return (
     <section className="bg-bg-creamy py-16">
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
@@ -49,11 +35,15 @@ export default function ProductRecommendations() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {recommendations.map((item) => (
-            <SelectionCard key={item.id} item={item} />
-          ))}
-        </div>
+        {isLoading ? (
+          <GridShimmer count={3} />
+        ) : (
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {products.map((item) => (
+              <SelectionCard key={item.slug ?? item.id} item={item} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

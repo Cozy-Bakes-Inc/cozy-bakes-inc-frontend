@@ -249,7 +249,7 @@ export default function DeliveryDetailsView({
       <input type="hidden" {...register("address_line")} />
 
       <DeliveryAddressDetailsSection errors={errors} register={register} />
-      <DeliveryReceiverDetailsSection errors={errors} register={register} />
+      <DeliveryReceiverDetailsSection errors={errors} register={register} control={control} />
 
       <div className="flex justify-end">
         <Button

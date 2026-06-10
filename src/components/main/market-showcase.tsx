@@ -55,7 +55,7 @@ function MarketCard({ slide }: { slide: MarketSlide }) {
             <span>{slide.address}</span>
           </div>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="flex">
           <Link
             href={slide.primaryCtaHref ?? "#"}
             target={slide.primaryCtaHref ? "_blank" : undefined}
@@ -64,12 +64,6 @@ function MarketCard({ slide }: { slide: MarketSlide }) {
           >
             <Navigation className="size-5 shrink-0" />
             {slide.primaryCta}
-          </Link>
-          <Link
-            href={slide.secondaryCtaHref ?? "#"}
-            className="inline-flex h-13 items-center justify-center rounded-lg border border-primary bg-transparent px-4 text-base font-medium text-primary hover:bg-primary/5"
-          >
-            {slide.secondaryCta}
           </Link>
         </div>
       </div>
@@ -118,12 +112,6 @@ function MarketSlideContent({ slide }: { slide: MarketSlide }) {
           >
             <Navigation className="size-4 shrink-0" />
             {slide.primaryCta}
-          </Link>
-          <Link
-            href={slide.secondaryCtaHref ?? "#"}
-            className="inline-flex items-center rounded-lg border border-primary/30 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/5"
-          >
-            {slide.secondaryCta}
           </Link>
         </div>
       </div>

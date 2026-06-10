@@ -82,8 +82,7 @@ export default function CartPanel({ hasToken }: CartPanelProps) {
             />
 
             <div className="rounded-t-2xl border-t border-border/24 bg-bg-creamy px-4 pb-4 pt-3">
-              <CartPanelMyLikeCarousel items={items} onAddItem={addItem} />
-              <CartPanelActions
+<CartPanelActions
                 hasToken={hasToken}
                 total={total}
                 onClearCart={clearCart}

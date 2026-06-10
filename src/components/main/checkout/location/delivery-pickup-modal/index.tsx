@@ -111,22 +111,24 @@ export default function DeliveryPickupModal({
             onPickupClick={() => handleTabChange("pickup")}
           />
 
-          {activeTab === "delivery" ? (
-            <DeliveryMapView
-              onConfirmLocation={() => setDeliveryStep("details")}
-            />
-          ) : (
-            <PickupView
-              onConfirm={() => {
-                onConfirmLocation?.();
-                if (isCheckoutPage || shouldRedirectToCheckout) {
-                  router.push(getCheckoutPath("pickup"));
-                  closeCart();
-                }
-                handleClose();
-              }}
-            />
-          )}
+          <div className="min-h-[480px] sm:min-h-[580px]">
+            {activeTab === "delivery" ? (
+              <DeliveryMapView
+                onConfirmLocation={() => setDeliveryStep("details")}
+              />
+            ) : (
+              <PickupView
+                onConfirm={() => {
+                  onConfirmLocation?.();
+                  if (isCheckoutPage || shouldRedirectToCheckout) {
+                    router.push(getCheckoutPath("pickup"));
+                    closeCart();
+                  }
+                  handleClose();
+                }}
+              />
+            )}
+          </div>
         </div>
       )}
     </Modal>

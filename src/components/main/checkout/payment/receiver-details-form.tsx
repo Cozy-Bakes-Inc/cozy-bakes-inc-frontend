@@ -3,6 +3,7 @@
 import { useAuthenticatedUser } from "@/hooks";
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
 import { useEffect, useRef } from "react";
+import { stripPhoneDigits } from "@/lib";
 import ReceiverDetailsFields from "../receiver-details-fields";
 import CheckoutSectionCard from "./checkout-section-card";
 
@@ -22,7 +23,7 @@ export default function ReceiverDetailsForm() {
     setReceiverDetails({
       firstName: receiver.first_name?.trim() || "",
       lastName: receiver.last_name?.trim() || "",
-      phoneNumber: receiver.phone_number?.trim() || "",
+      phoneNumber: stripPhoneDigits(receiver.phone_number?.trim() || ""),
     });
     hasHydratedReceiver.current = true;
   }, [authenticatedUser, setReceiverDetails]);

@@ -18,8 +18,8 @@ const contactCards = [
     title: "Text us anytime",
     description:
       "Reach out anytime with your order questions or sweet cravings.",
-    detail: "+1 (612) 227-6186",
-    href: "tel:+16122276186",
+    detail: "(612) 227-6186",
+    href: "tel:6122276186",
     Icon: Phone,
   },
 ];

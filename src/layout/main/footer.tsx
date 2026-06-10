@@ -11,6 +11,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { SVGProps } from "react";
 import { Button } from "@/components/ui/button";
+import { Shimmer } from "@/components/ui/shimmer";
+import { useUpcomingMarkets } from "@/hooks";
 
 const links = [
   { href: "/", label: "Home" },
@@ -18,17 +20,6 @@ const links = [
   { href: "/categories", label: "Our Categories" },
   { href: "/story", label: "Our Story" },
   { href: "/contact", label: "Contact us" },
-];
-
-const markets = [
-  {
-    name: "Downtown Market",
-    time: "Thursday - Jan 18 - 9:00 AM - 2:00 PM",
-  },
-  {
-    name: "Eastside Green",
-    time: "Friday - Jan 18 - 9:00 AM - 2:00 PM",
-  },
 ];
 
 function TikTokIcon(props: SVGProps<SVGSVGElement>) {
@@ -45,6 +36,9 @@ function TikTokIcon(props: SVGProps<SVGSVGElement>) {
 }
 
 export default function Footer() {
+  const { data, isLoading } = useUpcomingMarkets();
+  const markets = data?.data ?? [];
+
   return (
     <footer className="relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('/images/footer.png')] bg-cover bg-center" />
@@ -65,11 +59,19 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-3">
             <Button
+              asChild
               size="icon"
               variant="ghost"
               className="h-10 w-10 rounded-md bg-background/10 text-white/80 ring-1 ring-white/10 hover:bg-primary hover:text-white"
             >
-              <Facebook className="h-4 w-4" />
+              <a
+                href="https://www.facebook.com/share/1D1wAyKCKV/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Cozy Bakes Inc. on Facebook"
+              >
+                <Facebook className="h-4 w-4" />
+              </a>
             </Button>
             <Button
               asChild
@@ -86,11 +88,19 @@ export default function Footer() {
               </a>
             </Button>
             <Button
+              asChild
               size="icon"
               variant="ghost"
               className="h-10 w-10 rounded-md bg-background/10 text-white/80 ring-1 ring-white/10 hover:bg-primary hover:text-white"
             >
-              <Instagram className="h-4 w-4" />
+              <a
+                href="https://www.instagram.com/cozybakesinc?igsh=ZTR3bHFxZWlycHJ5"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Cozy Bakes Inc. on Instagram"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
             </Button>
           </div>
         </div>
@@ -127,12 +137,19 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-primary">Market Days</h4>
             <div className="mt-3 space-y-4 text-sm text-white/70">
-              {markets.map((market) => (
-                <div key={market.name}>
-                  <p className="font-semibold text-white">{market.name}</p>
-                  <p className="mt-1">{market.time}</p>
-                </div>
-              ))}
+              {isLoading ? (
+                <>
+                  <Shimmer className="h-10 w-full rounded-lg" />
+                  <Shimmer className="h-10 w-full rounded-lg" />
+                </>
+              ) : (
+                markets.map((market) => (
+                  <div key={market.market_name}>
+                    <p className="font-semibold text-white">{market.market_name}</p>
+                    <p className="mt-1">{`${market.day}, ${market.date} · ${market.time}`}</p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
           <div>

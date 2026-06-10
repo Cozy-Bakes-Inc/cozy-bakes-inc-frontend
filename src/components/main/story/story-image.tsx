@@ -4,12 +4,11 @@ import { motion } from "framer-motion";
 import { ChefHat } from "lucide-react";
 import Image from "next/image";
 
-function StoryVideo() {
+function StoryImage() {
   return (
     <section className="bg-bg-creamy py-20">
       <motion.div
         className="mx-auto max-w-7xl px-5 sm:px-10"
-        initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}
         variants={containerVariants}
@@ -45,4 +44,4 @@ function StoryVideo() {
   );
 }
 
-export default StoryVideo;
+export default StoryImage;

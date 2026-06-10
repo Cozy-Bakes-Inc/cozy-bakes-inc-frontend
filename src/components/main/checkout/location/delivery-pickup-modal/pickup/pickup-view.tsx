@@ -13,6 +13,7 @@ import {
 } from "@/schemas/main/account";
 import { updateReceiverDetailsAPI } from "@/services/mutations/account";
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
+import { stripPhoneDigits } from "@/lib";
 import { ShopListItem } from "@/interfaces";
 import PickupReceiverDetailsSection from "./pickup-receiver-details-section";
 import PickupShopsSection from "./pickup-shops-section";
@@ -57,8 +58,9 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
       first_name:
         user?.receiver?.first_name?.trim() || receiverDetails.firstName,
       last_name: user?.receiver?.last_name?.trim() || receiverDetails.lastName,
-      phone_number:
+      phone_number: stripPhoneDigits(
         user?.receiver?.phone_number?.trim() || receiverDetails.phoneNumber,
+      ),
     }),
     [
       receiverDetails.firstName,
@@ -130,7 +132,7 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
     const payload = {
       first_name: values.first_name.trim(),
       last_name: values.last_name.trim(),
-      phone_number: values.phone_number.trim(),
+      phone_number: values.phone_number.replace(/\D/g, ""),
     };
 
     const schemaResult = receiverDetailsSchema.safeParse(payload);
@@ -190,6 +192,7 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
 
         <PickupReceiverDetailsSection
           register={register}
+          control={control}
           errors={errors}
           isLoading={isUserLoading}
         />

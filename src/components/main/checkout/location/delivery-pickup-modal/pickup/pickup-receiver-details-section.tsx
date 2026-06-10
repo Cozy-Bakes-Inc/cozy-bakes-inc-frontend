@@ -1,24 +1,30 @@
 "use client";
 
 import DeliveryDetailsFormInput from "../delivery/delivery-details-form-input";
+import InputErrorMessage from "@/components/ui/input-error-message";
 import { Shimmer } from "@/components/ui/shimmer";
 import {
   receiverDetailsSchema,
   type ReceiverDetailsSchemaValues,
 } from "@/schemas/main/account";
+import { formatPhoneDisplay, stripPhoneDigits } from "@/lib";
 import type {
+  Control,
   FieldErrors,
   UseFormRegister,
 } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 interface PickupReceiverDetailsSectionProps {
   register: UseFormRegister<ReceiverDetailsSchemaValues>;
+  control: Control<ReceiverDetailsSchemaValues>;
   errors: FieldErrors<ReceiverDetailsSchemaValues>;
   isLoading?: boolean;
 }
 
 export default function PickupReceiverDetailsSection({
   register,
+  control,
   errors,
   isLoading,
 }: PickupReceiverDetailsSectionProps) {
@@ -72,18 +78,36 @@ export default function PickupReceiverDetailsSection({
             />
           </div>
 
-          <DeliveryDetailsFormInput
-            label="Phone Number"
-            placeholder="1234 5678 9564"
-            type="tel"
-            errorMessage={errors.phone_number?.message}
-            register={register("phone_number", {
+          <Controller
+            name="phone_number"
+            control={control}
+            rules={{
               validate: (value) => {
                 const result =
                   receiverDetailsSchema.shape.phone_number.safeParse(value);
                 return result.success || result.error.issues[0]?.message;
               },
-            })}
+            }}
+            render={({ field }) => (
+              <label className="flex flex-col gap-2">
+                <span className="text-sm font-medium text-dark md:text-base">
+                  Phone Number
+                </span>
+                <div className="rounded-lg border border-gray-300 px-3">
+                  <input
+                    type="tel"
+                    placeholder="(212) 555-7890"
+                    className="h-14.5 w-full bg-transparent text-sm text-dark outline-none placeholder:text-gray md:text-base"
+                    value={formatPhoneDisplay(field.value)}
+                    onChange={(e) => field.onChange(stripPhoneDigits(e.target.value))}
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    ref={field.ref}
+                  />
+                </div>
+                <InputErrorMessage msg={errors.phone_number?.message} className="pt-0" />
+              </label>
+            )}
           />
         </div>
       )}
