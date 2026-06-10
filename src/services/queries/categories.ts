@@ -31,6 +31,12 @@ export const listSubcategoriesPreviewAPI = async (pageSize: number = 3) =>
     "GET",
     `/sub-category/list?sort=most_products&page=1&per_page=${pageSize}`,
   );
+export const listAllSubcategoriesAPI = async () =>
+  await baseAPI<PaginatedApiResponse<SubcategoryItem>>(
+    "GET",
+    `/sub-category/list?sort=most_products&page=1&per_page=100`,
+  );
+
 export const listProductsBySubcategoryAPI = async (
   slug: string,
   page: number,

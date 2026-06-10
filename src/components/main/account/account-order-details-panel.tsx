@@ -349,10 +349,25 @@ export default function AccountOrderDetailsPanel({
                         {item.title}
                       </p>
                     )}
-                    {item.description ? (
-                      <p className="text-sm font-medium text-gray sm:max-w-3xl">
-                        {item.description}
+                    {item.price_snapshot ? (
+                      <p className="mt-0.5 text-xs font-semibold text-primary">
+                        {item.price_snapshot.label}{" "}
+                        <span className="text-secondary/50">
+                          &mdash; {formatPrice(item.price_snapshot.unit_price)}
+                        </span>
                       </p>
+                    ) : null}
+                    {item.flavors?.flavors?.length ? (
+                      <div className="mt-1 space-y-0.5">
+                        {item.flavors.flavors.map((flavor) => (
+                          <p
+                            key={flavor.name}
+                            className="text-xs leading-4 text-secondary/60"
+                          >
+                            {flavor.qty}x {flavor.name}
+                          </p>
+                        ))}
+                      </div>
                     ) : null}
                   </div>
                 </div>
@@ -368,7 +383,7 @@ export default function AccountOrderDetailsPanel({
                   </div>
 
                   <span className="w-full shrink-0 rounded-lg bg-background px-4 py-2 text-center text-sm text-chocolate sm:w-auto sm:text-base">
-                    {item.title} * {item.quantity}
+                    {item.price_snapshot?.label ?? item.title} * {item.quantity}
                   </span>
                 </div>
               </article>
@@ -392,7 +407,7 @@ export default function AccountOrderDetailsPanel({
               className="flex min-h-12 items-center justify-between gap-3 border-b border-border/24 py-2"
             >
               <span className="min-w-0 text-sm font-medium text-gray sm:text-base">
-                {item.title} * {item.quantity}
+                {item.price_snapshot?.label ?? item.title} * {item.quantity}
               </span>
               <span className="shrink-0 text-base font-semibold text-dark sm:text-[18px]">
                 {getItemTotal(item)}

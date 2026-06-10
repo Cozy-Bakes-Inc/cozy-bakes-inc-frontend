@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import { listDeliveryFee } from "@/services/mutations/checkout";
 import { useCartStore } from "@/store/cart-store";

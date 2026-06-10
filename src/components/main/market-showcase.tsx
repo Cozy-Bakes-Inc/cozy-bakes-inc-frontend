@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { useRef, useState } from "react";
 import { CalendarDays, MapPin, Navigation } from "lucide-react";
 import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Button } from "@/components/ui/button";
 import SliderDots from "@/components/ui/slider-dots";
 import type { MarketSlide } from "@/interfaces";
 
@@ -56,19 +56,78 @@ function MarketCard({ slide }: { slide: MarketSlide }) {
           </div>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
-          <Button className="h-13 rounded-lg border border-primary bg-primary text-base font-medium text-white hover:bg-primary/90">
+          <Link
+            href={slide.primaryCtaHref ?? "#"}
+            target={slide.primaryCtaHref ? "_blank" : undefined}
+            rel={slide.primaryCtaHref ? "noopener noreferrer" : undefined}
+            className="inline-flex h-13 items-center justify-center gap-2 rounded-lg border border-primary bg-primary px-4 text-base font-medium text-white hover:bg-primary/90"
+          >
             <Navigation className="size-5 shrink-0" />
             {slide.primaryCta}
-          </Button>
-          <Button
-            variant="outline"
-            className="h-13 rounded-lg border-primary bg-transparent text-base font-medium text-primary hover:bg-primary/5 hover:text-primary"
+          </Link>
+          <Link
+            href={slide.secondaryCtaHref ?? "#"}
+            className="inline-flex h-13 items-center justify-center rounded-lg border border-primary bg-transparent px-4 text-base font-medium text-primary hover:bg-primary/5"
           >
             {slide.secondaryCta}
-          </Button>
+          </Link>
         </div>
       </div>
     </article>
+  );
+}
+
+function MarketSlideContent({ slide }: { slide: MarketSlide }) {
+  return (
+    <div className="grid items-stretch md:grid-cols-2">
+      <div className="relative h-50 overflow-hidden rounded-t-2xl md:h-120 md:rounded-l-2xl md:rounded-tr-none">
+        <Image
+          src={slide.image}
+          alt={slide.title}
+          width={720}
+          height={520}
+          className="h-full w-full object-cover"
+        />
+      </div>
+      <div className="flex h-full flex-col justify-center rounded-b-2xl border-t-4 border-primary/10 bg-background p-6 sm:p-8 md:rounded-r-2xl md:rounded-bl-none md:border-r-4 md:p-10">
+        <span className="inline-flex w-fit rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
+          {slide.badge}
+        </span>
+        <h3 className="mt-3 text-xl font-bold text-slate-800 sm:text-2xl">
+          {slide.title}
+        </h3>
+        <p className="mt-3 rounded-xl border border-primary/20 bg-primary/5 p-3 text-sm text-primary sm:text-base">
+          {slide.desc}
+        </p>
+        <div className="mt-4 space-y-2 text-sm text-slate-600 sm:text-base">
+          <div className="flex items-center gap-2">
+            <CalendarDays className="size-4 shrink-0 text-primary" />
+            {slide.date} - {slide.time}
+          </div>
+          <div className="flex items-center gap-2">
+            <MapPin className="size-4 shrink-0 text-primary" />
+            {slide.address}
+          </div>
+        </div>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link
+            href={slide.primaryCtaHref ?? "#"}
+            target={slide.primaryCtaHref ? "_blank" : undefined}
+            rel={slide.primaryCtaHref ? "noopener noreferrer" : undefined}
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
+          >
+            <Navigation className="size-4 shrink-0" />
+            {slide.primaryCta}
+          </Link>
+          <Link
+            href={slide.secondaryCtaHref ?? "#"}
+            className="inline-flex items-center rounded-lg border border-primary/30 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/5"
+          >
+            {slide.secondaryCta}
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -81,7 +140,9 @@ export default function MarketShowcase({
 }: MarketShowcaseProps) {
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+
   const useStaticGrid = slides.length === 2;
+  const useSingleCard = slides.length === 1;
 
   return (
     <section className={sectionClassName}>
@@ -93,6 +154,10 @@ export default function MarketShowcase({
             {slides.map((slide) => (
               <MarketCard key={`${slide.title}-${slide.date}`} slide={slide} />
             ))}
+          </div>
+        ) : useSingleCard ? (
+          <div className="mt-10 rounded-2xl bg-background/90 shadow-lg">
+            <MarketSlideContent slide={slides[0]} />
           </div>
         ) : (
           <div className="relative mt-10 rounded-2xl bg-background/90 shadow-lg">
@@ -106,50 +171,7 @@ export default function MarketShowcase({
             >
               {slides.map((slide) => (
                 <SwiperSlide key={`${slide.title}-${slide.date}`}>
-                  <div className="grid items-stretch md:grid-cols-2">
-                    <div className="relative h-50 overflow-hidden rounded-t-2xl md:h-120 md:rounded-l-2xl md:rounded-tr-none">
-                      <Image
-                        src={slide.image}
-                        alt={slide.title}
-                        width={720}
-                        height={520}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                    <div className="flex h-full flex-col justify-center rounded-b-2xl border-t-4 border-primary/10 bg-background p-6 sm:p-8 md:rounded-r-2xl md:rounded-bl-none md:border-r-4 md:p-10">
-                      <span className="inline-flex w-fit rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
-                        {slide.badge}
-                      </span>
-                      <h3 className="mt-3 text-xl font-bold text-slate-800 sm:text-2xl">
-                        {slide.title}
-                      </h3>
-                      <p className="mt-3 rounded-xl border border-primary/20 bg-primary/5 p-3 text-sm text-primary sm:text-base">
-                        {slide.desc}
-                      </p>
-                      <div className="mt-4 space-y-2 text-sm text-slate-600 sm:text-base">
-                        <div className="flex items-center gap-2">
-                          <CalendarDays className="size-4 shrink-0 text-primary" />
-                          {slide.date} - {slide.time}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <MapPin className="size-4 shrink-0 text-primary" />
-                          {slide.address}
-                        </div>
-                      </div>
-                      <div className="mt-5 flex flex-wrap gap-3">
-                        <Button className="bg-primary hover:bg-primary/90">
-                          <Navigation className="size-4 shrink-0" />
-                          {slide.primaryCta}
-                        </Button>
-                        <Button
-                          variant="outline"
-                          className="border-primary/30 text-primary"
-                        >
-                          {slide.secondaryCta}
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+                  <MarketSlideContent slide={slide} />
                 </SwiperSlide>
               ))}
             </Swiper>

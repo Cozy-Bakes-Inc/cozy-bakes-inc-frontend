@@ -27,7 +27,7 @@ export default function NavActions({ hasToken }: NavActionsProps) {
 
   return (
     <>
-      <div className="hidden sm:flex items-center gap-3">
+      <div className="flex items-center gap-2">
         {/* <Button
           variant="outline"
           size="icon"
@@ -54,7 +54,7 @@ export default function NavActions({ hasToken }: NavActionsProps) {
           <Button
             onClick={handleAccount}
             variant="outline"
-            className="h-12 rounded-full border-primary bg-bg-creamy/25 px-3 text-dark hover:border-secondary hover:bg-bg-creamy/40 hover:text-dark"
+            className="h-9 sm:h-12 rounded-full border-primary bg-bg-creamy/25 px-3 text-dark hover:border-secondary hover:bg-bg-creamy/40 hover:text-dark"
           >
             {isLoading ? (
               <div className="flex items-center gap-2">
@@ -67,7 +67,7 @@ export default function NavActions({ hasToken }: NavActionsProps) {
                   className="size-5 shrink-0 text-primary"
                   strokeWidth={2.8}
                 />
-                <span className="text-[14px] font-medium leading-6">
+                <span className="text-xs sm:text-[14px] font-medium leading-6">
                   Hi!,{firstName || "User"}
                 </span>
               </div>

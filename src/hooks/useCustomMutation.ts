@@ -1,3 +1,5 @@
+"use client";
+
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 
 export function useCustomMutation<TData, TVariables>(

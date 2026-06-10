@@ -19,6 +19,8 @@ export type MarketSlide = {
   address: string;
   primaryCta: string;
   secondaryCta: string;
+  primaryCtaHref?: string;
+  secondaryCtaHref?: string;
 };
 
 export type CategoryItem = {

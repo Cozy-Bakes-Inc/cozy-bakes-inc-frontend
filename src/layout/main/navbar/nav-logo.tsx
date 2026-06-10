@@ -24,7 +24,7 @@ export default function NavLogo() {
         className="w-18 h-18"
       />
 
-      <div className="flex flex-col gap-2 items-start">
+      <div className="hidden sm:flex flex-col gap-2 items-start">
         <span className="text-light-chocolate font-bold text-lg leading-none">
           Cozy Bakes Inc.
         </span>

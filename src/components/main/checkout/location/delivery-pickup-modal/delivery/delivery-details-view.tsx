@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/loader";
+import { Shimmer } from "@/components/ui/shimmer";
 import { LOCATION_IMAGE } from "@/constants";
 import { useAuthenticatedUser } from "@/hooks";
 import {
@@ -33,8 +34,11 @@ export default function DeliveryDetailsView({
   onSaveLocation,
 }: DeliveryDetailsViewProps) {
   const queryClient = useQueryClient();
-  const { data: authenticatedUser, refetch: refetchAuthenticatedUser } =
-    useAuthenticatedUser(true);
+  const {
+    data: authenticatedUser,
+    isLoading,
+    refetch: refetchAuthenticatedUser,
+  } = useAuthenticatedUser(true);
   const setShippingFeeData = useDeliveryPickupModalStore(
     (state) => state.setShippingFeeData,
   );
@@ -96,10 +100,22 @@ export default function DeliveryDetailsView({
     ...initialValues,
     ...watchedValues,
   });
-  const hasChanges = hasShippingInformationChanged({
-    currentValues,
-    initialValues,
-  });
+
+  const savedLat = Number(user?.shipping?.latitude ?? 0);
+  const savedLng = Number(user?.shipping?.longitude ?? 0);
+  const hasPickedLocation =
+    deliveryLocation.latitude !== 0 || deliveryLocation.longitude !== 0;
+  const locationChangedFromSaved =
+    hasPickedLocation &&
+    (deliveryLocation.latitude !== savedLat ||
+      deliveryLocation.longitude !== savedLng);
+
+  const hasChanges =
+    locationChangedFromSaved ||
+    hasShippingInformationChanged({
+      currentValues,
+      initialValues,
+    });
 
   const onSubmit = async (values: ShippingInformationSchemaValues) => {
     const payload = normalizeShippingInformationValues(values);
@@ -168,6 +184,33 @@ export default function DeliveryDetailsView({
 
     onSaveLocation?.();
   };
+
+  if (isLoading) {
+    return (
+      <div className="space-y-5 p-4">
+        <Shimmer className="h-24 w-full rounded-2xl" />
+        <div className="space-y-4 rounded-3xl border border-border/24 px-4 py-4 md:px-6">
+          <Shimmer className="h-7 w-36 rounded-lg" />
+          <div className="grid gap-4 md:grid-cols-2">
+            <Shimmer className="h-20 w-full rounded-lg" />
+            <Shimmer className="h-20 w-full rounded-lg" />
+          </div>
+          <Shimmer className="h-20 w-full rounded-lg" />
+        </div>
+        <div className="space-y-4 rounded-3xl border border-border/24 px-4 py-4 md:px-6">
+          <Shimmer className="h-7 w-36 rounded-lg" />
+          <div className="grid gap-4 md:grid-cols-2">
+            <Shimmer className="h-20 w-full rounded-lg" />
+            <Shimmer className="h-20 w-full rounded-lg" />
+          </div>
+          <Shimmer className="h-20 w-full rounded-lg" />
+        </div>
+        <div className="flex justify-end">
+          <Shimmer className="h-13.5 w-full rounded-lg md:w-50.5" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 p-4">

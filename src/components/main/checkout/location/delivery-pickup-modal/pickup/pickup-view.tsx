@@ -37,7 +37,8 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
     () => shopsData?.pages?.flatMap((page) => page?.data?.data ?? []) ?? [],
     [shopsData],
   );
-  const { data: authenticatedUser } = useAuthenticatedUser(true);
+  const { data: authenticatedUser, isLoading: isUserLoading } =
+    useAuthenticatedUser(true);
   const receiverDetails = useDeliveryPickupModalStore(
     (state) => state.receiverDetails,
   );
@@ -187,7 +188,11 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
           onShowMore={() => fetchNextPage()}
         />
 
-        <PickupReceiverDetailsSection register={register} errors={errors} />
+        <PickupReceiverDetailsSection
+          register={register}
+          errors={errors}
+          isLoading={isUserLoading}
+        />
       </div>
 
       <div className="flex justify-end">

@@ -1,6 +1,7 @@
 "use client";
 
 import DeliveryDetailsFormInput from "../delivery/delivery-details-form-input";
+import { Shimmer } from "@/components/ui/shimmer";
 import {
   receiverDetailsSchema,
   type ReceiverDetailsSchemaValues,
@@ -13,11 +14,13 @@ import type {
 interface PickupReceiverDetailsSectionProps {
   register: UseFormRegister<ReceiverDetailsSchemaValues>;
   errors: FieldErrors<ReceiverDetailsSchemaValues>;
+  isLoading?: boolean;
 }
 
 export default function PickupReceiverDetailsSection({
   register,
   errors,
+  isLoading,
 }: PickupReceiverDetailsSectionProps) {
   return (
     <section className="rounded-2xl border border-border/24 bg-background p-4 sm:p-5">
@@ -31,49 +34,59 @@ export default function PickupReceiverDetailsSection({
         </p>
       </div>
 
-      <div className="space-y-4">
-        <div className="grid gap-4 md:grid-cols-2">
-          <DeliveryDetailsFormInput
-            label="First Name"
-            placeholder="First Name"
-            errorMessage={errors.first_name?.message}
-            register={register("first_name", {
-              validate: (value) => {
-                const result =
-                  receiverDetailsSchema.shape.first_name.safeParse(value);
-                return result.success || result.error.issues[0]?.message;
-              },
-            })}
-          />
+      {isLoading ? (
+        <div className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2">
+            <Shimmer className="h-20 w-full rounded-lg" />
+            <Shimmer className="h-20 w-full rounded-lg" />
+          </div>
+          <Shimmer className="h-20 w-full rounded-lg" />
+        </div>
+      ) : (
+        <div className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-2">
+            <DeliveryDetailsFormInput
+              label="First Name"
+              placeholder="First Name"
+              errorMessage={errors.first_name?.message}
+              register={register("first_name", {
+                validate: (value) => {
+                  const result =
+                    receiverDetailsSchema.shape.first_name.safeParse(value);
+                  return result.success || result.error.issues[0]?.message;
+                },
+              })}
+            />
+
+            <DeliveryDetailsFormInput
+              label="Last Name"
+              placeholder="Last Name"
+              errorMessage={errors.last_name?.message}
+              register={register("last_name", {
+                validate: (value) => {
+                  const result =
+                    receiverDetailsSchema.shape.last_name.safeParse(value);
+                  return result.success || result.error.issues[0]?.message;
+                },
+              })}
+            />
+          </div>
 
           <DeliveryDetailsFormInput
-            label="Last Name"
-            placeholder="Last Name"
-            errorMessage={errors.last_name?.message}
-            register={register("last_name", {
+            label="Phone Number"
+            placeholder="1234 5678 9564"
+            type="tel"
+            errorMessage={errors.phone_number?.message}
+            register={register("phone_number", {
               validate: (value) => {
                 const result =
-                  receiverDetailsSchema.shape.last_name.safeParse(value);
+                  receiverDetailsSchema.shape.phone_number.safeParse(value);
                 return result.success || result.error.issues[0]?.message;
               },
             })}
           />
         </div>
-
-        <DeliveryDetailsFormInput
-          label="Phone Number"
-          placeholder="1234 5678 9564"
-          type="tel"
-          errorMessage={errors.phone_number?.message}
-          register={register("phone_number", {
-            validate: (value) => {
-              const result =
-                receiverDetailsSchema.shape.phone_number.safeParse(value);
-              return result.success || result.error.issues[0]?.message;
-            },
-          })}
-        />
-      </div>
+      )}
     </section>
   );
 }

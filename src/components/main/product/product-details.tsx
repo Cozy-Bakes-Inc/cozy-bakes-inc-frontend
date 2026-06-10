@@ -2,12 +2,16 @@
 
 import Image from "next/image";
 import { useState, useMemo, useRef } from "react";
-import { MoveRight, ShoppingCart, CheckCircle2 } from "lucide-react";
+import {
+  MoveRight,
+  ShoppingCart,
+  CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Counter from "@/components/ui/counter";
 import RatingStars from "@/components/ui/rating-stars";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
 import AddReviewModal from "@/layout/main/site/add-review-modal";
 import { productReviewAPI } from "@/services/mutations";
 import { useCartStore } from "@/store/cart-store";
@@ -42,6 +46,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     Object.fromEntries(flavors.map((f) => [f, 0])),
   );
   const [isAddReviewOpen, setIsAddReviewOpen] = useState(false);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   const packIdRef = useRef(0);
 
   const addItem = useCartStore((state) => state.addItem);
@@ -81,6 +86,12 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           alt: productTitle,
         },
       ];
+
+  const hasMultipleImages = images.length > 1;
+
+  const handlePrev = () =>
+    setActiveImageIndex((i) => (i - 1 + images.length) % images.length);
+  const handleNext = () => setActiveImageIndex((i) => (i + 1) % images.length);
 
   const activeFlavors = showFlavorPicker
     ? Object.fromEntries(Object.entries(flavorCounts).filter(([, c]) => c > 0))
@@ -145,31 +156,81 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       <div className="mx-auto grid max-w-7xl gap-8 px-5 sm:px-10 lg:grid-cols-2 lg:items-start">
         {/* LEFT — image + price option cards */}
         <div className="space-y-4 lg:sticky lg:top-8">
-          <div className="relative h-80 overflow-hidden rounded-3xl shadow-sm sm:h-105">
-            <Swiper
-              modules={[Autoplay]}
-              slidesPerView={1}
-              spaceBetween={16}
-              grabCursor
-              autoplay={{ delay: 2000, disableOnInteraction: false }}
-              speed={600}
-              loop
-              className="h-full w-full"
-            >
-              {images.map((image) => (
-                <SwiperSlide key={image.src} className="relative h-full w-full">
+          {/* Main image */}
+          <div className="relative aspect-4/3 w-full overflow-hidden rounded-3xl shadow-sm">
+            <Image
+              src={images[activeImageIndex]!.src}
+              alt={images[activeImageIndex]!.alt}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover transition-opacity duration-300"
+              priority
+            />
+
+            {hasMultipleImages && (
+              <>
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  className="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/80 p-1.5 shadow backdrop-blur-sm transition hover:bg-white"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="size-5 text-secondary" />
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  className="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/80 p-1.5 shadow backdrop-blur-sm transition hover:bg-white"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="size-5 text-secondary" />
+                </button>
+
+                {/* Dot indicators */}
+                <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
+                  {images.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setActiveImageIndex(idx)}
+                      className={`h-2 rounded-full transition-all ${
+                        idx === activeImageIndex
+                          ? "w-5 bg-white"
+                          : "w-2 bg-white/60"
+                      }`}
+                      aria-label={`Go to image ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Thumbnails */}
+          {hasMultipleImages && (
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {images.map((image, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => setActiveImageIndex(idx)}
+                  className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 transition-all sm:h-20 sm:w-20 ${
+                    idx === activeImageIndex
+                      ? "border-primary"
+                      : "border-transparent opacity-60 hover:opacity-100"
+                  }`}
+                >
                   <Image
                     src={image.src}
                     alt={image.alt}
                     fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    sizes="80px"
                     className="object-cover"
-                    priority
                   />
-                </SwiperSlide>
+                </button>
               ))}
-            </Swiper>
-          </div>
+            </div>
+          )}
 
           {/* Price option radio cards */}
           {hasPricing && (
@@ -225,7 +286,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         </div>
 
         {/* RIGHT — title, review, flavors, add to cart */}
-        <div className="rounded-3xl bg-background p-6 shadow-sm sm:p-8">
+        <div className="min-w-0 rounded-3xl bg-background p-6 shadow-sm sm:p-8">
           <div className="space-y-5">
             {/* Title, description & rating */}
             <div className="space-y-3">

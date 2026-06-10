@@ -2,6 +2,7 @@
 import { containerVariants } from "@/lib";
 import { motion } from "framer-motion";
 import { ChefHat } from "lucide-react";
+import Image from "next/image";
 
 function StoryVideo() {
   return (
@@ -19,7 +20,7 @@ function StoryVideo() {
             Behind the Scenes
           </span>
           <h2 className="mt-4 text-2xl font-extrabold tracking-tight text-dark sm:text-3xl md:text-4xl">
-            Crafting Magic,{" "}
+            Crafting Magic{" "}
             <span className="text-heading-2">Behind Every Loaf</span>
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-gray sm:text-base">
@@ -30,13 +31,13 @@ function StoryVideo() {
         </div>
 
         <motion.div className="mt-10" variants={containerVariants}>
-          <video
-            src="/images/story-video.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover rounded-xl"
+          <Image
+            src="/images/story.gif"
+            alt="Behind the scenes at Cozy Bakes"
+            width={1280}
+            height={720}
+            className="w-full h-162.5 object-cover rounded-xl"
+            unoptimized
           />
         </motion.div>
       </motion.div>

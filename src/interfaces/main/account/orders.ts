@@ -25,6 +25,22 @@ export interface OrderItemImageObject {
 
 export type OrderItemImage = string | OrderItemImageObject;
 
+export interface OrderItemPriceSnapshot {
+  type: string;
+  label: string;
+  pack_quantity: string | null;
+  unit_price: string;
+}
+
+export interface OrderItemFlavor {
+  name: string;
+  qty: number;
+}
+
+export interface OrderItemFlavors {
+  flavors: OrderItemFlavor[];
+}
+
 export interface OrderListItemDetails {
   product_id: number | string;
   slug?: string;
@@ -32,6 +48,8 @@ export interface OrderListItemDetails {
   description?: string | null;
   quantity: number | string;
   price: string;
+  price_snapshot?: OrderItemPriceSnapshot | null;
+  flavors?: OrderItemFlavors | null;
   subtotal: string | null;
   images: OrderItemImage[];
 }

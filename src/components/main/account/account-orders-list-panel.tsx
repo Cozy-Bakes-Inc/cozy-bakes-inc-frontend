@@ -162,17 +162,26 @@ export default function AccountOrdersListPanel({
                     </span>
                   </div>
 
-                  <div className="space-y-1 sm:max-w-3xl">
+                  <div className="space-y-1.5 sm:max-w-3xl">
                     {order.items.map((item) => (
-                      <div key={`${order.id}-${item.product_id}-${item.title}`}>
-                        <p className="text-sm font-medium text-gray">
-                          {item.title} * {item.quantity}
+                      <div key={`${order.id}-${item.product_id}-${item.title}-${item.price_snapshot?.label}`}>
+                        <p className="text-sm font-medium text-dark">
+                          {item.title}
                         </p>
-                        {item.description?.trim() ? (
-                          <p className="break-words text-sm text-gray/90">
-                            {item.description.trim()}
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                          {item.price_snapshot ? (
+                            <p className="text-xs font-semibold text-primary">
+                              {item.price_snapshot.label} &mdash; ${item.price_snapshot.unit_price}
+                            </p>
+                          ) : (
+                            <p className="text-xs font-semibold text-primary">
+                              ${item.price}
+                            </p>
+                          )}
+                          <p className="text-[10px] uppercase tracking-wide text-gray">
+                            *{item.quantity}
                           </p>
-                        ) : null}
+                        </div>
                       </div>
                     ))}
                   </div>

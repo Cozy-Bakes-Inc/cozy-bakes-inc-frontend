@@ -81,7 +81,7 @@ export default function DeliveryPickupModal({
     <Modal
       open={open}
       onClose={handleClose}
-      contentClassName="gap-0 p-0 md:max-w-xl lg:max-w-4xl 2xl:max-w-6xl rounded-[24px] border border-border/24 bg-background shadow-none"
+      contentClassName="gap-0 p-0 pb-4 md:max-w-xl lg:max-w-4xl 2xl:max-w-6xl rounded-[24px] border border-border/24 bg-background shadow-none"
       titleClassName="text-dark p-4 text-lg font-semibold leading-7 md:text-xl md:leading-[30px]"
       closeButtonClassname="border-primary text-primary"
       title={

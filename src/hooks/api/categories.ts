@@ -1,5 +1,6 @@
 import {
   getCategorySubcategoriesAPI,
+  listAllSubcategoriesAPI,
   listCategoriesAPI,
   listProductsBySubcategoryAPI,
   listSubcategoriesAPI,
@@ -74,6 +75,12 @@ export function useSubcategories() {
         return undefined;
       },
     },
+  );
+}
+
+export function useAllSubcategories() {
+  return useCustomQuery(["subcategories", "all"], () =>
+    listAllSubcategoriesAPI(),
   );
 }
 

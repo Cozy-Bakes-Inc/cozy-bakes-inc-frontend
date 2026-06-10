@@ -7,7 +7,6 @@ import {
   editPersonalInformationData,
   orderTabs,
   personalInformationData,
-  profileUser,
   shippingInformationData,
 } from "@/data/main/account";
 import type { AccountProps } from "@/interfaces/main/account";
@@ -85,8 +84,8 @@ export default function Account({
       <section className="w-full overflow-x-hidden bg-background py-6 sm:py-14">
         <div className="mx-auto w-full max-w-7xl px-3 sm:px-10">
           <div className="grid w-full min-w-0 gap-4 sm:gap-6 lg:grid-cols-[minmax(0,311px)_minmax(0,1fr)] lg:items-start">
-            <div className="min-w-0 space-y-4 lg:sticky lg:top-24">
-              <ProfileSummaryCard profile={profileUser} />
+            <div className="min-w-0 space-y-4 lg:sticky">
+              <ProfileSummaryCard />
 
               <AccountMobileSidebarPanel
                 activeTab={activeTab}
