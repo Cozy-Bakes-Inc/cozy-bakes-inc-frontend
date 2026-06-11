@@ -1,6 +1,7 @@
 "use client";
 
 import { useMarkets } from "@/hooks/api/farmers-market";
+import { formatMarketDateRange } from "@/lib/utils/market-date";
 import type { UpcomingMarket } from "@/types/main/farmers-market";
 import type { MarketSlide } from "@/interfaces";
 import FarmersMarketHero from "./farmers-market-hero";
@@ -13,8 +14,8 @@ export function toMarketSlide(market: UpcomingMarket): MarketSlide {
     badge: market.tag_label,
     title: market.market_name,
     desc: market.description,
-    date: market.date,
-    endDate: market.end_date,
+    date: market.day,
+    endDate: formatMarketDateRange(market.date, market.end_date),
     time: market.time,
     endTime: market.end_time,
     address: market.location_address,
@@ -26,7 +27,7 @@ export function toMarketSlide(market: UpcomingMarket): MarketSlide {
 
 function FarmersMarket() {
   const { data, isLoading } = useMarkets();
-
+  console.log("Farmers Market Data:", data);
   const grouped = data?.data ?? {};
   const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
   const todaySlides = (grouped[today] ?? []).map(toMarketSlide);

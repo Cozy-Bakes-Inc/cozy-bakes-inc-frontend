@@ -13,6 +13,7 @@ import type { SVGProps } from "react";
 import { Button } from "@/components/ui/button";
 import { Shimmer } from "@/components/ui/shimmer";
 import { useUpcomingMarkets } from "@/hooks";
+import { formatMarketSchedule } from "@/lib/utils/market-date";
 
 const links = [
   { href: "/", label: "Home" },
@@ -145,8 +146,18 @@ export default function Footer() {
               ) : (
                 markets.map((market) => (
                   <div key={market.market_name}>
-                    <p className="font-semibold text-white">{market.market_name}</p>
-                    <p className="mt-1">{`${market.day}, ${market.date} · ${market.time}`}</p>
+                    <p className="font-semibold text-white">
+                      {market.market_name}
+                    </p>
+                    <p className="mt-1">
+                      {formatMarketSchedule({
+                        day: market.day,
+                        date: market.date,
+                        endDate: market.end_date,
+                        time: market.time,
+                        endTime: market.end_time,
+                      })}
+                    </p>
                   </div>
                 ))
               )}
