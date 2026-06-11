@@ -101,7 +101,7 @@ export function LoginForm({ returnTo }: LoginFormProps) {
         <span className="h-px flex-1 bg-[#D0D5DD]" />
       </div>
 
-      <Button
+      {/* <Button
         type="button"
         variant="ghost"
         className="flex h-13.5 w-full rounded-2xl border border-gray-500 items-center justify-center gap-3"
@@ -112,7 +112,7 @@ export function LoginForm({ returnTo }: LoginFormProps) {
         <span className="text-dark text-base leading-6 font-medium">
           Continue with Google
         </span>
-      </Button>
+      </Button> */}
 
       <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-1 text-center">
         <p className="text-gray-500 text-sm leading-6 font-medium md:text-base">

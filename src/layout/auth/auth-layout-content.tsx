@@ -3,6 +3,7 @@
 import { AUTH_IMAGE, FORGOT_PASSWORD_IMAGE } from "@/constants";
 import { authRoutes, forgotPasswordFlowRoutes } from "@/data";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type ReactNode } from "react";
 
@@ -32,16 +33,28 @@ export function AuthLayoutContent({ children }: AuthLayoutContentProps) {
       <section className="mx-auto max-w-360 rounded-[24px] bg-background p-2 sm:p-3">
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div className="rounded-[18px] px-4 py-4 sm:px-8 sm:py-6">
-            <div className="mb-6 flex items-center gap-2">
-              <div className="relative h-17.5 w-17.5 shrink-0">
-                <Image src="/images/logo.svg" alt="Cozy Bakes Inc." fill />
-              </div>
-              <div className="leading-tight">
-                <p className="text-lg font-bold text-light-chocolate">
-                  Cozy Bakes Inc.
-                </p>
-                <p className="text-xs font-medium text-[#BB4D00]">By Marwa</p>
-              </div>
+            <div className="mb-6 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="flex items-center gap-2"
+              >
+                <div className="relative h-17.5 w-17.5 shrink-0">
+                  <Image src="/images/logo.svg" alt="Cozy Bakes Inc." fill />
+                </div>
+                <div className="leading-tight">
+                  <p className="text-lg font-bold text-light-chocolate">
+                    Cozy Bakes Inc.
+                  </p>
+                  <p className="text-xs font-medium text-[#BB4D00]">By Marwa</p>
+                </div>
+              </button>
+              <Link
+                href="/"
+                className="text-sm font-medium text-light-chocolate hover:underline"
+              >
+                ← Back to Home
+              </Link>
             </div>
 
             <div className="mx-auto w-full max-w-xl">{children}</div>

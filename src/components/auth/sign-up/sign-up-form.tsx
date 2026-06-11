@@ -124,13 +124,13 @@ export function SignUpForm() {
         {isSubmitting ? <Loader /> : "Create Account"}
       </Button>
 
-      <div className="flex items-center justify-center gap-2.5">
+      {/* <div className="flex items-center justify-center gap-2.5">
         <span className="h-px flex-1 bg-[#D0D5DD]" />
         <span className="text-sm leading-7 font-semibold text-gray-500 uppercase">
           OR
         </span>
         <span className="h-px flex-1 bg-[#D0D5DD]" />
-      </div>
+      </div> */}
 
       <Button
         type="button"

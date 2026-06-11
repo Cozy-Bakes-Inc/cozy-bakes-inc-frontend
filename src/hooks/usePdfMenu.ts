@@ -51,7 +51,7 @@ function proxyUrl(url: string) {
 async function extractMenuFromPdf(url: string): Promise<PdfMenuCategory[]> {
   const pdfjsLib = await import("pdfjs-dist");
 
-  pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
   const pdf = await pdfjsLib.getDocument({ url: proxyUrl(url) }).promise;
   const lines: string[] = [];
