@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
+import Link from "next/link";
 
 export default function QuestionsSection() {
   return (
@@ -22,9 +23,12 @@ export default function QuestionsSection() {
             exceptional.
           </p>
           <div className="mt-6 flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
-            <Button className="h-10 rounded-full bg-card px-6 text-xs font-semibold text-white hover:bg-card/90 sm:h-11 sm:px-8 sm:text-sm flex gap-2 items-center justify-center">
+            <Link
+              href="/contact"
+              className="h-10 rounded-full bg-card px-6 text-xs font-semibold text-white hover:bg-card/90 sm:h-11 sm:px-8 sm:text-sm flex gap-2 items-center justify-center"
+            >
               <span>Inquire or Order Now</span> <MoveRight />
-            </Button>
+            </Link>
           </div>
         </div>
       </div>

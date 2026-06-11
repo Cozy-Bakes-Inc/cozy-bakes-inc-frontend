@@ -169,9 +169,9 @@ export default function CheckoutCartSummary({
     }
 
     const checkoutUrl = result.data?.checkout_url;
+    clearCart();
 
     if (schemaResult.data.payment_method === "cod") {
-      clearCart();
       toast.success(result?.message || "Order created successfully");
       await queryClient.invalidateQueries({
         queryKey: ["orders"],

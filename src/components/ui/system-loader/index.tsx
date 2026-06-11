@@ -20,10 +20,7 @@ export default function SystemLoader({
 }: SystemLoaderProps) {
   return (
     <div
-      className={cn(
-        fullScreen ? styles.overlay : styles.inline,
-        className,
-      )}
+      className={cn(fullScreen ? styles.overlay : styles.inline, className)}
       role="status"
       aria-live="polite"
       aria-label="Loading Cozy Bakes Inc"
@@ -112,7 +109,11 @@ export default function SystemLoader({
             <motion.span
               key={dot}
               className={styles.dot}
-              animate={{ y: [0, -8, 0], opacity: [0.35, 1, 0.35], scale: [1, 1.15, 1] }}
+              animate={{
+                y: [0, -8, 0],
+                opacity: [0.35, 1, 0.35],
+                scale: [1, 1.15, 1],
+              }}
               transition={{
                 duration: 0.9,
                 repeat: Infinity,

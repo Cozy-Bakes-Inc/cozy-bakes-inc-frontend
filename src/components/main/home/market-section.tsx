@@ -5,6 +5,7 @@ import MarketShowcase from "@/components/main/market-showcase";
 import { Shimmer } from "@/components/ui/shimmer";
 import { useUpcomingMarkets } from "@/hooks";
 import type { MarketSlide } from "@/interfaces";
+import { formatMarketDateRange } from "@/lib/utils/market-date";
 import type { UpcomingMarket } from "@/types/main";
 
 function toMarketSlide(market: UpcomingMarket): MarketSlide {
@@ -13,8 +14,8 @@ function toMarketSlide(market: UpcomingMarket): MarketSlide {
     badge: market.tag_label,
     title: market.market_name,
     desc: market.description,
-    date: `${market.day}, ${market.date}`,
-    endDate: market.end_date,
+    date: market.day,
+    endDate: formatMarketDateRange(market.date, market.end_date),
     time: market.time,
     endTime: market.end_time,
     address: market.location_address,

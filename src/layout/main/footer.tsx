@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Facebook,
-  Instagram,
-  Phone,
-  Mail,
-  ChevronsRight,
-} from "lucide-react";
+import { Facebook, Instagram, Phone, Mail, ChevronsRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { SVGProps } from "react";
@@ -25,12 +19,7 @@ const links = [
 
 function TikTokIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-      {...props}
-    >
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
       <path d="M14.25 3c.2 1.72 1.16 3.27 2.58 4.18.97.62 2.1.96 3.24.98v3.17a8.77 8.77 0 0 1-4.16-1.07v5.95a6.21 6.21 0 1 1-6.22-6.21c.33 0 .66.03.98.08v3.22a3.08 3.08 0 1 0 2.48 3.02V3h3.1Z" />
     </svg>
   );
