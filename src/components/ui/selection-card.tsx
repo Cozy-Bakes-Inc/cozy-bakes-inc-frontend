@@ -106,7 +106,7 @@ export default function SelectionCard({ item }: SelectionCardProps) {
 
         {/* Body */}
         <div className="flex min-w-0 flex-1 flex-col gap-2 overflow-hidden p-3 sm:p-4">
-          <h3 className="min-w-0 truncate text-sm font-semibold text-secondary">
+          <h3 className="min-w-0 truncate text-sm font-semibold capitalize text-secondary">
             {item.title}
           </h3>
 

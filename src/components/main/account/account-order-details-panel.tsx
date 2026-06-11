@@ -340,17 +340,17 @@ export default function AccountOrderDetailsPanel({
                     {itemHref ? (
                       <Link
                         href={itemHref}
-                        className="text-lg font-semibold leading-7 text-dark hover:text-primary sm:text-[18px]"
+                        className="text-lg font-semibold capitalize leading-7 text-dark hover:text-primary sm:text-[18px]"
                       >
                         {item.title}
                       </Link>
                     ) : (
-                      <p className="text-lg font-semibold leading-7 text-dark sm:text-[18px]">
+                      <p className="text-lg font-semibold capitalize leading-7 text-dark sm:text-[18px]">
                         {item.title}
                       </p>
                     )}
                     {item.price_snapshot ? (
-                      <p className="mt-0.5 text-xs font-semibold text-primary">
+                      <p className="mt-0.5 text-xs font-semibold capitalize text-primary">
                         {item.price_snapshot.label}{" "}
                         <span className="text-secondary/50">
                           &mdash; {formatPrice(item.price_snapshot.unit_price)}
@@ -362,7 +362,7 @@ export default function AccountOrderDetailsPanel({
                         {item.flavors.flavors.map((flavor) => (
                           <p
                             key={flavor.name}
-                            className="text-xs leading-4 text-secondary/60"
+                            className="text-xs capitalize leading-4 text-secondary/60"
                           >
                             {flavor.qty}x {flavor.name}
                           </p>
@@ -382,7 +382,7 @@ export default function AccountOrderDetailsPanel({
                     </p>
                   </div>
 
-                  <span className="w-full shrink-0 rounded-lg bg-background px-4 py-2 text-center text-sm text-chocolate sm:w-auto sm:text-base">
+                  <span className="w-full shrink-0 rounded-lg bg-background px-4 py-2 text-center text-sm capitalize text-chocolate sm:w-auto sm:text-base">
                     {item.price_snapshot?.label ?? item.title} * {item.quantity}
                   </span>
                 </div>
@@ -406,7 +406,7 @@ export default function AccountOrderDetailsPanel({
               key={`${item.product_id}-${item.title}-summary`}
               className="flex min-h-12 items-center justify-between gap-3 border-b border-border/24 py-2"
             >
-              <span className="min-w-0 text-sm font-medium text-gray sm:text-base">
+              <span className="min-w-0 text-sm font-medium capitalize text-gray sm:text-base">
                 {item.price_snapshot?.label ?? item.title} * {item.quantity}
               </span>
               <span className="shrink-0 text-base font-semibold text-dark sm:text-[18px]">

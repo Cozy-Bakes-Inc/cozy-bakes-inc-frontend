@@ -8,6 +8,7 @@ import { GridShimmer } from "@/components/ui/shimmer";
 import type { ApiProductItem } from "@/interfaces";
 import { useProductsBySubcategory } from "@/hooks/api/categories";
 import { useParams } from "next/navigation";
+import Loader from "@/components/ui/loader";
 
 function EmptyProductsState() {
   return (
@@ -35,8 +36,14 @@ function EmptyProductsState() {
               <div className="absolute bottom-21 right-5 w-1 h-3 bg-secondary/60 rounded-full" />
               {/* Flames */}
               <div className="absolute bottom-24 left-4.5 w-1.5 h-2 rounded-full bg-primary/70 animate-pulse" />
-              <div className="absolute bottom-24 left-1/2 -translate-x-1/2 w-1.5 h-2 rounded-full bg-primary/70 animate-pulse" style={{ animationDelay: "0.3s" }} />
-              <div className="absolute bottom-24 right-4.5 w-1.5 h-2 rounded-full bg-primary/70 animate-pulse" style={{ animationDelay: "0.6s" }} />
+              <div
+                className="absolute bottom-24 left-1/2 -translate-x-1/2 w-1.5 h-2 rounded-full bg-primary/70 animate-pulse"
+                style={{ animationDelay: "0.3s" }}
+              />
+              <div
+                className="absolute bottom-24 right-4.5 w-1.5 h-2 rounded-full bg-primary/70 animate-pulse"
+                style={{ animationDelay: "0.6s" }}
+              />
               {/* Decorative dots */}
               <div className="absolute bottom-4 inset-x-2 flex justify-around">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
@@ -56,9 +63,24 @@ function EmptyProductsState() {
           </div>
         </div>
         {/* Sparkles */}
-        <div className="absolute -top-2 -right-2 text-primary/60 text-lg animate-bounce" style={{ animationDelay: "0.2s" }}>✦</div>
-        <div className="absolute -top-4 left-4 text-secondary/40 text-sm animate-bounce" style={{ animationDelay: "0.5s" }}>✦</div>
-        <div className="absolute top-0 -left-4 text-primary/30 text-xs animate-bounce" style={{ animationDelay: "0.8s" }}>✦</div>
+        <div
+          className="absolute -top-2 -right-2 text-primary/60 text-lg animate-bounce"
+          style={{ animationDelay: "0.2s" }}
+        >
+          ✦
+        </div>
+        <div
+          className="absolute -top-4 left-4 text-secondary/40 text-sm animate-bounce"
+          style={{ animationDelay: "0.5s" }}
+        >
+          ✦
+        </div>
+        <div
+          className="absolute top-0 -left-4 text-primary/30 text-xs animate-bounce"
+          style={{ animationDelay: "0.8s" }}
+        >
+          ✦
+        </div>
       </div>
 
       {/* Text content */}
@@ -67,7 +89,8 @@ function EmptyProductsState() {
           Something Delicious Is Coming
         </h3>
         <p className="text-warm-brown/80 text-sm leading-relaxed mb-1">
-          Our bakers are hard at work crafting something special for this collection.
+          Our bakers are hard at work crafting something special for this
+          collection.
         </p>
         <p className="text-warm-brown/60 text-sm mb-8">
           Check back soon — good things take time!
@@ -132,9 +155,13 @@ export default function CategoryProductsGrid() {
               disabled={isFetchingNextPage}
               className="rounded-full bg-background px-6 text-xs font-semibold text-dark hover:bg-background/90"
             >
-              {isFetchingNextPage
-                ? "Loading products..."
-                : "Load More Products"}
+              {isFetchingNextPage ? (
+                <>
+                  <Loader /> Loading Products...
+                </>
+              ) : (
+                "Load More Products"
+              )}
             </Button>
           </div>
         ) : null}

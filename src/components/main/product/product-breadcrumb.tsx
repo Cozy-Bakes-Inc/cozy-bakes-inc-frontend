@@ -37,12 +37,14 @@ export default function ProductBreadcrumb() {
           <ChevronRight className="size-4 text-gray-400" />
           <Link
             href={subCategoryHref}
-            className="text-gray-300 transition hover:text-white"
+            className="text-gray-300 capitalize transition hover:text-white"
           >
             {subCategoryTitle}
           </Link>
           <ChevronRight className="size-4 text-gray-400" />
-          <span className="font-medium text-primary">{productTitle}</span>
+          <span className="font-medium capitalize text-primary">
+            {productTitle}
+          </span>
         </nav>
       </div>
     </section>

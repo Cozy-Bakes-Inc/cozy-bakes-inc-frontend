@@ -9,8 +9,54 @@ export type PdfMenuCategory = {
   extraLabel?: string;
   extraText?: string;
 };
+type PdfMenuResult = {
+  url?: string;
+  categories: PdfMenuCategory[];
+  error: string | null;
+};
 
 const PRICE_RE = /\$[\d,]+(?:\.\d{2})?(?:(?:\s+each)|(?:\s+or\s+\d+\s+for\s+\$[\d,]+))?/gi;
+const PDF_LOAD_ERROR = "The menu preview is not available on this device. Please use the download button to view the PDF.";
+
+function defineAtMethod(prototype: unknown) {
+  const target = prototype as { at?: (index: number) => unknown };
+
+  if (typeof target.at === "function") return;
+
+  Object.defineProperty(target, "at", {
+    configurable: true,
+    writable: true,
+    value: function at(
+      this: { length?: number } & Record<number, unknown>,
+      index: number,
+    ) {
+      const length = Number(this.length) || 0;
+      const integerIndex = Math.trunc(index) || 0;
+      const relativeIndex =
+        integerIndex >= 0 ? integerIndex : length + integerIndex;
+
+      if (relativeIndex < 0 || relativeIndex >= length) return undefined;
+      return this[relativeIndex];
+    },
+  });
+}
+
+function ensurePdfRuntimeSupport() {
+  defineAtMethod(Array.prototype);
+  defineAtMethod(String.prototype);
+
+  [
+    Int8Array,
+    Uint8Array,
+    Uint8ClampedArray,
+    Int16Array,
+    Uint16Array,
+    Int32Array,
+    Uint32Array,
+    Float32Array,
+    Float64Array,
+  ].forEach((TypedArray) => defineAtMethod(TypedArray.prototype));
+}
 
 function parseMenuLines(lines: string[]): PdfMenuCategory[] {
   const categories: PdfMenuCategory[] = [];
@@ -49,11 +95,20 @@ function proxyUrl(url: string) {
 }
 
 async function extractMenuFromPdf(url: string): Promise<PdfMenuCategory[]> {
-  const pdfjsLib = await import("pdfjs-dist");
+  ensurePdfRuntimeSupport();
+
+  const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
 
   pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
-  const pdf = await pdfjsLib.getDocument({ url: proxyUrl(url) }).promise;
+  const res = await fetch(proxyUrl(url));
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch menu PDF");
+  }
+
+  const data = new Uint8Array(await res.arrayBuffer());
+  const pdf = await pdfjsLib.getDocument({ data }).promise;
   const lines: string[] = [];
 
   for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
@@ -82,19 +137,42 @@ async function extractMenuFromPdf(url: string): Promise<PdfMenuCategory[]> {
 }
 
 export function usePdfMenu(url: string | undefined) {
-  const [categories, setCategories] = useState<PdfMenuCategory[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<PdfMenuResult>({
+    categories: [],
+    error: null,
+  });
 
   useEffect(() => {
     if (!url) return;
-    setIsLoading(true);
-    setError(null);
+
+    let isCancelled = false;
+
     extractMenuFromPdf(url)
-      .then(setCategories)
-      .catch((e: Error) => setError(e?.message ?? "Failed to load menu"))
-      .finally(() => setIsLoading(false));
+      .then((categories) => {
+        if (!isCancelled) {
+          setResult({ url, categories, error: null });
+        }
+      })
+      .catch((e: Error) => {
+        console.error("Failed to parse menu PDF", e);
+
+        if (!isCancelled) {
+          setResult({
+            url,
+            categories: [],
+            error: PDF_LOAD_ERROR,
+          });
+        }
+      });
+
+    return () => {
+      isCancelled = true;
+    };
   }, [url]);
+
+  const isLoading = Boolean(url) && result.url !== url;
+  const categories = result.url === url ? result.categories : [];
+  const error = result.url === url ? result.error : null;
 
   return { categories, isLoading, error };
 }

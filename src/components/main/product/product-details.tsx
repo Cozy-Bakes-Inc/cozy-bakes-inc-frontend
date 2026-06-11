@@ -290,7 +290,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           <div className="space-y-5">
             {/* Title, description & rating */}
             <div className="space-y-3">
-              <h1 className="text-3xl font-semibold tracking-tight text-secondary sm:text-4xl">
+              <h1 className="text-3xl font-semibold capitalize tracking-tight text-secondary sm:text-4xl">
                 {productTitle}
               </h1>
               <p className="break-words text-sm leading-7 text-gray sm:text-base">

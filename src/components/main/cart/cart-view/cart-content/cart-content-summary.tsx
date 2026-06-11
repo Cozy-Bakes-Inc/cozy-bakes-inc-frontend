@@ -38,7 +38,9 @@ export default function CartContentSummary({
                 return (
                   <div key={`${item.id}-summary-fallback`} className="flex items-start justify-between gap-3 text-sm">
                     <div className="min-w-0">
-                      <p className="font-semibold text-dark">{item.title}</p>
+                      <p className="font-semibold capitalize text-dark">
+                        {item.title}
+                      </p>
                       {item.priceLabel && (
                         <p className="text-xs font-semibold capitalize text-primary">
                           {item.priceLabel}
@@ -46,7 +48,10 @@ export default function CartContentSummary({
                         </p>
                       )}
                       {flavorLines.map(({ label, count }) => (
-                        <p key={label} className="text-xs text-secondary/60">
+                        <p
+                          key={label}
+                          className="text-xs capitalize text-secondary/60"
+                        >
                           {count}x {label}
                         </p>
                       ))}
@@ -140,7 +145,9 @@ function CartContentSummaryContent({
             return (
               <div key={`${item.id}-summary`} className="flex items-start justify-between gap-3 text-sm">
                 <div className="min-w-0">
-                  <p className="font-semibold text-dark">{item.title}</p>
+                  <p className="font-semibold capitalize text-dark">
+                    {item.title}
+                  </p>
                   {item.priceLabel && (
                     <p className="text-xs font-semibold capitalize text-primary">
                       {item.priceLabel}
@@ -148,7 +155,10 @@ function CartContentSummaryContent({
                     </p>
                   )}
                   {flavorLines.map(({ label, count }) => (
-                    <p key={label} className="text-xs text-secondary/60">
+                    <p
+                      key={label}
+                      className="text-xs capitalize text-secondary/60"
+                    >
                       {count}x {label}
                     </p>
                   ))}

@@ -6,6 +6,7 @@ import type { SubcategoryItem } from "@/interfaces/main/categories";
 import { Button } from "@/components/ui/button";
 import { GridShimmer } from "@/components/ui/shimmer";
 import { useSubcategories } from "@/hooks/api/categories";
+import Loader from "@/components/ui/loader";
 
 export default function CategoriesGridSection() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -48,9 +49,13 @@ export default function CategoriesGridSection() {
               disabled={isFetchingNextPage}
               className="rounded-full bg-bg-creamy px-6 text-xs font-semibold text-dark hover:bg-bg-creamy/90"
             >
-              {isFetchingNextPage
-                ? "Loading subcategories..."
-                : "Load More Subcategories"}
+              {isFetchingNextPage ? (
+                <>
+                  <Loader /> Loading Categories...
+                </>
+              ) : (
+                "Load More Categories"
+              )}
             </Button>
           </div>
         ) : null}

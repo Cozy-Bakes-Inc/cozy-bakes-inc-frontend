@@ -21,7 +21,9 @@ export default function OrderDetailItem({ item }: OrderDetailItemProps) {
         <div className="min-w-0 flex-1">
           {/* Product title + unit price */}
           <div className="flex items-start justify-between gap-3">
-            <p className="text-sm font-bold text-dark">{item.title}</p>
+            <p className="text-sm font-bold capitalize text-dark">
+              {item.title}
+            </p>
             <p className="shrink-0 text-sm font-medium text-secondary/60">
               ${item.price.toFixed(2)}
             </p>
@@ -39,7 +41,10 @@ export default function OrderDetailItem({ item }: OrderDetailItemProps) {
           {flavorLines.length > 0 && (
             <div className="mt-1 space-y-0.5">
               {flavorLines.map(({ label, count }) => (
-                <p key={label} className="text-xs leading-4 text-secondary/60">
+                <p
+                  key={label}
+                  className="text-xs capitalize leading-4 text-secondary/60"
+                >
                   {count}x {label}
                 </p>
               ))}

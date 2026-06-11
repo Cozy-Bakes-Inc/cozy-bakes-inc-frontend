@@ -83,7 +83,7 @@ export default function HeroSlideContent({
           className="mt-5 text-base text-white/80 sm:text-lg flex items-center gap-2 leading-5"
         >
           <span className="block bg-[#12B76A] h-2 w-2 rounded-full transition shrink-0" />
-          Baked daily, Farmers Day only 2 special days!
+          Freshly baked
         </motion.p>
       </div>
     </div>

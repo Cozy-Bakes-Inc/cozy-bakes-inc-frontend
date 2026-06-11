@@ -23,8 +23,12 @@ export default function CategoryCard({ item }: CategoryCardProps) {
 
         <div className="absolute inset-0 flex flex-col justify-end p-5 text-white transition-opacity duration-300 delay-0 group-hover:opacity-0 group-hover:delay-150">
           <span className="mb-2 h-1 w-10 rounded-full bg-primary" />
-          <h3 className="text-base font-semibold sm:text-lg">{item.title}</h3>
-          <p className="mt-1 text-xs text-white/80">{item.subtitle}</p>
+          <h3 className="text-base font-semibold capitalize sm:text-lg">
+            {item.title}
+          </h3>
+          <p className="mt-1 text-xs capitalize text-white/80">
+            {item.subtitle}
+          </p>
         </div>
 
         <div className="absolute inset-0 z-10 translate-y-full bg-bg-creamy p-6 text-dark opacity-0 shadow-sm transition-all duration-400 ease-out group-hover:translate-y-0 group-hover:opacity-100">
@@ -38,7 +42,7 @@ export default function CategoryCard({ item }: CategoryCardProps) {
               {item.eyebrow ?? "Discover"}
             </span>
           </div>
-          <h3 className="mt-3 text-2xl font-semibold text-dark">
+          <h3 className="mt-3 text-2xl font-semibold capitalize text-dark">
             {item.title}
           </h3>
           <p className="mt-3 text-sm leading-6 text-gray">{item.desc}</p>

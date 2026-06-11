@@ -9,9 +9,9 @@ export default function PaymentSuccessPage() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const orderNumber = searchParams.get("order_number");
+    const orderNumber = searchParams.get("order-number");
     const dest = orderNumber
-      ? `/account?tab=new-order&order_number=${orderNumber}`
+      ? `/account?tab=new-order&order-number=${orderNumber}`
       : "/account?tab=new-order";
     router.replace(dest);
   }, [router, searchParams]);

@@ -132,7 +132,9 @@ export default function CartContentItemCard({
 
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-3">
-            <p className="text-base font-bold text-dark">{item.title}</p>
+            <p className="text-base font-bold capitalize text-dark">
+              {item.title}
+            </p>
             <p className="shrink-0 text-sm font-medium text-secondary/60">
               ${item.price.toFixed(2)}
             </p>
@@ -185,7 +187,10 @@ export default function CartContentItemCard({
           {!isPerUnitFlavor && flavorLines.length > 0 && (
             <div className="mt-1 space-y-0.5">
               {flavorLines.map(({ label, count }) => (
-                <p key={label} className="text-sm leading-5 text-secondary/60">
+                <p
+                  key={label}
+                  className="text-sm capitalize leading-5 text-secondary/60"
+                >
                   {count}x {label}
                 </p>
               ))}

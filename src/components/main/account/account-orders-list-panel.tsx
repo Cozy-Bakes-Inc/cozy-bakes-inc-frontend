@@ -10,6 +10,7 @@ import { cn } from "@/lib";
 import type { AccountOrderListTab, OrderStatus } from "@/types";
 import { Button } from "@/components/ui/button";
 import { AccountOrderCardSkeleton } from "./account-order-skeletons";
+import Loader from "@/components/ui/loader";
 
 const FALLBACK_ORDER_IMAGE = "/images/artisan-sourdough.jpg";
 
@@ -164,14 +165,17 @@ export default function AccountOrdersListPanel({
 
                   <div className="space-y-1.5 sm:max-w-3xl">
                     {order.items.map((item) => (
-                      <div key={`${order.id}-${item.product_id}-${item.title}-${item.price_snapshot?.label}`}>
-                        <p className="text-sm font-medium text-dark">
+                      <div
+                        key={`${order.id}-${item.product_id}-${item.title}-${item.price_snapshot?.label}`}
+                      >
+                        <p className="text-sm font-medium capitalize text-dark">
                           {item.title}
                         </p>
                         <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                           {item.price_snapshot ? (
-                            <p className="text-xs font-semibold text-primary">
-                              {item.price_snapshot.label} &mdash; ${item.price_snapshot.unit_price}
+                            <p className="text-xs font-semibold capitalize text-primary">
+                              {item.price_snapshot.label} &mdash; $
+                              {item.price_snapshot.unit_price}
                             </p>
                           ) : (
                             <p className="text-xs font-semibold text-primary">
@@ -241,7 +245,13 @@ export default function AccountOrdersListPanel({
             disabled={isFetchingNextPage}
             className="h-11 rounded-full border-primary/20 px-6 text-sm font-medium text-primary hover:bg-primary/5"
           >
-            {isFetchingNextPage ? "Loading..." : "Load More Orders"}
+            {isFetchingNextPage ? (
+              <>
+                <Loader /> Loading...
+              </>
+            ) : (
+              "Load More Orders"
+            )}
           </Button>
         </div>
       ) : null}

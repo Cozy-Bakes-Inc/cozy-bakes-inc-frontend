@@ -25,7 +25,7 @@ export default function HeroSection({
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
             {badge}
           </p>
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+          <h1 className="mt-3 text-4xl font-semibold capitalize tracking-tight sm:text-5xl">
             {title}
           </h1>
           <p className="mt-4 text-sm leading-7 text-white/80 sm:text-base">

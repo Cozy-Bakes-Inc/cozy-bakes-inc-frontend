@@ -7,13 +7,11 @@ type AccountPageProps = {
   searchParams: Promise<{
     tab?: string | string[];
     "order-number"?: string | string[];
-    order_number?: string | string[];
   }>;
 };
 
 export default async function AccountPage({ searchParams }: AccountPageProps) {
-  const { tab, "order-number": orderNumberHyphen, order_number: orderNumberUnderscore } = await searchParams;
-  const orderNumber = orderNumberHyphen ?? orderNumberUnderscore;
+  const { tab, "order-number": orderNumber } = await searchParams;
   const activeTab = normalizeAccountTab(tab);
   const activeOrderNumber =
     activeTab === "new-order" ||

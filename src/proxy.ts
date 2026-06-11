@@ -24,7 +24,7 @@ export function proxy(request: NextRequest) {
     // the cookie correctly.
     const params = new URLSearchParams(search);
     const isStripeReturn =
-      (pathname === "/account" && params.has("order_number")) ||
+      (pathname === "/account" && params.has("order-number")) ||
       (pathname === "/checkout" && params.has("fulfillment-type"));
 
     if (isStripeReturn) {

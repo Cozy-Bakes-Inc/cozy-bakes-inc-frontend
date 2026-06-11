@@ -182,7 +182,7 @@ export default function CheckoutCartSummary({
       window.setTimeout(() => {
         router.push(
           orderNumber
-            ? `/account?tab=new-order&order_number=${orderNumber}`
+            ? `/account?tab=new-order&order-number=${orderNumber}`
             : "/account?tab=new-order",
         );
       }, ACCOUNT_REDIRECT_DELAY_MS);
@@ -225,7 +225,9 @@ export default function CheckoutCartSummary({
                     className="flex items-start justify-between gap-3 text-sm"
                   >
                     <div className="min-w-0">
-                      <p className="font-semibold text-dark">{item.title}</p>
+                      <p className="font-semibold capitalize text-dark">
+                        {item.title}
+                      </p>
                       {item.priceLabel && (
                         <p className="text-xs font-semibold capitalize text-primary">
                           {item.priceLabel}
@@ -236,7 +238,10 @@ export default function CheckoutCartSummary({
                         </p>
                       )}
                       {flavorLines.map(({ label, count }) => (
-                        <p key={label} className="text-xs text-secondary/60">
+                        <p
+                          key={label}
+                          className="text-xs capitalize text-secondary/60"
+                        >
                           {count}x {label}
                         </p>
                       ))}
