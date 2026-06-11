@@ -38,7 +38,7 @@ export default function Footer() {
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3">
             <div className="relative h-12 w-12 rounded-full overflow-hidden bg-background/90 ring-2 ring-primary/40">
-              <Image src="/images/logo.svg" alt="logo" fill />
+              <Image src="/images/logo.png" alt="logo" fill />
             </div>
             <div>
               <p className="text-sm uppercase tracking-wide text-white/70">

@@ -60,7 +60,7 @@ export default function SystemLoader({
             }}
           />
           <Image
-            src="/images/logo.svg"
+            src="/images/logo.png"
             alt="Cozy Bakes Inc."
             width={68}
             height={68}

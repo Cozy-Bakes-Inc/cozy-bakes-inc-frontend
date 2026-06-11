@@ -7,7 +7,7 @@ export default function MenuHero() {
       title="Our Freshly Baked Selection"
       description="Our menu features a fresh selection of handcrafted baked goods, made daily using quality ingredients and time-honored recipes."
       image={{
-        src: "/images/logo-hero-section.png",
+        src: "/images/logo.png",
         alt: "Cozy Bakes Inc",
       }}
     />

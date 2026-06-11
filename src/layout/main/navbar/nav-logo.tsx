@@ -16,7 +16,7 @@ export default function NavLogo() {
       aria-label="Go to home"
     >
       <Image
-        src="/images/logo.svg"
+        src="/images/logo.png"
         alt="Cozy Bakes Inc."
         width={160}
         height={40}

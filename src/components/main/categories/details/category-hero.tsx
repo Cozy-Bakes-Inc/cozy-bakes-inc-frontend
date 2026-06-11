@@ -47,7 +47,7 @@ export default function CategoryHeroSection() {
         "Discover freshly baked favorites made daily with premium ingredients."
       }
       image={{
-        src: "/images/logo-hero-section.png",
+        src: "/images/logo.png",
         alt: "Cozy Bakes Inc",
       }}
     />

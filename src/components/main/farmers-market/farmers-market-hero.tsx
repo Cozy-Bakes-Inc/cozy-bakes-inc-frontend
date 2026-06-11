@@ -7,7 +7,7 @@ export default function FarmersMarketHero() {
       title="Fresh Baked & Locally Found "
       description="We bring the warmth of our ovens to local markets across the Twin Cities. Stop by to visit and taste the season’s best."
       image={{
-        src: "/images/logo-hero-section.png",
+        src: "/images/logo.png",
         alt: "Cozy Bakes Inc",
       }}
     />

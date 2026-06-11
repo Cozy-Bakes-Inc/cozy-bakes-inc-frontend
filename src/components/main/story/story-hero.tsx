@@ -7,7 +7,7 @@ export default function StoryHero() {
       title="Story & Passion for Baking"
       description="A journey of love, tradition, and dedication to crafting the finest handmade baked goods with fresh, natural ingredients."
       image={{
-        src: "/images/logo-hero-section.png",
+        src: "/images/logo.png",
         alt: "Cozy Bakes Inc",
       }}
     />

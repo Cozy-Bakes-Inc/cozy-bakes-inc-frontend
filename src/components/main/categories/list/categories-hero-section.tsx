@@ -7,7 +7,7 @@ export default function CategoriesHeroSection() {
       title="Handcrafted Delights"
       description="Browse our handcrafted selection of breads, pastries, cakes, cookies, and more to find your perfect every day treat."
       image={{
-        src: "/images/logo-hero-section.png",
+        src: "/images/logo.png",
         alt: "Cozy Bakes Inc",
       }}
     />
