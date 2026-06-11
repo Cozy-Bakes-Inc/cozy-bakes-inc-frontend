@@ -333,7 +333,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   Choose your flavor
                 </h3>
 
-                <div className="divide-y divide-secondary/5">
+                <div className="max-h-[340px] divide-y divide-secondary/5 overflow-y-auto overscroll-contain pr-2 sm:max-h-[420px] lg:max-h-[38vh]">
                   {flavors.map((flavor) => {
                     const count = flavorCounts[flavor] ?? 0;
                     return (

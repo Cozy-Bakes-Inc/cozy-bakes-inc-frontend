@@ -18,6 +18,10 @@ type MarketShowcaseProps = {
   titleClassName?: string;
 };
 
+function formatRange(start: string, end?: string) {
+  return end ? `${start} - ${end}` : start;
+}
+
 function MarketCard({ slide }: { slide: MarketSlide }) {
   return (
     <article className="overflow-hidden rounded-2xl bg-background shadow-[0_1px_2px_rgba(16,24,40,0.05),0_0_0_4px_rgba(209,150,40,0.05)]">
@@ -47,7 +51,8 @@ function MarketCard({ slide }: { slide: MarketSlide }) {
           <div className="flex items-center gap-2">
             <CalendarDays className="size-5 shrink-0 text-primary" />
             <span>
-              {slide.date} - {slide.time}
+              {formatRange(slide.date, slide.endDate)} -{" "}
+              {formatRange(slide.time, slide.endTime)}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -96,7 +101,8 @@ function MarketSlideContent({ slide }: { slide: MarketSlide }) {
         <div className="mt-4 space-y-2 text-sm text-slate-600 sm:text-base">
           <div className="flex items-center gap-2">
             <CalendarDays className="size-4 shrink-0 text-primary" />
-            {slide.date} - {slide.time}
+            {formatRange(slide.date, slide.endDate)} -{" "}
+            {formatRange(slide.time, slide.endTime)}
           </div>
           <div className="flex items-center gap-2">
             <MapPin className="size-4 shrink-0 text-primary" />

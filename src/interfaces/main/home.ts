@@ -15,7 +15,9 @@ export type MarketSlide = {
   title: string;
   desc: string;
   date: string;
+  endDate?: string;
   time: string;
+  endTime?: string;
   address: string;
   primaryCta: string;
   secondaryCta: string;

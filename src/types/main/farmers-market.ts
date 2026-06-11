@@ -4,8 +4,10 @@ export interface UpcomingMarket {
   market_name: string;
   tag_label: string;
   date: string;
+  end_date: string;
   day: string;
   time: string;
+  end_time: string;
   location_address: string;
   description: string;
   map_link: string;
