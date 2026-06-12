@@ -12,6 +12,7 @@ export interface ShopListItem {
   phone_number: string;
   email: string;
   address_line: string;
+  map_link: string | null;
   store_description: string | null;
   is_active: number;
   created_at: string;

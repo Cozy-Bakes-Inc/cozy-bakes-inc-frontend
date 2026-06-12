@@ -18,8 +18,15 @@ export default function DeliveryMapView({ onConfirmLocation }: DeliveryMapViewPr
       <LocationPicker
         lat={deliveryLocation.latitude}
         lng={deliveryLocation.longitude}
+        fallbackAddress={deliveryLocation.fullAddress}
         onChange={(lat, lng, fullAddress, label) => {
-          setDeliveryLocation({ ...deliveryLocation, latitude: lat, longitude: lng, fullAddress, label });
+          setDeliveryLocation({
+            ...deliveryLocation,
+            latitude: lat,
+            longitude: lng,
+            fullAddress: fullAddress || deliveryLocation.fullAddress,
+            label,
+          });
         }}
       />
 

@@ -35,6 +35,7 @@ type ReverseGeocodeResult = {
 export interface LocationPickerProps {
   lat: number;
   lng: number;
+  fallbackAddress?: string;
   onChange: (lat: number, lng: number, fullAddress: string, label: string) => void;
 }
 
@@ -53,8 +54,13 @@ async function reverseGeocode(lat: number, lng: number): Promise<ReverseGeocodeR
   return res.json() as Promise<ReverseGeocodeResult>;
 }
 
-export function LocationPicker({ lat, lng, onChange }: LocationPickerProps) {
-  const [query, setQuery] = useState("");
+export function LocationPicker({
+  lat,
+  lng,
+  fallbackAddress = "",
+  onChange,
+}: LocationPickerProps) {
+  const [query, setQuery] = useState(fallbackAddress);
   const [suggestions, setSuggestions] = useState<NominatimResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isReverseGeocoding, setIsReverseGeocoding] = useState(false);
@@ -66,6 +72,13 @@ export function LocationPicker({ lat, lng, onChange }: LocationPickerProps) {
   const skipNextSearchRef = useRef(false);
 
   useEffect(() => {
+    const trimmedFallbackAddress = fallbackAddress.trim();
+
+    if (trimmedFallbackAddress) {
+      skipNextSearchRef.current = true;
+      setQuery(trimmedFallbackAddress);
+    }
+
     if (!lat && !lng) return;
     setIsReverseGeocoding(true);
     reverseGeocode(lat, lng)
@@ -75,10 +88,14 @@ export function LocationPicker({ lat, lng, onChange }: LocationPickerProps) {
           setQuery(data.display_name);
         }
       })
-      .catch(() => {})
+      .catch(() => {
+        if (trimmedFallbackAddress) {
+          skipNextSearchRef.current = true;
+          setQuery(trimmedFallbackAddress);
+        }
+      })
       .finally(() => setIsReverseGeocoding(false));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [fallbackAddress, lat, lng]);
 
   useEffect(() => {
     const trimmed = query.trim();
@@ -149,7 +166,7 @@ export function LocationPicker({ lat, lng, onChange }: LocationPickerProps) {
       setSuggestions([]);
       setShowDropdown(false);
     } catch {
-      onChange(newLat, newLng, "", "Selected Location");
+      onChange(newLat, newLng, fallbackAddress.trim(), "Selected Location");
     } finally {
       setIsReverseGeocoding(false);
     }
