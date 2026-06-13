@@ -1,20 +1,25 @@
 "use client";
 
 import { useMarkets } from "@/hooks/api/farmers-market";
-import { formatMarketDateRange } from "@/lib/utils/market-date";
+import {
+  formatMarketDateRange,
+  formatMarketDays,
+} from "@/lib/utils/market-date";
 import type { UpcomingMarket } from "@/types/main/farmers-market";
 import type { MarketSlide } from "@/interfaces";
 import FarmersMarketHero from "./farmers-market-hero";
 import TodayFarmersMarket from "./today-farmers-market";
 import FarmersMarketDays from "./farmers-market-days";
 
+const TODAY_MARKETS_KEY = "today";
+
 export function toMarketSlide(market: UpcomingMarket): MarketSlide {
   return {
-    image: market.cover_images[0] ?? "",
+    image: market.cover_images[0] ?? "/images/farmer-market-bg.png",
     badge: market.tag_label,
     title: market.market_name,
     desc: market.description,
-    date: market.day,
+    date: formatMarketDays(market.day),
     endDate: formatMarketDateRange(market.date, market.end_date),
     time: market.time,
     endTime: market.end_time,
@@ -27,11 +32,11 @@ export function toMarketSlide(market: UpcomingMarket): MarketSlide {
 
 function FarmersMarket() {
   const { data, isLoading } = useMarkets();
-  console.log("Farmers Market Data:", data);
   const grouped = data?.data ?? {};
-  const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
-  const todaySlides = (grouped[today] ?? []).map(toMarketSlide);
-  const otherDays = Object.entries(grouped).filter(([day]) => day !== today);
+  const todaySlides = (grouped[TODAY_MARKETS_KEY] ?? []).map(toMarketSlide);
+  const otherDays = Object.entries(grouped).filter(
+    ([day]) => day !== TODAY_MARKETS_KEY
+  );
 
   return (
     <>

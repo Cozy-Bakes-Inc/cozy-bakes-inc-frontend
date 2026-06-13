@@ -71,7 +71,7 @@ export default function PickupShopCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(event) => event.stopPropagation()}
-                className="inline-flex h-9 w-fit shrink-0 items-center justify-center gap-1.5 rounded-full bg-primary px-4 text-xs font-semibold text-white transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+                className="hidden h-9 w-fit shrink-0 items-center justify-center gap-1.5 rounded-full bg-primary px-4 text-xs font-semibold text-white transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 sm:inline-flex"
                 aria-label={`Get directions to ${shop.name}`}
               >
                 Get Directions
@@ -106,6 +106,20 @@ export default function PickupShopCard({
             <span className="truncate">{shop.email}</span>
           </a>
         </div>
+
+        {shop.map_link ? (
+          <a
+            href={shop.map_link}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(event) => event.stopPropagation()}
+            className="inline-flex h-10 w-full items-center justify-center gap-1.5 rounded-full bg-primary px-4 text-sm font-semibold text-white transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 sm:hidden"
+            aria-label={`Get directions to ${shop.name}`}
+          >
+            Get Directions
+            <ExternalLink className="size-4 shrink-0" />
+          </a>
+        ) : null}
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ export interface UpcomingMarket {
   tag_label: string;
   date: string;
   end_date: string;
-  day: string;
+  day: string[];
   time: string;
   end_time: string;
   location_address: string;

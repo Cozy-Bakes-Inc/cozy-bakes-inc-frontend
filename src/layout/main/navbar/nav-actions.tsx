@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, UserRound } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
@@ -15,11 +16,16 @@ type NavActionsProps = {
 export default function NavActions({ hasToken }: NavActionsProps) {
   const router = useRouter();
   const { data, isLoading } = useAuthenticatedUser(hasToken);
+  const hydrateCart = useCartStore((state) => state.hydrateCart);
   const openCart = useCartStore((state) => state.openCart);
   const totalQuantity = useCartStore((state) =>
     state.items.reduce((sum, item) => sum + item.quantity, 0),
   );
   const firstName = data?.data?.user?.first_name?.trim();
+
+  useEffect(() => {
+    hydrateCart();
+  }, [hydrateCart]);
 
   const handleAccount = () => {
     router.push("/account");

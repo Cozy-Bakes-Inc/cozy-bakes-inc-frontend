@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useEventListener } from "usehooks-ts";
 
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ type NavbarClientProps = {
 
 export default function NavbarClient({ hasToken }: NavbarClientProps) {
   const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEventListener("resize", () => {
     if (window.innerWidth >= 1024) setOpen(false);
@@ -24,8 +25,27 @@ export default function NavbarClient({ hasToken }: NavbarClientProps) {
     if (open) setOpen(false);
   });
 
+  useEffect(() => {
+    if (!open) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [open]);
+
   return (
-    <header className="sticky top-0 z-50 border-b bg-background shadow-sm">
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-50 border-b bg-background shadow-sm"
+    >
       <nav className="mx-auto max-w-7xl px-4 py-2.5">
         <div className="flex h-16 items-center justify-between">
           <NavLogo />

@@ -27,6 +27,7 @@ type AddCartItemInput = Omit<CartItem, "quantity"> & {
 type CartState = {
   items: CartItem[];
   isCartOpen: boolean;
+  hydrateCart: () => void;
   addItem: (item: AddCartItemInput) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
@@ -84,11 +85,11 @@ function writeCartCookie(items: CartItem[]) {
   document.cookie = `${CART_COOKIE_KEY}=${value}; path=/; max-age=${COOKIE_MAX_AGE_SECONDS}; samesite=lax`;
 }
 
-const initialItems = typeof window === "undefined" ? [] : readCartCookie();
-
 export const useCartStore = create<CartState>((set) => ({
-  items: initialItems,
+  items: [],
   isCartOpen: false,
+
+  hydrateCart: () => set({ items: readCartCookie() }),
 
   addItem: (item) =>
     set((state) => {
