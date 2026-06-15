@@ -17,7 +17,7 @@ function getAuthImageByPathname(pathname: string) {
   }
 
   if (pathname.startsWith("/new-password")) {
-    return "/images/verify-otp.png";
+    return "/images/pastries.png";
   }
 
   return AUTH_IMAGE;

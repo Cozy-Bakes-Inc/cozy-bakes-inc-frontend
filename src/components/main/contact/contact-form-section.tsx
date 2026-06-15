@@ -55,7 +55,7 @@ export default function ContactFormSection() {
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="relative min-h-90 overflow-hidden rounded-2xl sm:min-h-130 lg:min-h-166">
             <Image
-              src="/images/story-farmers-market.png"
+              src="/images/farmers-market.png"
               alt="Assorted baked goods"
               fill
               className="object-cover"

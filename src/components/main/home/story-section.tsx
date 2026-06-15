@@ -76,7 +76,7 @@ export default function StorySection({ bg, circle = true }: Story) {
             <figure className="group relative overflow-hidden rounded-3xl shadow-lg">
               <div className="relative aspect-square w-full">
                 <Image
-                  src="/images/story-farmers-market.png"
+                  src="/images/farmers-market.png"
                   alt="Bakery market stand with artisan breads"
                   fill
                   className="object-cover transition duration-700 group-hover:scale-105"
@@ -86,7 +86,7 @@ export default function StorySection({ bg, circle = true }: Story) {
             <figure className="group relative overflow-hidden rounded-3xl shadow-lg sm:translate-y-5">
               <div className="relative aspect-square w-full">
                 <Image
-                  src="/images/cookies.jpg"
+                  src="/images/categories.png"
                   alt="Fresh pastries and cakes on wooden trays"
                   fill
                   className="object-cover transition duration-700 group-hover:scale-105"
@@ -106,8 +106,8 @@ export default function StorySection({ bg, circle = true }: Story) {
             <figure className="group relative overflow-hidden rounded-3xl shadow-lg sm:translate-y-5">
               <div className="relative aspect-square w-full">
                 <Image
-                  src="/images/sourdough.png"
-                  alt="Rustic loaves by a warm oven"
+                  src="/images/pastries.png"
+                  alt="Pastries"
                   fill
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
