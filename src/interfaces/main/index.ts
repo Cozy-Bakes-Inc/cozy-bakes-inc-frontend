@@ -3,3 +3,4 @@ export * from "./account";
 export * from "./categories";
 export * from "./checkout";
 export * from "./testimonials";
+export * from "./contact";

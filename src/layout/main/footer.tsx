@@ -6,7 +6,7 @@ import Link from "next/link";
 import type { SVGProps } from "react";
 import { Button } from "@/components/ui/button";
 import { Shimmer } from "@/components/ui/shimmer";
-import { useUpcomingMarkets } from "@/hooks";
+import { useContact, useUpcomingMarkets } from "@/hooks";
 import { formatMarketSchedule } from "@/lib/utils/market-date";
 
 const links = [
@@ -25,9 +25,28 @@ function TikTokIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function MarketDaysShimmer() {
+  return (
+    <>
+      {Array.from({ length: 2 }).map((_, index) => (
+        <div key={index} className="space-y-2">
+          <Shimmer className="h-4 w-32 rounded-md bg-white/20" />
+          <Shimmer className="h-4 w-44 rounded-md bg-white/20" />
+        </div>
+      ))}
+    </>
+  );
+}
+
 export default function Footer() {
   const { data, isLoading } = useUpcomingMarkets();
+  const { data: contactData, isLoading: contactLoading } = useContact();
   const markets = data?.data ?? [];
+  const contactSection = contactData?.data?.contact_section;
+  const phoneNumber = contactSection?.phone_number ?? "";
+  const contactEmail = contactSection?.contact_email ?? "";
+  const phoneHref = phoneNumber ? `tel:${phoneNumber.replace(/\D/g, "")}` : "";
+  const emailHref = contactEmail ? `mailto:${contactEmail}` : "";
 
   return (
     <footer className="relative overflow-hidden">
@@ -128,10 +147,7 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-primary">Market Days</h4>
             <div className="mt-3 space-y-4 text-sm text-white/70">
               {isLoading ? (
-                <>
-                  <Shimmer className="h-10 w-full rounded-lg" />
-                  <Shimmer className="h-10 w-full rounded-lg" />
-                </>
+                <MarketDaysShimmer />
               ) : (
                 markets.map((market) => (
                   <div key={market.market_name}>
@@ -155,26 +171,38 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-primary">Get in Touch</h4>
             <div className="mt-3 space-y-3 text-sm text-white/70">
-              <a
-                href="tel:+16122276186"
-                className="flex items-center gap-2 transition-colors hover:text-white"
-                aria-label="Call Cozy Bakes Inc. at (612) 227-6186"
-              >
+              <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-background/16 flex items-center justify-center rounded-full overflow-hidden">
                   <Phone className="h-4 w-4 shrink-0" />
                 </div>
-                (612) 227-6186
-              </a>
-              <a
-                href="mailto:marwa@cozybakesinc.com"
-                className="flex items-center gap-2 transition-colors hover:text-white"
-                aria-label="Email Cozy Bakes Inc. at marwa@cozybakesinc.com"
-              >
+                {contactLoading ? (
+                  <Shimmer className="h-4 w-32 rounded-md bg-white/20" />
+                ) : phoneHref ? (
+                  <a
+                    href={phoneHref}
+                    className="transition-colors hover:text-white"
+                    aria-label={`Call Cozy Bakes Inc. at ${phoneNumber}`}
+                  >
+                    {phoneNumber}
+                  </a>
+                ) : null}
+              </div>
+              <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-background/16 flex items-center justify-center rounded-full overflow-hidden">
                   <Mail className="h-4 w-4 shrink-0" />
                 </div>
-                marwa@cozybakesinc.com
-              </a>
+                {contactLoading ? (
+                  <Shimmer className="h-4 w-44 rounded-md bg-white/20" />
+                ) : emailHref ? (
+                  <a
+                    href={emailHref}
+                    className="transition-colors hover:text-white"
+                    aria-label={`Email Cozy Bakes Inc. at ${contactEmail}`}
+                  >
+                    {contactEmail}
+                  </a>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>

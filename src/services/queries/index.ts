@@ -5,3 +5,4 @@ export * from "./account";
 export * from "./testimonials";
 export * from "./farmers-market";
 export * from "./menu";
+export * from "./contact";
