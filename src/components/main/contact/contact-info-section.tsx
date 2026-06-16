@@ -50,7 +50,7 @@ export default function ContactInfoSection() {
                   <p className="text-sm text-gray-500">{card.description}</p>
                 </div>
                 {isLoading ? (
-                  <Shimmer className="h-5 w-44 rounded-md bg-white/70" />
+                  <Shimmer className="h-5 w-44 rounded-md bg-white/80" />
                 ) : contactDetail.href ? (
                   <a
                     href={contactDetail.href}
