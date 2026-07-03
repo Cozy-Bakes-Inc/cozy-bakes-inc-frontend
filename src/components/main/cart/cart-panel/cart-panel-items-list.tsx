@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -274,3 +274,4 @@ export default function CartPanelItemsList({
     </div>
   );
 }
+

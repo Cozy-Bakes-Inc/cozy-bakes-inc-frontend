@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { PhoneCall } from "lucide-react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -162,3 +162,4 @@ export default function ContactFormSection() {
     </section>
   );
 }
+

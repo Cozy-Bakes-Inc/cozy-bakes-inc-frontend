@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { cn } from "@/lib";
 import { PaymentCardMethod } from "./types";
 
@@ -146,3 +146,4 @@ export default function PaymentMethodOptions({
     </div>
   );
 }
+

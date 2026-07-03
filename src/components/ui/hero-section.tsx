@@ -1,5 +1,5 @@
 import { HeroSectionImage } from "@/interfaces";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 
 interface HeroSectionProps {
   badge: string;
@@ -47,3 +47,4 @@ export default function HeroSection({
     </section>
   );
 }
+

@@ -5,7 +5,7 @@ import { Shimmer } from "@/components/ui/shimmer";
 import type { CategoryCardItem, SubcategoryItem } from "@/interfaces";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { breakpoints } from "@/data";
 import { useSubcategoriesPreview } from "@/hooks";
 import { useMemo } from "react";
@@ -82,3 +82,4 @@ export default function ExploreMoreCategories() {
     </section>
   );
 }
+

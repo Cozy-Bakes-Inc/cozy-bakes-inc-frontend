@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 
 export default function CategoriesSectionHeader() {
   return (
@@ -26,3 +26,4 @@ export default function CategoriesSectionHeader() {
     </div>
   );
 }
+

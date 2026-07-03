@@ -2,7 +2,7 @@
 
 import { AUTH_IMAGE, FORGOT_PASSWORD_IMAGE } from "@/constants";
 import { authRoutes, forgotPasswordFlowRoutes } from "@/data";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type ReactNode } from "react";
@@ -75,3 +75,4 @@ export function AuthLayoutContent({ children }: AuthLayoutContentProps) {
     </main>
   );
 }
+

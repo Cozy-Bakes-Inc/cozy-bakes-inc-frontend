@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useRef, useState } from "react";
@@ -182,3 +182,4 @@ export default function MarketShowcase({
     </section>
   );
 }
+

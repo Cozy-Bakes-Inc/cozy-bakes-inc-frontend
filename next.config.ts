@@ -10,11 +10,6 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "www.figma.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
         hostname: "cozybakesinc.apianca.online",
         pathname: "/**",
       },

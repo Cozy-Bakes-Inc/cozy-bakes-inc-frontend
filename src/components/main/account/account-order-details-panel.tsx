@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
@@ -469,3 +469,4 @@ export default function AccountOrderDetailsPanel({
     </div>
   );
 }
+

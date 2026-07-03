@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { useState, useMemo, useRef } from "react";
 import {
   MoveRight,
@@ -468,3 +468,4 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     </section>
   );
 }
+

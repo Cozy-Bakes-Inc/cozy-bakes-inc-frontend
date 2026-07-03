@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -38,3 +38,4 @@ export default function CartPanelEmptyState({
     </div>
   );
 }
+

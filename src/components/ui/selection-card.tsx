@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { Bell, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { SelectionItem } from "@/interfaces";
@@ -164,3 +164,4 @@ export default function SelectionCard({ item }: SelectionCardProps) {
     </Link>
   );
 }
+

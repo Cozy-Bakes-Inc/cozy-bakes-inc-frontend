@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { NameFieldsRow } from "./components/name-fields-row";
 import { SignUpEmailField } from "./components/sign-up-email-field";
 import { SignUpPasswordField } from "./components/sign-up-password-field";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import {
   signUpFieldsSchema,
   signUpSchema,
@@ -159,3 +159,4 @@ export function SignUpForm() {
     </form>
   );
 }
+

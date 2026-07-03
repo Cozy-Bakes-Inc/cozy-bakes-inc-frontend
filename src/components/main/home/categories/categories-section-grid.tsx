@@ -3,7 +3,7 @@
 import CategoryCard from "@/components/ui/category-card";
 import { GridShimmer } from "@/components/ui/shimmer";
 import type { SubcategoryItem } from "@/interfaces/main/categories";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 
 type CategoriesSectionGridProps = {
   items: SubcategoryItem[];
@@ -71,3 +71,4 @@ export default function CategoriesSectionGrid({
     </div>
   );
 }
+

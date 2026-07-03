@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import Link from "next/link";
 import { ClipboardX, PackageCheck, ReceiptText } from "lucide-react";
 import { useOrders } from "@/hooks";
@@ -258,3 +258,4 @@ export default function AccountOrdersListPanel({
     </div>
   );
 }
+

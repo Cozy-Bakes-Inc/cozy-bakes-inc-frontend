@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import MarketShowcase from "@/components/main/market-showcase";
 import { Shimmer } from "@/components/ui/shimmer";
 import { useUpcomingMarkets } from "@/hooks";
@@ -95,3 +95,4 @@ export default function MarketSection() {
     />
   );
 }
+

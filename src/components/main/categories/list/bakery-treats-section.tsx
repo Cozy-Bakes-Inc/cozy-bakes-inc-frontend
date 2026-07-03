@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { useMemo } from "react";
 import SelectionCard from "@/components/ui/selection-card";
 import { GridShimmer } from "@/components/ui/shimmer";
@@ -56,3 +56,4 @@ export default function BakeryTreatsSection() {
     </section>
   );
 }
+

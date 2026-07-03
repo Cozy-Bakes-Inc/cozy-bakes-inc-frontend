@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import Link from "next/link";
 import type { AccountOrder } from "@/interfaces/main/account";
 import type { AccountOrderListTab } from "@/types/main/account";
@@ -52,3 +52,4 @@ export default function AccountOrdersCard({
     </article>
   );
 }
+

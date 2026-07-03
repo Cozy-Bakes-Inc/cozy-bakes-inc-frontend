@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils/utils";
@@ -127,3 +127,4 @@ export default function SystemLoader({
     </div>
   );
 }
+

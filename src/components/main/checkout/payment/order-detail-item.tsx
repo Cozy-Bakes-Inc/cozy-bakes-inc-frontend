@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { resolveCartDisplay } from "@/lib/utils/cart-display";
 import { OrderLineItem } from "./types";
 
@@ -63,3 +63,4 @@ export default function OrderDetailItem({ item }: OrderDetailItemProps) {
     </article>
   );
 }
+

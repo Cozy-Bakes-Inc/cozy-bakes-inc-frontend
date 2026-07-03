@@ -2,7 +2,7 @@
 import { containerVariants } from "@/lib";
 import { motion } from "framer-motion";
 import { ChefHat } from "lucide-react";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 
 function StoryImage() {
   return (
@@ -45,3 +45,4 @@ function StoryImage() {
 }
 
 export default StoryImage;
+

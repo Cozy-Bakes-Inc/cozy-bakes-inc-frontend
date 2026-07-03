@@ -1,7 +1,7 @@
 "use client";
 
 import { Facebook, Instagram, Phone, Mail, ChevronsRight } from "lucide-react";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import Link from "next/link";
 import type { SVGProps } from "react";
 import { Button } from "@/components/ui/button";
@@ -220,3 +220,4 @@ export default function Footer() {
     </footer>
   );
 }
+

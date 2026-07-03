@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 
 type PaymentSelectionEmptyStateProps = {
   selected: boolean;
@@ -32,3 +32,4 @@ export default function PaymentSelectionEmptyState({
     </div>
   );
 }
+

@@ -2,7 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/loader";
 import { Shimmer } from "@/components/ui/shimmer";
@@ -263,3 +263,4 @@ export default function DeliveryDetailsView({
     </form>
   );
 }
+

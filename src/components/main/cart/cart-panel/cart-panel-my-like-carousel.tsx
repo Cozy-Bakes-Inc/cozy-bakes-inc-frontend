@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef } from "react";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import Link from "next/link";
 import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -189,3 +189,4 @@ export default function CartPanelMyLikeCarousel({
     </div>
   );
 }
+

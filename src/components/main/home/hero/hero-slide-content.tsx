@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Slide } from "@/interfaces";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import { useRouter } from "next/navigation";
 
 type HeroSlideContentProps = {
@@ -89,3 +89,4 @@ export default function HeroSlideContent({
     </div>
   );
 }
+

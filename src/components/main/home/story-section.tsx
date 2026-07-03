@@ -1,5 +1,5 @@
 import { cn } from "@/lib";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 
 interface Story {
   bg?: string;
@@ -119,3 +119,4 @@ export default function StorySection({ bg, circle = true }: Story) {
     </section>
   );
 }
+

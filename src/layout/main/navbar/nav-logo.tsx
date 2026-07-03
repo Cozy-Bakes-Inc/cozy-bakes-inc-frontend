@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 
 export default function NavLogo() {
   const goHome = () => {
@@ -33,3 +33,4 @@ export default function NavLogo() {
     </Button>
   );
 }
+

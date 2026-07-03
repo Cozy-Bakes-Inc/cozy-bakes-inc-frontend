@@ -7,7 +7,6 @@ import { EmailField } from "./components/email-field";
 import { PasswordField } from "./components/password-field";
 import { RememberMeRow } from "./components/remember-me-row";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { loginSchema, type LoginSchemaValues } from "@/schemas/auth/login";
 import { loginAPI } from "@/services/mutations";
 import toast from "react-hot-toast";
@@ -128,3 +127,4 @@ export function LoginForm({ returnTo }: LoginFormProps) {
     </form>
   );
 }
+

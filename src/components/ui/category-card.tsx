@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Image } from "@/components/ui/app-image";
 import type { CategoryCardItem } from "@/interfaces/main/categories";
 import Link from "next/link";
 
@@ -55,3 +55,4 @@ export default function CategoryCard({ item }: CategoryCardProps) {
     </Link>
   );
 }
+
