@@ -53,8 +53,7 @@ export default function CartPanel({ hasToken }: CartPanelProps) {
           <Button
             onClick={handleViewCart}
             type="button"
-            variant="outline"
-            className="h-10 rounded-full border-primary bg-primary px-4 text-xs font-medium text-white hover:bg-primary/90 hover:text-white sm:text-sm"
+            className="h-10 rounded-full bg-primary px-4 text-xs font-medium text-white shadow-none hover:bg-primary/90 hover:text-white sm:text-sm"
           >
             View Cart
           </Button>
