@@ -4,6 +4,7 @@ import { getCheckoutUrlWithFulfillmentType } from "@/lib/utils/checkout";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useCartStore } from "@/store/cart-store";
+import { useCartProductImages } from "@/hooks/use-cart-product-images";
 
 import CheckoutCartSummary from "./checkout-cart-summary";
 import CheckoutHero from "./checkout-breadcrumb";
@@ -25,6 +26,7 @@ export default function CheckoutPaymentPage() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  useCartProductImages();
   const cartItems = useCartStore((state) => state.items);
   const [paymentChannel, setPaymentChannel] = useState<PaymentChannel>("card");
   const [selectedMethod, setSelectedMethod] =

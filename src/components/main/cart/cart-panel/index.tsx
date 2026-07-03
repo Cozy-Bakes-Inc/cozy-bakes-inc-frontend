@@ -4,9 +4,9 @@ import { ShoppingCart, X } from "lucide-react";
 
 import Panel from "@/components/ui/panel";
 import { useCartStore } from "@/store/cart-store";
+import { useCartProductImages } from "@/hooks/use-cart-product-images";
 import CartPanelEmptyState from "./cart-panel-empty-state";
 import CartPanelItemsList from "./cart-panel-items-list";
-import CartPanelMyLikeCarousel from "./cart-panel-my-like-carousel";
 import CartPanelActions from "./cart-panel-actions";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -17,11 +17,11 @@ type CartPanelProps = {
 
 export default function CartPanel({ hasToken }: CartPanelProps) {
   const router = useRouter();
+  useCartProductImages();
   const {
     items,
     isCartOpen,
     closeCart,
-    addItem,
     updateQuantity,
     removeItem,
     clearCart,

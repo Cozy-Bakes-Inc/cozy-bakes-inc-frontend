@@ -1,14 +1,11 @@
 "use client";
 
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
-import { formatPhoneDisplay, stripPhoneDigits } from "@/lib";
+import { formatPhoneDisplay } from "@/lib";
 
 export default function ReceiverDetailsFields() {
   const receiverDetails = useDeliveryPickupModalStore(
     (state) => state.receiverDetails,
-  );
-  const setReceiverField = useDeliveryPickupModalStore(
-    (state) => state.setReceiverField,
   );
 
   return (
@@ -20,11 +17,9 @@ export default function ReceiverDetailsFields() {
           </span>
           <div className="flex h-14.5 items-center gap-2 rounded-lg border border-gray-300 px-3">
             <input
-              className="h-full w-full bg-transparent text-sm text-dark outline-none placeholder:text-gray md:text-base"
+              className="h-full w-full bg-transparent text-sm text-dark outline-none placeholder:text-gray disabled:cursor-not-allowed md:text-base"
               value={receiverDetails.firstName}
-              onChange={(event) =>
-                setReceiverField("firstName", event.target.value)
-              }
+              disabled
               placeholder="First Name"
             />
           </div>
@@ -36,11 +31,9 @@ export default function ReceiverDetailsFields() {
           </span>
           <div className="flex h-14.5 items-center gap-2 rounded-lg border border-gray-300 px-3">
             <input
-              className="h-full w-full bg-transparent text-sm text-dark outline-none placeholder:text-gray md:text-base"
+              className="h-full w-full bg-transparent text-sm text-dark outline-none placeholder:text-gray disabled:cursor-not-allowed md:text-base"
               value={receiverDetails.lastName}
-              onChange={(event) =>
-                setReceiverField("lastName", event.target.value)
-              }
+              disabled
               placeholder="Last Name"
             />
           </div>
@@ -54,11 +47,9 @@ export default function ReceiverDetailsFields() {
         <div className="flex h-14.5 items-center gap-2 rounded-lg border border-gray-300 px-3">
           <input
             type="tel"
-            className="h-full w-full bg-transparent text-sm text-dark outline-none placeholder:text-gray md:text-base"
+            className="h-full w-full bg-transparent text-sm text-dark outline-none placeholder:text-gray disabled:cursor-not-allowed md:text-base"
             value={formatPhoneDisplay(receiverDetails.phoneNumber)}
-            onChange={(event) =>
-              setReceiverField("phoneNumber", stripPhoneDigits(event.target.value))
-            }
+            disabled
             placeholder="(212) 555-7890"
           />
         </div>

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
 import { Button } from "@/components/ui/button";
+import { useCartProductImages } from "@/hooks/use-cart-product-images";
 
 import CartContentEmptyState from "./cart-content-empty-state";
 import CartContentItemsList from "./cart-content-items-list";
@@ -15,6 +16,7 @@ type CartContentProps = {
 
 export default function CartContent({ hasToken }: CartContentProps) {
   const router = useRouter();
+  useCartProductImages();
   const { items, updateQuantity, removeItem } = useCartStore();
 
   const total = items.reduce(

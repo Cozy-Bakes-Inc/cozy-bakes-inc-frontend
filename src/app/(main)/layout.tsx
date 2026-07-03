@@ -2,19 +2,22 @@ import Footer from "@/layout/main/footer";
 import GlobalModals from "@/layout/main/global-modals";
 import Navbar from "@/layout/main/navbar";
 import { OfflineScreen } from "@/components/main/offline-screen";
+import { getToken } from "@/lib/utils/auth";
 import type { ReactNode } from "react";
 
 type MainLayoutProps = {
   children: ReactNode;
 };
 
-function MainLayout({ children }: MainLayoutProps) {
+async function MainLayout({ children }: MainLayoutProps) {
+  const token = await getToken();
+
   return (
     <>
       <OfflineScreen />
       <Navbar />
       {children}
-      <GlobalModals />
+      <GlobalModals hasToken={Boolean(token)} />
       <Footer />
     </>
   );

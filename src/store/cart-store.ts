@@ -1,5 +1,6 @@
 "use client";
 
+import { normalizeImageSrc } from "@/lib/utils/image-src";
 import { create } from "zustand";
 
 const CART_COOKIE_KEY = "cozy_bakes_cart";
@@ -31,6 +32,7 @@ type CartState = {
   addItem: (item: AddCartItemInput) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
+  updateItemImage: (id: string, image: string) => void;
   updateItemFlavors: (id: string, flavors: Record<string, number>) => void;
   clearCart: () => void;
   openCart: () => void;
@@ -63,7 +65,7 @@ function readCartCookie(): CartItem[] {
         title: String(item.title ?? ""),
         price: Number(item.price ?? 0),
         unitPrice: typeof item.unitPrice === "number" ? item.unitPrice : undefined,
-        image: String(item.image ?? ""),
+        image: String(normalizeImageSrc(item.image)),
         quantity: Math.max(1, Number(item.quantity ?? 1)),
         priceLabel: typeof item.priceLabel === "string" ? item.priceLabel : undefined,
         priceType: typeof item.priceType === "string" ? item.priceType : undefined,
@@ -119,7 +121,10 @@ export const useCartStore = create<CartState>((set) => ({
         );
       } else {
         // Brand new item — prepend so newest appears first
-        nextItems = [{ ...item, quantity }, ...state.items];
+        nextItems = [
+          { ...item, image: String(normalizeImageSrc(item.image)), quantity },
+          ...state.items,
+        ];
       }
 
       writeCartCookie(nextItems);
@@ -137,6 +142,15 @@ export const useCartStore = create<CartState>((set) => ({
     set((state) => {
       const nextItems = state.items.map((item) =>
         item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item,
+      );
+      writeCartCookie(nextItems);
+      return { items: nextItems };
+    }),
+
+  updateItemImage: (id, image) =>
+    set((state) => {
+      const nextItems = state.items.map((item) =>
+        item.id === id ? { ...item, image: String(normalizeImageSrc(image)) } : item,
       );
       writeCartCookie(nextItems);
       return { items: nextItems };

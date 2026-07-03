@@ -47,8 +47,11 @@ export default function BakeryTreatsSection() {
           <GridShimmer cardClassName="bg-background" />
         ) : (
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {products.map((item) => (
-              <SelectionCard key={item.id} item={item} />
+            {products.map((item, index) => (
+              <SelectionCard
+                key={`${item.slug ?? item.id ?? item.title}-${index}`}
+                item={item}
+              />
             ))}
           </div>
         )}

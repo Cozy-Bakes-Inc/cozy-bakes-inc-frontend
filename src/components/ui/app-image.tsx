@@ -2,8 +2,7 @@
 
 import NextImage, { type ImageProps } from "next/image";
 import { useState } from "react";
-
-const FALLBACK_IMAGE_SRC = "/images/logo.png";
+import { FALLBACK_IMAGE_SRC, normalizeImageSrc } from "@/lib/utils/image-src";
 
 type AppImageProps = Omit<ImageProps, "src"> & {
   src?: ImageProps["src"] | null;
@@ -20,7 +19,7 @@ function AppImage({
   onError,
   ...props
 }: AppImageProps) {
-  const resolvedSrc = hasImageSrc(src) ? src : fallbackSrc;
+  const resolvedSrc = hasImageSrc(src) ? normalizeImageSrc(src) : fallbackSrc;
   const [failedSrc, setFailedSrc] = useState<ImageProps["src"] | null>(null);
   const currentSrc = failedSrc === resolvedSrc ? fallbackSrc : resolvedSrc;
 

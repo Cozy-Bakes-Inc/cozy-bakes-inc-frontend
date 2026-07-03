@@ -64,7 +64,7 @@ export default function HeroSlideContent({
             className="bg-primary border-transparent text-white hover:bg-primary/90 py-6"
           >
             <ShoppingBag className="size-4 shrink-0" />
-            Shopping Now
+            Shop Now
           </Button>
 
           <Button
@@ -89,4 +89,3 @@ export default function HeroSlideContent({
     </div>
   );
 }
-
