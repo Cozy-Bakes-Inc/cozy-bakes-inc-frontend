@@ -46,7 +46,7 @@ export default function NavActions({ hasToken }: NavActionsProps) {
           variant="outline"
           size="icon"
           onClick={openCart}
-          className="relative border-primary text-primary hover:text-secondary hover:border-secondary bg-[#FBF8EB]/25 rounded-full"
+          className="relative rounded-full border-primary bg-background text-primary shadow-none hover:border-secondary hover:bg-background hover:text-secondary"
         >
           <ShoppingCart className="size-5 shrink-0" strokeWidth={2.8} />
           {totalQuantity > 0 && (
@@ -60,7 +60,7 @@ export default function NavActions({ hasToken }: NavActionsProps) {
           <Button
             onClick={handleAccount}
             variant="outline"
-            className="h-9 sm:h-12 rounded-full border-primary bg-bg-creamy/25 px-3 text-dark hover:border-secondary hover:bg-bg-creamy/40 hover:text-dark"
+            className="h-9 rounded-full border-primary bg-background px-3 text-dark shadow-none hover:border-secondary hover:bg-background hover:text-dark sm:h-12"
           >
             {isLoading ? (
               <div className="flex items-center gap-2">
@@ -84,7 +84,7 @@ export default function NavActions({ hasToken }: NavActionsProps) {
             onClick={handleAccount}
             variant="outline"
             size="icon"
-            className="border-primary text-primary hover:text-secondary hover:border-secondary bg-bg-creamy/25 rounded-full"
+            className="rounded-full border-primary bg-background text-primary shadow-none hover:border-secondary hover:bg-background hover:text-secondary"
           >
             <UserRound className="size-5 shrink-0" strokeWidth={2.8} />
           </Button>

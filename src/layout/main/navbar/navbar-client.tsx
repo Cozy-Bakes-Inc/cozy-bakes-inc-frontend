@@ -60,7 +60,7 @@ export default function NavbarClient({ hasToken }: NavbarClientProps) {
             <Button
               variant="outline"
               size="icon"
-              className="lg:hidden text-primary border-primary"
+              className="rounded-md border-primary bg-background text-primary shadow-none hover:border-secondary hover:bg-background hover:text-secondary lg:hidden"
               onClick={() => setOpen(!open)}
             >
               <span className="sr-only">Toggle menu</span>
