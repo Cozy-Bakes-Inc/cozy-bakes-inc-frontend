@@ -101,7 +101,7 @@ export default function Account({
             </div>
 
             {activeOrderListTab ? (
-              <section className="min-w-0 rounded-3xl bg-bg-creamy p-2.5 sm:p-6">
+              <section className="min-w-0 rounded-3xl bg-background p-0 sm:bg-bg-creamy sm:p-6">
                 <div className="min-w-0 rounded-3xl border border-border/24 bg-background p-3 sm:p-6">
                   <h2 className="text-base font-medium capitalize leading-7 text-primary sm:text-lg sm:leading-7.5">
                     {activeTabDefinition.title}

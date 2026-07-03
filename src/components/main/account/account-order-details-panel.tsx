@@ -295,7 +295,7 @@ export default function AccountOrderDetailsPanel({
         </div>
       </section>
 
-      <section className="rounded-3xl bg-bg-creamy p-4 sm:p-6">
+      <section className="rounded-3xl bg-background p-0 sm:bg-bg-creamy sm:p-6">
         <h3 className="text-lg font-medium leading-7 text-primary sm:text-xl sm:leading-7.5">
           Order Details
         </h3>
@@ -308,7 +308,7 @@ export default function AccountOrderDetailsPanel({
             return (
               <article
                 key={`${item.product_id}-${item.title}`}
-                className="rounded-2xl border border-border/24 bg-bg-creamy p-2.5"
+                className="rounded-2xl border border-border/24 bg-background p-2.5 sm:bg-bg-creamy"
               >
                 <div className="flex items-start gap-2">
                   {itemHref ? (
@@ -392,7 +392,7 @@ export default function AccountOrderDetailsPanel({
         </div>
       </section>
 
-      <section className="rounded-3xl bg-bg-creamy p-4 sm:p-6">
+      <section className="rounded-3xl bg-background p-0 sm:bg-bg-creamy sm:p-6">
         <div className="flex items-center gap-2 text-primary">
           <ReceiptText className="size-5 shrink-0" />
           <h3 className="text-xl font-medium leading-7 sm:text-[24px]">
