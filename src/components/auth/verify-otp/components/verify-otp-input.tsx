@@ -17,7 +17,7 @@ export function VerifyOtpInput({
   errorMessage,
 }: VerifyOtpInputProps) {
   const slotClassName =
-    "size-17.5 shrink-0 rounded-xl !border !border-primary bg-[#FBF8EB0D] text-[20px] font-semibold text-dark shadow-none first:!rounded-xl last:!rounded-xl data-[active=true]:ring-primary/50";
+    "size-13 shrink-0 rounded-xl !border !border-primary bg-[#FBF8EB0D] text-base font-semibold text-dark shadow-none first:!rounded-xl last:!rounded-xl data-[active=true]:ring-primary/50 sm:size-17.5 sm:text-[20px]";
 
   return (
     <div>
@@ -28,7 +28,7 @@ export function VerifyOtpInput({
         containerClassName="w-full justify-center"
         className="w-full"
       >
-        <InputOTPGroup className="flex w-full items-center justify-between gap-2">
+        <InputOTPGroup className="flex w-full items-center justify-center gap-2 sm:justify-between">
           <InputOTPSlot index={0} className={slotClassName} />
           <InputOTPSlot index={1} className={slotClassName} />
           <InputOTPSlot index={2} className={slotClassName} />

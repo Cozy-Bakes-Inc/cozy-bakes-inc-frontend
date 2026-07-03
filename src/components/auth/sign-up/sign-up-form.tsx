@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { NameFieldsRow } from "./components/name-fields-row";
 import { SignUpEmailField } from "./components/sign-up-email-field";
 import { SignUpPasswordField } from "./components/sign-up-password-field";
-import { Image } from "@/components/ui/app-image";
 import {
   signUpFieldsSchema,
   signUpSchema,
@@ -131,19 +130,6 @@ export function SignUpForm() {
         </span>
         <span className="h-px flex-1 bg-[#D0D5DD]" />
       </div> */}
-
-      <Button
-        type="button"
-        variant="ghost"
-        className="flex h-13.5 w-full items-center justify-center gap-3 rounded-2xl border border-gray-500"
-      >
-        <div className="relative size-6">
-          <Image src="/images/google.svg" alt="Google" fill />
-        </div>
-        <span className="text-base leading-6 font-medium text-dark">
-          Continue with Google
-        </span>
-      </Button>
 
       <div className="flex items-center justify-center gap-1">
         <p className="text-center text-base leading-6 font-medium text-gray-500">
