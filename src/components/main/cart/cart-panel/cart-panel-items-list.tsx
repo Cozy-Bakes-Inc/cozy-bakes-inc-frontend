@@ -4,7 +4,7 @@ import { Image } from "@/components/ui/app-image";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { useCartStore, type CartItem } from "@/store/cart-store";
+import { useCartStore, type CartItem, MAX_CART_ITEM_QUANTITY } from "@/store/cart-store";
 import { resolveCartDisplay } from "@/lib/utils/cart-display";
 
 type CartPanelItemsListProps = {
@@ -17,12 +17,14 @@ function FlavorCounter({
   label,
   count,
   compact = false,
+  atLimit = false,
   onDecrement,
   onIncrement,
 }: {
   label: string;
   count: number;
   compact?: boolean;
+  atLimit?: boolean;
   onDecrement: () => void;
   onIncrement: () => void;
 }) {
@@ -50,7 +52,8 @@ function FlavorCounter({
             type="button"
             onClick={onIncrement}
             aria-label={`Increase ${label}`}
-            className="flex h-6 w-6 shrink-0 items-center justify-center transition-colors hover:bg-secondary/5"
+            disabled={atLimit}
+            className="flex h-6 w-6 shrink-0 items-center justify-center transition-colors hover:bg-secondary/5 disabled:cursor-not-allowed disabled:opacity-30"
           >
             <Plus className="size-2.5 text-secondary" />
           </button>
@@ -80,7 +83,8 @@ function FlavorCounter({
           type="button"
           onClick={onIncrement}
           aria-label={`Increase ${label}`}
-          className="flex h-7 w-7 items-center justify-center transition-colors hover:bg-secondary/5"
+          disabled={atLimit}
+          className="flex h-7 w-7 items-center justify-center transition-colors hover:bg-secondary/5 disabled:cursor-not-allowed disabled:opacity-30"
         >
           <Plus className="size-3 text-secondary" />
         </button>
@@ -105,6 +109,9 @@ function CartPanelItem({
   const { flavorLines, showQuantitySuffix } = resolveCartDisplay(item);
   const isPerUnitFlavor = !showQuantitySuffix && flavorLines.length > 0;
   const total = item.price * item.quantity;
+  const flavorTotal = flavorLines.reduce((sum, { count }) => sum + count, 0);
+  const isFlavorAtLimit = flavorTotal >= MAX_CART_ITEM_QUANTITY;
+  const isQuantityAtLimit = item.quantity >= MAX_CART_ITEM_QUANTITY;
 
   const handleNavigate = () => {
     const slug = item.slug ?? item.id;
@@ -114,6 +121,7 @@ function CartPanelItem({
   };
 
   const handleFlavorChange = (label: string, delta: number) => {
+    if (delta > 0 && flavorTotal >= MAX_CART_ITEM_QUANTITY) return;
     const current = item.flavors ?? {};
     const newCount = (current[label] ?? 0) + delta;
     const next = { ...current, [label]: Math.max(0, newCount) };
@@ -125,6 +133,11 @@ function CartPanelItem({
   const handleDecrement = () => {
     if (item.quantity === 1) onRemoveItem(item.id);
     else onUpdateQuantity(item.id, item.quantity - 1);
+  };
+
+  const handleIncrement = () => {
+    if (isQuantityAtLimit) return;
+    onUpdateQuantity(item.id, item.quantity + 1);
   };
 
   return (
@@ -170,6 +183,7 @@ function CartPanelItem({
                       label={label}
                       count={count}
                       compact
+                      atLimit={isFlavorAtLimit}
                       onDecrement={() => handleFlavorChange(label, -1)}
                       onIncrement={() => handleFlavorChange(label, +1)}
                     />
@@ -183,6 +197,7 @@ function CartPanelItem({
                       key={label}
                       label={label}
                       count={count}
+                      atLimit={isFlavorAtLimit}
                       onDecrement={() => handleFlavorChange(label, -1)}
                       onIncrement={() => handleFlavorChange(label, +1)}
                     />
@@ -229,9 +244,10 @@ function CartPanelItem({
             </span>
             <button
               type="button"
-              onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+              onClick={handleIncrement}
               aria-label={`Increase ${item.title}`}
-              className="flex h-9 w-9 items-center justify-center transition-colors hover:bg-secondary/5"
+              disabled={isQuantityAtLimit}
+              className="flex h-9 w-9 items-center justify-center transition-colors hover:bg-secondary/5 disabled:cursor-not-allowed disabled:opacity-30"
             >
               <Plus className="size-3.5 text-secondary" />
             </button>

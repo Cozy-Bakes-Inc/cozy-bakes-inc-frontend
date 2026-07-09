@@ -212,8 +212,18 @@ export default function Footer() {
             © 2026 Cozy Bakes Inc. All rights reserved. Made with love by Marwa.
           </p>
           <div className="flex gap-4">
-            <span>Privacy Policy</span>
-            <span>Terms of Service</span>
+            <Link
+              href="/privacy-policy"
+              className="cursor-pointer transition-colors hover:text-white hover:underline"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms-of-service"
+              className="cursor-pointer transition-colors hover:text-white hover:underline"
+            >
+              Terms of Service
+            </Link>
           </div>
         </div>
       </div>

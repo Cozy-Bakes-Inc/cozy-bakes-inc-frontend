@@ -6,7 +6,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { useAuthenticatedUser } from "@/hooks";
-import { getCheckoutPath, hasSavedCheckoutDetails } from "@/lib/utils/checkout";
+import {
+  getCheckoutPath,
+  hasSavedCheckoutDetails,
+} from "@/lib/utils/checkout";
 import { useCartStore } from "@/store/cart-store";
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
 
@@ -96,7 +99,10 @@ function CartPanelActionsContent({
 
     if (hasSavedCheckoutDetails(user)) {
       closeCart();
-      router.push(getCheckoutPath(user?.last_fulfillment_type));
+      const currentFulfillmentType = searchParams.get("fulfillment-type");
+      router.push(
+        getCheckoutPath(currentFulfillmentType ?? user?.last_fulfillment_type),
+      );
       return;
     }
 

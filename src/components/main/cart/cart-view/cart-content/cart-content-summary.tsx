@@ -123,7 +123,10 @@ function CartContentSummaryContent({
 
     if (hasSavedCheckoutDetails(user)) {
       closeCart();
-      router.push(getCheckoutPath(user?.last_fulfillment_type));
+      const currentFulfillmentType = searchParams.get("fulfillment-type");
+      router.push(
+        getCheckoutPath(currentFulfillmentType ?? user?.last_fulfillment_type),
+      );
       return;
     }
 

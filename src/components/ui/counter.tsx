@@ -26,14 +26,22 @@ export default function Counter({
   const handleDecrease = () => onChange(Math.max(safeMin, safeValue - 1));
   const handleIncrease = () => onChange(Math.min(safeMax, safeValue + 1));
 
+  const isAtMin = safeValue <= safeMin;
+  const isAtMax = safeValue >= safeMax;
+
   return (
     <div className={cn("flex items-center gap-2", className)}>
       <button
         type="button"
-        className="grid size-7 place-items-center rounded-md border border-secondary/20 text-secondary transition hover:bg-card/30"
+        className={cn(
+          "grid size-7 place-items-center rounded-md border transition",
+          isAtMin
+            ? "cursor-not-allowed border-secondary/10 text-secondary/30"
+            : "border-secondary/20 text-secondary hover:bg-card/30",
+        )}
         onClick={handleDecrease}
         aria-label="Decrease quantity"
-        disabled={safeValue <= safeMin}
+        disabled={isAtMin}
       >
         <Minus className="size-4" />
       </button>
@@ -42,10 +50,15 @@ export default function Counter({
       </span>
       <button
         type="button"
-        className="grid size-7 place-items-center rounded-md border border-secondary/20 bg-card/10 text-secondary transition hover:bg-card hover:text-white"
+        className={cn(
+          "grid size-7 place-items-center rounded-md border transition",
+          isAtMax
+            ? "cursor-not-allowed border-secondary/10 bg-secondary/5 text-secondary/30"
+            : "border-secondary/20 bg-card/10 text-secondary hover:bg-card hover:text-white",
+        )}
         onClick={handleIncrease}
         aria-label="Increase quantity"
-        disabled={safeValue >= safeMax}
+        disabled={isAtMax}
       >
         <Plus className="size-4" />
       </button>

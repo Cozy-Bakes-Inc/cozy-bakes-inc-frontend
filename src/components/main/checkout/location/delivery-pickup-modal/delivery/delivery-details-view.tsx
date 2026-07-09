@@ -171,7 +171,7 @@ export default function DeliveryDetailsView({
         quantity: item.quantity,
       })),
     });
-
+    console.log(feeResult);
     if (feeResult.ok && feeResult.data) {
       setShippingFeeData(feeResult.data);
       setShippingFeeError(null);
@@ -249,7 +249,11 @@ export default function DeliveryDetailsView({
       <input type="hidden" {...register("address_line")} />
 
       <DeliveryAddressDetailsSection errors={errors} register={register} />
-      <DeliveryReceiverDetailsSection errors={errors} register={register} control={control} />
+      <DeliveryReceiverDetailsSection
+        errors={errors}
+        register={register}
+        control={control}
+      />
 
       <div className="flex justify-end">
         <Button
@@ -263,4 +267,3 @@ export default function DeliveryDetailsView({
     </form>
   );
 }
-

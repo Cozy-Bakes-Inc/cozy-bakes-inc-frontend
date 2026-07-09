@@ -4,6 +4,7 @@ import { isAxiosError } from "axios";
 import ProductDetails from "./product-details";
 import ProductContentShimmer from "./product-content-shimmer";
 import ProductTabs from "./product-tabs";
+import ProductReviews from "./product-reviews";
 import ProductRecommendations from "./product-recommendations";
 import ProductUnavailable from "./product-unavailable";
 import { useSingleProduct } from "@/hooks";
@@ -32,6 +33,7 @@ export default function ProductContent() {
         ingredients={product?.description_ingredient}
         allergens={product?.description_allergens}
       />
+      <ProductReviews reviews={product?.reviews} />
       <ProductRecommendations />
     </>
   );

@@ -89,8 +89,14 @@ export interface ApiProductItem {
   };
   flavors?: string[];
   sub_category?: ProductSubCategoryItem;
+  reviews?: ProductReviewItem[];
   created_at?: string;
   updated_at?: string;
+}
+
+export interface ProductReviewItem {
+  rating: string | number;
+  review: string;
 }
 
 export interface CategoryCardItem {

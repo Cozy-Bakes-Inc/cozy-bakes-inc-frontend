@@ -5,6 +5,7 @@ import { create } from "zustand";
 
 const CART_COOKIE_KEY = "cozy_bakes_cart";
 const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
+export const MAX_CART_ITEM_QUANTITY = 100;
 
 export type CartItem = {
   id: string;
@@ -101,10 +102,14 @@ export const useCartStore = create<CartState>((set) => ({
       let nextItems: CartItem[];
 
       if (existing && existing.unitPrice != null && item.flavors) {
-        // Per-unit flavor item: merge incoming flavors into existing ones
+        // Per-unit flavor item: merge incoming flavors into existing ones, capped at the limit
         const merged = { ...(existing.flavors ?? {}) };
+        let remaining =
+          MAX_CART_ITEM_QUANTITY - Object.values(merged).reduce((a, b) => a + b, 0);
         Object.entries(item.flavors).forEach(([flavor, count]) => {
-          merged[flavor] = (merged[flavor] ?? 0) + count;
+          const added = Math.max(0, Math.min(count, remaining));
+          merged[flavor] = (merged[flavor] ?? 0) + added;
+          remaining -= added;
         });
         const totalCount = Object.values(merged).reduce((a, b) => a + b, 0);
         nextItems = state.items.map((current) =>
@@ -116,13 +121,20 @@ export const useCartStore = create<CartState>((set) => ({
         // Pack or no-flavor item: increment quantity
         nextItems = state.items.map((current) =>
           current.id === item.id
-            ? { ...current, quantity: current.quantity + quantity }
+            ? {
+                ...current,
+                quantity: Math.min(MAX_CART_ITEM_QUANTITY, current.quantity + quantity),
+              }
             : current,
         );
       } else {
         // Brand new item — prepend so newest appears first
         nextItems = [
-          { ...item, image: String(normalizeImageSrc(item.image)), quantity },
+          {
+            ...item,
+            image: String(normalizeImageSrc(item.image)),
+            quantity: Math.min(MAX_CART_ITEM_QUANTITY, quantity),
+          },
           ...state.items,
         ];
       }
@@ -141,7 +153,9 @@ export const useCartStore = create<CartState>((set) => ({
   updateQuantity: (id, quantity) =>
     set((state) => {
       const nextItems = state.items.map((item) =>
-        item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item,
+        item.id === id
+          ? { ...item, quantity: Math.min(MAX_CART_ITEM_QUANTITY, Math.max(1, quantity)) }
+          : item,
       );
       writeCartCookie(nextItems);
       return { items: nextItems };

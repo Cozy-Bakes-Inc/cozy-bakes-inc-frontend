@@ -63,7 +63,7 @@ export default function ShippingLocationCard() {
             <ArrowLeftRight className="size-3.5 shrink-0" />
             {isPickup
               ? "Switch To Delivery Address"
-              : "Switch To Locker / Pickup Point"}
+              : "Switch To Pickup Location"}
           </button>
         )
       }

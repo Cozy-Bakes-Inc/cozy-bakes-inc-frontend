@@ -115,6 +115,19 @@ export default function PickupView({ onConfirm }: PickupViewProps) {
 
   const selectedShop = shops.find((shop) => shop.id === selectedShopId) ?? null;
 
+  useEffect(() => {
+    if (!selectedShop || pickupLocation.id === selectedShop.id) return;
+
+    setPickupLocation({
+      id: selectedShop.id,
+      name: selectedShop.name,
+      fullAddress: selectedShop.address_line,
+      phoneNumber: selectedShop.phone_number,
+      email: selectedShop.email,
+      storeDescription: selectedShop.store_description ?? "",
+    });
+  }, [selectedShop, pickupLocation.id, setPickupLocation]);
+
   const watchedValues = useWatch({ control });
   const normalizedValues = {
     first_name: watchedValues.first_name?.trim() ?? "",

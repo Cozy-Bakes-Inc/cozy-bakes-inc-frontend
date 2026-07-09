@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
@@ -70,6 +70,9 @@ export default function CheckoutCartSummary({
       products: [],
     },
   });
+  useEffect(() => {
+    clearErrors("root");
+  }, [isDelivery, pickupLocation.id, clearErrors]);
   const shippingRate = shippingFeeData?.shipping_rate;
   const deliveryType = shippingFeeData?.delivery_type;
   const resolvedFee =
@@ -105,6 +108,14 @@ export default function CheckoutCartSummary({
       setError("root", {
         type: "manual",
         message: "Please select a cash payment method.",
+      });
+      return;
+    }
+
+    if (!isDelivery && !pickupLocation.id) {
+      setError("root", {
+        type: "manual",
+        message: "Please select a pickup location.",
       });
       return;
     }

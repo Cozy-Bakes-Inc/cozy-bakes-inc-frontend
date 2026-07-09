@@ -14,7 +14,7 @@ import Counter from "@/components/ui/counter";
 import RatingStars from "@/components/ui/rating-stars";
 import AddReviewModal from "@/layout/main/site/add-review-modal";
 import { productReviewAPI } from "@/services/mutations";
-import { useCartStore } from "@/store/cart-store";
+import { useCartStore, MAX_CART_ITEM_QUANTITY } from "@/store/cart-store";
 import type { ApiProductItem, ProductPriceOption } from "@/interfaces";
 
 type ProductDetailsProps = {
@@ -145,7 +145,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   };
 
   const getMaxForFlavor = (flavor: string) => {
-    if (!isPackMode) return 10;
+    if (!isPackMode) return MAX_CART_ITEM_QUANTITY;
     const count = flavorCounts[flavor] ?? 0;
     const remaining = optionQty - totalFlavorsSelected;
     return count + Math.max(0, remaining);
@@ -410,7 +410,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     value={quantity}
                     onChange={setQuantity}
                     min={1}
-                    max={9}
+                    max={MAX_CART_ITEM_QUANTITY}
                   />
                 </div>
               </div>
@@ -433,7 +433,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     value={quantity}
                     onChange={setQuantity}
                     min={1}
-                    max={9}
+                    max={MAX_CART_ITEM_QUANTITY}
                   />
                 </div>
               </div>

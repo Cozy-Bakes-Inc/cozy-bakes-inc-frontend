@@ -18,6 +18,7 @@ export function useShippingFee(isDelivery: boolean = true) {
 
   const { isPending, mutate } = useCustomMutation(listDeliveryFee, {
     onSuccess: (result) => {
+      console.log("listDeliveryFee result", result);
       if (result.ok && result.data) {
         setShippingFeeData(result.data);
         setShippingFeeError(null);

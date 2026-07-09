@@ -34,7 +34,10 @@ export const checkoutSchema = z
     }),
     baseCheckoutSchema.extend({
       fulfillment_type: z.literal("pickup"),
-      shop_id: z.number().int().positive("Pickup location is required"),
+      shop_id: z
+        .number({ error: "Pickup location is required" })
+        .int()
+        .positive("Pickup location is required"),
     }),
   ])
   .superRefine((value, ctx) => {
