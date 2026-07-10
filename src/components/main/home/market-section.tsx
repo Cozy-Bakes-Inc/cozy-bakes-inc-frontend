@@ -31,8 +31,15 @@ function toMarketSlide(market: UpcomingMarket): MarketSlide {
 
 function MarketSectionSkeleton() {
   return (
-    <section className="relative bg-[url('/images/farmer-market-bg.png')] bg-cover bg-center py-20">
-      <div className="mx-auto max-w-7xl px-5 sm:px-10">
+    <section className="relative py-20">
+      <Image
+        src="/images/farmer-market-bg.png"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
+      />
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-10">
         <div className="text-center">
           <Shimmer className="mx-auto h-8 w-36 rounded-full" />
           <Shimmer className="mx-auto mt-4 h-10 w-80 rounded-xl" />
@@ -89,7 +96,8 @@ export default function MarketSection() {
     <MarketShowcase
       slides={slides}
       dotsBottom="-bottom-15"
-      sectionClassName="relative bg-[url('/images/farmer-market-bg.png')] bg-cover bg-center py-20"
+      sectionClassName="relative py-20"
+      backgroundSrc="/images/farmer-market-bg.png"
       titleClassName="text-center"
       title={sectionTitle}
     />

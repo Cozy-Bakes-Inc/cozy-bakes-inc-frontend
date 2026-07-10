@@ -14,6 +14,7 @@ type MarketShowcaseProps = {
   slides: MarketSlide[];
   dotsBottom?: string;
   sectionClassName?: string;
+  backgroundSrc?: string;
   title: ReactNode;
   titleClassName?: string;
 };
@@ -31,7 +32,7 @@ function MarketCard({ slide }: { slide: MarketSlide }) {
           alt={slide.title}
           width={720}
           height={480}
-          className="h-[280px] w-full object-cover sm:h-[340px] lg:h-[395px]"
+          className="h-70 w-full object-cover sm:h-85 lg:h-98.75"
           sizes="(min-width: 1280px) 560px, (min-width: 768px) 50vw, 100vw"
         />
       </div>
@@ -83,9 +84,9 @@ function MarketSlideContent({ slide }: { slide: MarketSlide }) {
         <Image
           src={slide.image}
           alt={slide.title}
-          width={720}
-          height={520}
-          className="h-full w-full object-cover"
+          fill
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="object-cover"
         />
       </div>
       <div className="flex h-full flex-col justify-center rounded-b-2xl border-t-4 border-primary/10 bg-background p-6 sm:p-8 md:rounded-r-2xl md:rounded-bl-none md:border-r-4 md:p-10">
@@ -129,6 +130,7 @@ export default function MarketShowcase({
   slides,
   dotsBottom = "-bottom-13",
   sectionClassName,
+  backgroundSrc,
   title,
   titleClassName = "text-center text-heading-2 font-bold sm:text-2xl",
 }: MarketShowcaseProps) {
@@ -140,7 +142,16 @@ export default function MarketShowcase({
 
   return (
     <section className={sectionClassName}>
-      <div className="mx-auto max-w-7xl px-5 sm:px-10">
+      {backgroundSrc && (
+        <Image
+          src={backgroundSrc}
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+      )}
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-10">
         <div className={titleClassName}>{title}</div>
 
         {useStaticGrid ? (
@@ -182,4 +193,3 @@ export default function MarketShowcase({
     </section>
   );
 }
-

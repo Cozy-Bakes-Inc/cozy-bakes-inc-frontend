@@ -16,7 +16,13 @@ export default function HeroSection({
 }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden bg-black">
-      <div className="absolute inset-0 bg-[url('/images/questions.png')] bg-cover bg-center" />
+      <Image
+        src="/images/questions.png"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
+      />
       <div className="absolute inset-0 bg-black/40" />
       <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/65 to-black/45" />
 

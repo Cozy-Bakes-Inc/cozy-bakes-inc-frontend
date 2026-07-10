@@ -50,7 +50,13 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/images/footer.png')] bg-cover bg-center" />
+      <Image
+        src="/images/footer.png"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
+      />
       <div className="absolute inset-0 bg-linear-to-br from-chocolate/80 to-chocolate/70" />
       <div className="absolute inset-0 bg-chocolate/90" />
       <div className="relative mx-auto max-w-7xl px-5 py-12 text-white sm:px-10 sm:py-16">

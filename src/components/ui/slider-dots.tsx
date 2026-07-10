@@ -31,14 +31,17 @@ export default function SliderDots({
               onClick={() => onSelect(i)}
               variant="ghost"
               size="icon"
-              className={[
-                "transition-all duration-300 ease-out",
-                "rounded-full p-0",
-                isActive
-                  ? `h-2.5 w-10 ${activeBg} shadow-[0_0_0_1px_rgba(255,255,255,0.15)]`
-                  : `h-2.5 w-2.5 ${inActiveBg}`,
-              ].join(" ")}
-            />
+              className="h-6 min-w-6 rounded-full p-0"
+            >
+              <span
+                className={[
+                  "block rounded-full transition-all duration-300 ease-out",
+                  isActive
+                    ? `h-2.5 w-10 ${activeBg} shadow-[0_0_0_1px_rgba(255,255,255,0.15)]`
+                    : `h-2.5 w-2.5 ${inActiveBg}`,
+                ].join(" ")}
+              />
+            </Button>
           );
         })}
       </div>

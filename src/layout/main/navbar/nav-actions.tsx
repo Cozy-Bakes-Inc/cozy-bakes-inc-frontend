@@ -45,6 +45,7 @@ export default function NavActions({ hasToken }: NavActionsProps) {
         <Button
           size="icon"
           onClick={openCart}
+          aria-label="Open cart"
           className="relative rounded-full border border-primary bg-background text-primary shadow-none hover:border-secondary hover:bg-background hover:text-secondary"
         >
           <ShoppingCart className="size-5 shrink-0" strokeWidth={2.8} />
@@ -81,6 +82,7 @@ export default function NavActions({ hasToken }: NavActionsProps) {
           <Button
             onClick={handleAccount}
             size="icon"
+            aria-label="Sign in to your account"
             className="rounded-full border border-primary bg-background text-primary shadow-none hover:border-secondary hover:bg-background hover:text-secondary"
           >
             <UserRound className="size-5 shrink-0" strokeWidth={2.8} />

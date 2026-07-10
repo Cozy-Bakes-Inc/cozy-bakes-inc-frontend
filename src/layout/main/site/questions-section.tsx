@@ -1,12 +1,18 @@
-import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
 import Link from "next/link";
+import { Image } from "@/components/ui/app-image";
 
 export default function QuestionsSection() {
   return (
     <section className="relative">
       <div className="relative overflow-hidden bg-chocolate">
-        <div className="absolute inset-0 bg-[url('/images/questions.png')] bg-size-[100%_100%]  bg-center bg-no-repeat" />
+        <Image
+          src="/images/questions.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/45 to-black/70" />
 
         <div className="relative mx-auto max-w-7xl px-5 py-20 text-center text-white sm:px-10">
