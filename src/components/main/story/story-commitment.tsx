@@ -31,7 +31,7 @@ export default function StoryCommitment() {
   return (
     <section className="bg-bg-creamy py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
-        <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="text-center animate-enter fade-in slide-in-from-bottom-4 duration-700">
           <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-semibold text-primary">
             <Crown className="size-5 shrink-0" />
             Our Commitment

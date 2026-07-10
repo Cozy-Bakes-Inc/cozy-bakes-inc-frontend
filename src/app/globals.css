@@ -1,6 +1,40 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* tw-animate-css's shared "enter" keyframe always includes a `filter: blur(...)` step,
+   which disqualifies the animation from running on the compositor even when the blur
+   amount is 0 (unused in this codebase — no component uses blur-in/blur-out). Lightning
+   CSS dedupes same-named @keyframes at build time (keeping the library's), so this uses
+   a distinct name + a matching `.animate-enter` utility that content-reveal components
+   opt into instead of `animate-in`, keeping the effect pixel-identical but composited. */
+@keyframes app-enter {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(
+        var(--tw-enter-translate-x, 0),
+        var(--tw-enter-translate-y, 0),
+        0
+      )
+      scale3d(
+        var(--tw-enter-scale, 1),
+        var(--tw-enter-scale, 1),
+        var(--tw-enter-scale, 1)
+      )
+      rotate(var(--tw-enter-rotate, 0));
+  }
+}
+
+@layer utilities {
+  .animate-enter {
+    animation: app-enter
+      var(--tw-animation-duration, var(--tw-duration, 0.15s))
+      var(--tw-ease, ease) var(--tw-animation-delay, 0s)
+      var(--tw-animation-iteration-count, 1)
+      var(--tw-animation-direction, normal)
+      var(--tw-animation-fill-mode, none);
+  }
+}
+
 /* @custom-variant dark (&:is(.dark *)); */
 
 @theme inline {

@@ -4,7 +4,7 @@ import { Image } from "@/components/ui/app-image";
 
 export default function CategoriesSectionHeader() {
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 text-center duration-700">
+    <div className="animate-enter fade-in slide-in-from-bottom-4 text-center duration-700">
       <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-semibold text-primary">
         <div className="shrink-0">
           <Image

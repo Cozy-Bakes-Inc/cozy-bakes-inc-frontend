@@ -16,7 +16,7 @@ export default function StorySection({ bg, circle = true }: Story) {
       )}
 
       <div className="mx-auto max-w-7xl px-5 sm:px-10">
-        <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="text-center animate-enter fade-in slide-in-from-bottom-4 duration-700">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-semibold text-primary">
             <div className="shrink-0">
               <Image
@@ -38,7 +38,7 @@ export default function StorySection({ bg, circle = true }: Story) {
         </div>
 
         <div className="mt-10 grid items-start gap-10 lg:grid-cols-[1.1fr_1fr]">
-          <div className="animate-in fade-in slide-in-from-left-6 duration-700">
+          <div className="animate-enter fade-in slide-in-from-left-6 duration-700">
             <h3 className="bg-linear-to-r from-primary to-secondary bg-clip-text text-2xl font-extrabold text-transparent sm:text-3xl">
               Where Handcrafted Excellence Lives in Every Bite
             </h3>
@@ -72,7 +72,7 @@ export default function StorySection({ bg, circle = true }: Story) {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 animate-in fade-in slide-in-from-right-6 duration-700 delay-150">
+          <div className="grid gap-4 sm:grid-cols-2 animate-enter fade-in slide-in-from-right-6 duration-700 delay-150">
             <figure className="group relative overflow-hidden rounded-3xl shadow-lg">
               <div className="relative aspect-square w-full">
                 <Image

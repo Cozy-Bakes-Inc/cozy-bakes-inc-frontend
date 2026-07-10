@@ -16,19 +16,19 @@ export default function QuestionsSection() {
         <div className="absolute inset-0 bg-linear-to-r from-black/75 via-black/45 to-black/70" />
 
         <div className="relative mx-auto max-w-7xl px-5 py-20 text-center text-white sm:px-10">
-          <h2 className="animate-in fade-in slide-in-from-bottom-4 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
+          <h2 className="animate-enter fade-in slide-in-from-bottom-4 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
             We&apos;re Here to{" "}
             <span className="text-card">Answer Your Questions</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-sm text-white/85 sm:text-base animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
+          <p className="mx-auto mt-4 max-w-3xl text-sm text-white/85 sm:text-base animate-enter fade-in slide-in-from-bottom-4 duration-700 delay-150">
             Have a question or a special order? Our team is here to help you
             craft the perfect baked delights.
           </p>
-          <p className="mx-auto mt-2 max-w-2xl text-sm text-white/70 sm:text-base animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+          <p className="mx-auto mt-2 max-w-2xl text-sm text-white/70 sm:text-base animate-enter fade-in slide-in-from-bottom-4 duration-700 delay-200">
             Contact us today and let&apos;s make your bakery experience
             exceptional.
           </p>
-          <div className="mt-6 flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+          <div className="mt-6 flex justify-center animate-enter fade-in slide-in-from-bottom-4 duration-700 delay-300">
             <Link
               href="/contact"
               className="h-10 rounded-full bg-card px-6 text-xs font-semibold text-white hover:bg-card/90 sm:h-11 sm:px-8 sm:text-sm flex gap-2 items-center justify-center"

@@ -52,7 +52,7 @@ export default function CategoriesSectionGrid({
   }
 
   return (
-    <div className="mt-10 grid animate-in gap-6 fade-in slide-in-from-bottom-6 duration-700 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mt-10 grid animate-enter gap-6 fade-in slide-in-from-bottom-6 duration-700 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item) => (
         <CategoryCard
           key={item.id}

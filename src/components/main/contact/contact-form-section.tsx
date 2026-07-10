@@ -39,7 +39,7 @@ export default function ContactFormSection() {
   return (
     <section className="bg-background py-20">
       <div className="mx-auto flex max-w-7xl flex-col gap-14 px-5 sm:px-10">
-        <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="text-center animate-enter fade-in slide-in-from-bottom-4 duration-700">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/15 px-4 py-2 text-xs font-semibold text-primary">
             <PhoneCall className="size-5 shrink-0" />
             <span> Contact Us</span>

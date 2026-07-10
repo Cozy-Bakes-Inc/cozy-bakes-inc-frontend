@@ -27,7 +27,7 @@ export default function CategoriesSection() {
         />
 
         {hasMoreCategories && (
-          <div className="mt-10 flex justify-center animate-in fade-in slide-in-from-bottom-6 duration-700">
+          <div className="mt-10 flex justify-center animate-enter fade-in slide-in-from-bottom-6 duration-700">
             <Link
               href="/categories"
               className="h-10 flex gap-1 items-center justify-center rounded-full bg-primary px-4 text-xs font-semibold text-white hover:bg-primary/90"
