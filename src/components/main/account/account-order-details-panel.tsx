@@ -433,6 +433,17 @@ export default function AccountOrderDetailsPanel({
             </span>
           </div>
 
+          {order.fulfillment_type === "delivery" && order.shipping?.note ? (
+            <div className="flex min-h-12 flex-col items-start justify-between gap-2 border-b border-border/24 py-2 sm:flex-row sm:items-center sm:gap-3">
+              <span className="text-sm font-medium text-dark sm:text-base">
+                Shipping Method
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-dark sm:text-base">
+                {order.shipping.note}
+              </span>
+            </div>
+          ) : null}
+
           {order.cod_payment_method ? (
             <div className="flex min-h-12 flex-col items-start justify-between gap-2 border-b border-border/24 py-2 sm:flex-row sm:items-center sm:gap-3">
               <span className="text-sm font-medium text-dark sm:text-base">

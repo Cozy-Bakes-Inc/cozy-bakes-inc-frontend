@@ -50,9 +50,10 @@ export default function CheckoutPaymentPage() {
   );
 
   const isCheckoutEnabled =
-    paymentChannel === "card"
+    cartItems.length > 0 &&
+    (paymentChannel === "card"
       ? Boolean(selectedMethod)
-      : Boolean(selectedCashMethod);
+      : Boolean(selectedCashMethod));
 
   useEffect(() => {
     if (searchParams.get("fulfillment-type") === "delivery") return;

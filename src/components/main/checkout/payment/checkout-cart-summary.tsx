@@ -51,6 +51,12 @@ export default function CheckoutCartSummary({
   const pickupLocation = useDeliveryPickupModalStore(
     (state) => state.pickupLocation,
   );
+  const selectedShippingRateId = useDeliveryPickupModalStore(
+    (state) => state.selectedShippingRateId,
+  );
+  const setSelectedShippingRateId = useDeliveryPickupModalStore(
+    (state) => state.setSelectedShippingRateId,
+  );
   const isDelivery =
     getFulfillmentTypeFromSearchParams(searchParams) === "delivery";
   const { data: userData } = useAuthenticatedUser(true);
@@ -72,11 +78,15 @@ export default function CheckoutCartSummary({
   });
   useEffect(() => {
     clearErrors("root");
-  }, [isDelivery, pickupLocation.id, clearErrors]);
-  const shippingRate = shippingFeeData?.shipping_rate;
-  const deliveryType = shippingFeeData?.delivery_type;
+  }, [isDelivery, pickupLocation.id, cartItems, clearErrors]);
+  const shippingRates = shippingFeeData?.shipping_rates ?? [];
+  const selectedShippingRate =
+    shippingRates.find((rate) => rate.rate_id === selectedShippingRateId) ??
+    null;
   const resolvedFee =
-    shippingRate?.amount != null ? Number(shippingRate.amount) : null;
+    selectedShippingRate?.amount != null
+      ? Number(selectedShippingRate.amount)
+      : null;
   const currentShippingFee = isDelivery ? (resolvedFee ?? 0) : 0;
   const subtotal = items.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -120,10 +130,19 @@ export default function CheckoutCartSummary({
       return;
     }
 
+    if (isDelivery && !selectedShippingRateId) {
+      setError("root", {
+        type: "manual",
+        message: "Please select a shipping method.",
+      });
+      return;
+    }
+
     const payload = {
       fulfillment_type: isDelivery ? "delivery" : "pickup",
       payment_method: paymentChannel === "card" ? "stripe" : "cod",
       note: "",
+      ...(isDelivery ? { shipping_rate_id: selectedShippingRateId } : {}),
       products: cartItems.map((item) => {
         const flavorTotal = item.flavors
           ? Object.values(item.flavors).reduce((a, b) => a + b, 0)
@@ -180,9 +199,9 @@ export default function CheckoutCartSummary({
     }
 
     const checkoutUrl = result.data?.checkout_url;
-    clearCart();
 
     if (schemaResult.data.payment_method === "cod") {
+      clearCart();
       toast.success(result?.message || "Order created successfully");
       await queryClient.invalidateQueries({
         queryKey: ["orders"],
@@ -205,6 +224,7 @@ export default function CheckoutCartSummary({
       return;
     }
 
+    clearCart();
     toast.success(result?.message || "Checkout created successfully");
     await queryClient.invalidateQueries({
       queryKey: ["orders"],
@@ -267,7 +287,7 @@ export default function CheckoutCartSummary({
               {isDelivery ? (
                 <div className="border-t border-primary/20 pt-2 text-sm">
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-500">Shipping Fee</span>
+                    <span className="text-gray-500">Shipping Method</span>
                     {isLoading ? (
                       <Shimmer className="h-5 w-16 rounded-full bg-primary/10" />
                     ) : resolvedFee != null ? (
@@ -277,24 +297,56 @@ export default function CheckoutCartSummary({
                     ) : null}
                   </div>
 
-                  {!isLoading && shippingRate && (
-                    <div className="mt-1 flex items-center justify-between text-xs text-secondary/60">
-                      <span>
-                        {shippingRate.provider} · {shippingRate.service}
-                        {deliveryType === "usps_shipping" &&
-                          shippingRate.days != null &&
-                          ` · ${shippingRate.days} day${shippingRate.days !== 1 ? "s" : ""}`}
-                      </span>
-                      {deliveryType === "local_delivery" && (
-                        <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
-                          Local
-                        </span>
-                      )}
-                      {deliveryType === "usps_shipping" && (
-                        <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700">
-                          USPS
-                        </span>
-                      )}
+                  {!isLoading && shippingRates.length > 0 && (
+                    <div className="mt-2 space-y-2">
+                      {shippingRates.map((rate) => (
+                        <label
+                          key={rate.rate_id}
+                          className={`flex forced-color-adjust-none cursor-pointer items-center justify-between gap-3 rounded-lg border-none px-3 py-2 text-xs shadow-none outline-none ring-0 transition-colors ${
+                            selectedShippingRateId === rate.rate_id
+                              ? "bg-primary/10"
+                              : "bg-transparent"
+                          }`}
+                        >
+                          <span className="flex items-center gap-2">
+                            <input
+                              type="radio"
+                              name="shipping_rate_id"
+                              value={rate.rate_id}
+                              checked={selectedShippingRateId === rate.rate_id}
+                              onChange={() =>
+                                setSelectedShippingRateId(rate.rate_id)
+                              }
+                              className="sr-only"
+                            />
+                            <span
+                              aria-hidden="true"
+                              className={`flex size-4 shrink-0 items-center justify-center rounded-full border-2 ${
+                                selectedShippingRateId === rate.rate_id
+                                  ? "border-primary"
+                                  : "border-gray-300"
+                              }`}
+                            >
+                              {selectedShippingRateId === rate.rate_id && (
+                                <span className="size-2 rounded-full bg-primary" />
+                              )}
+                            </span>
+                            <span className="text-secondary/70">
+                              {rate.provider} · {rate.service}
+                              {rate.days != null &&
+                                ` · ${rate.days} day${rate.days !== 1 ? "s" : ""}`}
+                              {rate.recommended && (
+                                <span className="ml-1 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-700">
+                                  Recommended
+                                </span>
+                              )}
+                            </span>
+                          </span>
+                          <span className="shrink-0 font-medium text-dark">
+                            ${Number(rate.amount).toFixed(2)}
+                          </span>
+                        </label>
+                      ))}
                     </div>
                   )}
 
@@ -303,7 +355,10 @@ export default function CheckoutCartSummary({
                       {distanceNote}
                     </p>
                   )}
-                  <InputErrorMessage msg={errorMessage ?? undefined} className="pt-1" />
+                  <InputErrorMessage
+                    msg={errorMessage ?? undefined}
+                    className="pt-1"
+                  />
                 </div>
               ) : null}
 

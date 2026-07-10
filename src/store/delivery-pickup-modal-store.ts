@@ -61,6 +61,7 @@ type DeliveryPickupModalState = {
   pickupLocation: PickupLocationDetails;
   shippingFeeData: ShippingFeeApiResponse | null;
   shippingFeeError: string | null;
+  selectedShippingRateId: string | null;
   openModal: () => void;
   closeModal: () => void;
   setShouldRedirectToCheckout: (value: boolean) => void;
@@ -77,6 +78,7 @@ type DeliveryPickupModalState = {
   ) => void;
   setShippingFeeData: (data: ShippingFeeApiResponse | null) => void;
   setShippingFeeError: (error: string | null) => void;
+  setSelectedShippingRateId: (rateId: string | null) => void;
 };
 
 export const useDeliveryPickupModalStore = create<DeliveryPickupModalState>(
@@ -88,6 +90,7 @@ export const useDeliveryPickupModalStore = create<DeliveryPickupModalState>(
     pickupLocation: defaultPickupLocation,
     shippingFeeData: null,
     shippingFeeError: null,
+    selectedShippingRateId: null,
     openModal: () => set({ isOpen: true }),
     closeModal: () => set({ isOpen: false, shouldRedirectToCheckout: false }),
     setShouldRedirectToCheckout: (value) =>
@@ -109,7 +112,16 @@ export const useDeliveryPickupModalStore = create<DeliveryPickupModalState>(
           [field]: value,
         },
       })),
-    setShippingFeeData: (data) => set({ shippingFeeData: data }),
+    setShippingFeeData: (data) =>
+      set({
+        shippingFeeData: data,
+        selectedShippingRateId:
+          data?.shipping_rates.find((rate) => rate.recommended)?.rate_id ??
+          data?.shipping_rates[0]?.rate_id ??
+          null,
+      }),
     setShippingFeeError: (error) => set({ shippingFeeError: error }),
+    setSelectedShippingRateId: (rateId) =>
+      set({ selectedShippingRateId: rateId }),
   }),
 );

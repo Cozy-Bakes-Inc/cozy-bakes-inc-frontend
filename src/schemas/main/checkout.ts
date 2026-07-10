@@ -31,6 +31,10 @@ export const checkoutSchema = z
   .discriminatedUnion("fulfillment_type", [
     baseCheckoutSchema.extend({
       fulfillment_type: z.literal("delivery"),
+      shipping_rate_id: z
+        .string({ error: "Please select a shipping method" })
+        .trim()
+        .min(1, "Please select a shipping method"),
     }),
     baseCheckoutSchema.extend({
       fulfillment_type: z.literal("pickup"),

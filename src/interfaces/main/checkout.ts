@@ -8,31 +8,19 @@ export interface DeliveryFeePayload {
   items: CheckoutItem[];
 }
 
-export interface ShippingRate {
+export interface ShippingRateOption {
+  rate_id: string;
   provider: string;
   service: string;
   amount: string;
   currency: string;
   days?: number;
+  recommended?: boolean;
 }
 
 export interface ShippingFeeApiResponse {
   status: string;
-  delivery_type: "usps_shipping" | "local_delivery";
-  distance_miles: number;
-  carrier?: string;
-  shipping_rate: ShippingRate;
-  rule?: {
-    max_miles: number;
-  };
-  parcel_used?: {
-    distance_unit: string;
-    height: number;
-    length: number;
-    mass_unit: string;
-    weight: number;
-    width: number;
-  };
+  shipping_rates: ShippingRateOption[];
 }
 
 export interface CheckoutApiResponseData {
