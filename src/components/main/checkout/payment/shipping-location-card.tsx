@@ -1,11 +1,11 @@
 "use client";
 
-import { useAuthenticatedUser } from "@/hooks";
+import { useAuthenticatedUser, useShops } from "@/hooks";
 import { useDeliveryPickupModalStore } from "@/store/delivery-pickup-modal-store";
 import { getFulfillmentTypeFromSearchParams } from "@/lib/utils/checkout";
 import { ArrowLeftRight, MapPin, PackageCheck } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Shimmer } from "@/components/ui/shimmer";
 import CheckoutSectionCard from "./checkout-section-card";
 
@@ -22,8 +22,31 @@ export default function ShippingLocationCard() {
   const pickupLocation = useDeliveryPickupModalStore(
     (state) => state.pickupLocation,
   );
+  const setPickupLocation = useDeliveryPickupModalStore(
+    (state) => state.setPickupLocation,
+  );
   const fulfillmentType = getFulfillmentTypeFromSearchParams(searchParams);
   const isPickup = fulfillmentType === "pickup";
+
+  const { data: shopsData } = useShops();
+  const shops = useMemo(
+    () => shopsData?.pages?.flatMap((page) => page?.data?.data ?? []) ?? [],
+    [shopsData],
+  );
+
+  useEffect(() => {
+    if (!isPickup || pickupLocation.id || !shops.length) return;
+    const firstShop = shops[0];
+
+    setPickupLocation({
+      id: firstShop.id,
+      name: firstShop.name,
+      fullAddress: firstShop.address_line,
+      phoneNumber: firstShop.phone_number,
+      email: firstShop.email,
+      storeDescription: firstShop.store_description ?? "",
+    });
+  }, [isPickup, pickupLocation.id, shops, setPickupLocation]);
 
   const hasHydratedLocation = useRef(false);
   const shipping = authenticatedUser?.data?.user?.shipping;
