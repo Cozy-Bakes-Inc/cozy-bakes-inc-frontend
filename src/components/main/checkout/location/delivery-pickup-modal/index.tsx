@@ -111,7 +111,7 @@ export default function DeliveryPickupModal({
             onPickupClick={() => handleTabChange("pickup")}
           />
 
-          <div className="min-h-[480px] sm:min-h-[580px]">
+          <div className="min-h-120 sm:min-h-145">
             {activeTab === "delivery" ? (
               <DeliveryMapView
                 onConfirmLocation={() => setDeliveryStep("details")}

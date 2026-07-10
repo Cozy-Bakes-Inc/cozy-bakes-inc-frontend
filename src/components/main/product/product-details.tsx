@@ -293,7 +293,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <h1 className="text-3xl font-semibold capitalize tracking-tight text-secondary sm:text-4xl">
                 {productTitle}
               </h1>
-              <p className="break-words text-sm leading-7 text-gray sm:text-base">
+              <p className="wrap-break-word text-sm leading-7 text-gray sm:text-base">
                 {productDescription}
               </p>
               <div className="flex items-center gap-2">
@@ -333,7 +333,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   Choose your flavor
                 </h3>
 
-                <div className="max-h-[340px] divide-y divide-secondary/5 overflow-y-auto overscroll-contain pr-2 sm:max-h-[420px] lg:max-h-[38vh]">
+                <div className="max-h-85 divide-y divide-secondary/5 overflow-y-auto overscroll-contain pr-2 sm:max-h-105 lg:max-h-[38vh]">
                   {flavors.map((flavor) => {
                     const count = flavorCounts[flavor] ?? 0;
                     return (
@@ -468,4 +468,3 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     </section>
   );
 }
-

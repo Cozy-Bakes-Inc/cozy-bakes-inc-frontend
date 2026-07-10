@@ -88,7 +88,7 @@ export default function TestimonialsSection({
                       );
                     })}
                   </div>
-                  <p className="mt-4 line-clamp-6 min-h-[10.5rem] text-sm leading-7 text-taupe-brown sm:text-base">
+                  <p className="mt-4 line-clamp-6 min-h-42 text-sm leading-7 text-taupe-brown sm:text-base">
                     &quot;{testimonial.review_text}&quot;
                   </p>
                   <div className="my-6 mt-auto h-px bg-primary/20" />
@@ -110,7 +110,7 @@ export default function TestimonialsSection({
             ) : (
               <div className="col-span-full overflow-hidden rounded-[2rem] border border-primary/15 bg-background shadow-[0_20px_60px_rgba(166,111,17,0.08)]">
                 <div className="relative px-6 py-12 sm:px-10 sm:py-14">
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary/10 via-primary/50 to-primary/10" />
+                  <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-primary/10 via-primary/50 to-primary/10" />
                   <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
                     <div className="flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary ring-8 ring-primary/5">
                       <MessageSquareQuote className="size-8" />
