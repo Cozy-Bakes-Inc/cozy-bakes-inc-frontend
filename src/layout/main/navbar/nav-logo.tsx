@@ -18,8 +18,9 @@ export default function NavLogo() {
       <Image
         src="/images/logo.png"
         alt="Cozy Bakes Inc."
-        width={160}
-        height={40}
+        width={72}
+        height={72}
+        sizes="72px"
         priority
         className="w-18 h-18"
       />

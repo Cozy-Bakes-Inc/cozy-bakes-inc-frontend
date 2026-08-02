@@ -72,7 +72,11 @@ export default function HeroVideoSlider() {
             <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/60 to-black/20" />
 
             {/* Content */}
-            <HeroSlideContent slide={slide} isActive={activeIndex === i} />
+            <HeroSlideContent
+              slide={slide}
+              isActive={activeIndex === i}
+              isFirst={i === 0}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

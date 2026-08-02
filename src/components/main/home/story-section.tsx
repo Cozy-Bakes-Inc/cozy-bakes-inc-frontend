@@ -79,6 +79,7 @@ export default function StorySection({ bg, circle = true }: Story) {
                   src="/images/farmers-market.png"
                   alt="Bakery market stand with artisan breads"
                   fill
+                  sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 90vw"
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
               </div>
@@ -89,6 +90,7 @@ export default function StorySection({ bg, circle = true }: Story) {
                   src="/images/categories.png"
                   alt="Fresh pastries and cakes on wooden trays"
                   fill
+                  sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 90vw"
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
               </div>
@@ -99,6 +101,7 @@ export default function StorySection({ bg, circle = true }: Story) {
                   src="/images/preserves.png"
                   alt="Cinnamon rolls fresh from the oven"
                   fill
+                  sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 90vw"
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
               </div>
@@ -109,6 +112,7 @@ export default function StorySection({ bg, circle = true }: Story) {
                   src="/images/pastries.png"
                   alt="Pastries"
                   fill
+                  sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 90vw"
                   className="object-cover transition duration-700 group-hover:scale-105"
                 />
               </div>

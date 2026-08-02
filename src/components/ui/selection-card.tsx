@@ -81,6 +81,7 @@ export default function SelectionCard({ item }: SelectionCardProps) {
                     alt={`${item.title} ${index + 1}`}
                     width={520}
                     height={360}
+                    sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
                     className={imageClassName}
                   />
                 </SwiperSlide>
@@ -92,6 +93,7 @@ export default function SelectionCard({ item }: SelectionCardProps) {
               alt={item.title}
               width={520}
               height={360}
+              sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
               className={imageClassName}
             />
           )}

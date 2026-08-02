@@ -80,6 +80,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link
+          rel="preconnect"
+          href="https://cozybakesinc.apianca.online"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://cozybakesinc.apianca.online" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -16,6 +16,7 @@ export default function CategoryCard({ item }: CategoryCardProps) {
             alt={item.title}
             width={520}
             height={360}
+            sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
             className="h-full w-full object-cover transition-all duration-300 delay-0 group-hover:opacity-0 group-hover:delay-150"
           />
           <div className="absolute inset-0 bg-linear-to-t from-black/75 via-black/30 to-transparent transition-all duration-300 delay-0 group-hover:opacity-0 group-hover:delay-150" />

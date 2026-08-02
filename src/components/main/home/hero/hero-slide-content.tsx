@@ -10,18 +10,20 @@ import { useRouter } from "next/navigation";
 type HeroSlideContentProps = {
   slide: Slide;
   isActive: boolean;
+  isFirst?: boolean;
 };
 
 export default function HeroSlideContent({
   slide,
   isActive,
+  isFirst = false,
 }: HeroSlideContentProps) {
   const router = useRouter();
   return (
     <div className="relative mx-auto max-w-7xl h-full px-5 sm:px-20 2xl:px-0 flex items-center">
       <div className="max-w-5xl">
         <motion.div
-          initial={{ opacity: 0, x: 28 }}
+          initial={isFirst ? false : { opacity: 0, x: 28 }}
           animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: 28 }}
           transition={{ duration: 0.45, ease: "easeOut" }}
           className="mb-4 flex items-center gap-2 text-sm font-semibold text-primary"
@@ -33,7 +35,7 @@ export default function HeroSlideContent({
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, x: -32 }}
+          initial={isFirst ? false : { opacity: 0, x: -32 }}
           animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: -32 }}
           transition={{ duration: 0.65, delay: 0.08, ease: "easeOut" }}
           className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl"
@@ -44,16 +46,16 @@ export default function HeroSlideContent({
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, x: 28 }}
+          initial={isFirst ? false : { opacity: 0, x: 28 }}
           animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: 28 }}
-          transition={{ duration: 0.6, delay: 0.16, ease: "easeOut" }}
+          transition={{ duration: 0.6, delay: isFirst ? 0 : 0.16, ease: "easeOut" }}
           className="mt-5 text-base leading-7 text-white/80 sm:text-lg max-w-4xl"
         >
           {slide.desc}
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={isFirst ? false : { opacity: 0, y: 18 }}
           animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
           transition={{ duration: 0.6, delay: 0.22, ease: "easeOut" }}
           className="mt-8 flex flex-wrap gap-3"
@@ -77,7 +79,7 @@ export default function HeroSlideContent({
         </motion.div>
 
         <motion.p
-          initial={{ opacity: 0, x: -28 }}
+          initial={isFirst ? false : { opacity: 0, x: -28 }}
           animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: -28 }}
           transition={{ duration: 0.6, delay: 0.28, ease: "easeOut" }}
           className="mt-5 text-base text-white/80 sm:text-lg flex items-center gap-2 leading-5"

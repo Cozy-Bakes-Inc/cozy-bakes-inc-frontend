@@ -45,6 +45,7 @@ export default function HeroSection({
               src={image.src}
               alt={image.alt}
               fill
+              sizes="350px"
               className="object-cover"
             />
           </div>
