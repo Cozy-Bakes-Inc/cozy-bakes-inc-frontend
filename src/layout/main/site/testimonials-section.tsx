@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { type KeyboardEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { useReviews } from "@/hooks";
 import { TestimonialItem } from "@/interfaces";
@@ -19,6 +19,9 @@ export default function TestimonialsSection({
   previewOnly = true,
 }: TestimonialsSectionProps) {
   const [isAddReviewOpen, setIsAddReviewOpen] = useState(false);
+  const [expandedReviewIds, setExpandedReviewIds] = useState<Set<number>>(
+    () => new Set(),
+  );
   const {
     data: reviewsData,
     isLoading,
@@ -36,6 +39,30 @@ export default function TestimonialsSection({
     ? testimonials.slice(0, 3)
     : testimonials;
   const showExploreMore = previewOnly && totalReviews > 3;
+  const toggleReviewExpansion = (reviewId: number) => {
+    setExpandedReviewIds((currentReviewIds) => {
+      const nextReviewIds = new Set(currentReviewIds);
+
+      if (nextReviewIds.has(reviewId)) {
+        nextReviewIds.delete(reviewId);
+      } else {
+        nextReviewIds.add(reviewId);
+      }
+
+      return nextReviewIds;
+    });
+  };
+  const handleReviewKeyDown = (
+    event: KeyboardEvent<HTMLElement>,
+    reviewId: number,
+  ) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    toggleReviewExpansion(reviewId);
+  };
 
   return (
     <section className="bg-bg-creamy py-20">
@@ -67,46 +94,63 @@ export default function TestimonialsSection({
         ) : (
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {visibleTestimonials.length > 0 ? (
-              visibleTestimonials.map((testimonial) => (
-                <article
-                  key={testimonial.id}
-                  className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-background p-6 shadow-sm ring-1 ring-primary/15"
-                >
-                  <div className="absolute right-5 top-4 text-6xl font-serif text-primary/15">
-                    <Quote className="size-8" />
-                  </div>
-                  <div className="flex items-center gap-1">
-                    {Array.from({ length: 5 }).map((_, starIndex) => {
-                      const isActiveStar = starIndex < testimonial.rating;
+              visibleTestimonials.map((testimonial) => {
+                const isExpanded = expandedReviewIds.has(testimonial.id);
 
-                      return (
-                        <Star
-                          key={`${testimonial.id}-star-${starIndex}`}
-                          className={`h-4 w-4 ${isActiveStar ? "text-primary" : "text-primary/25"}`}
-                          fill="currentColor"
-                        />
-                      );
-                    })}
-                  </div>
-                  <p className="mt-4 line-clamp-6 min-h-42 text-sm leading-7 text-taupe-brown sm:text-base">
-                    &quot;{testimonial.review_text}&quot;
-                  </p>
-                  <div className="my-6 mt-auto h-px bg-primary/20" />
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-sm font-semibold text-primary">
-                        {testimonial.customer_name}
-                      </p>
-                      <p className="text-xs text-gray">
-                        {testimonial.date ?? "Recent review"}
-                      </p>
+                return (
+                  <article
+                    key={testimonial.id}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isExpanded}
+                    aria-label={`${isExpanded ? "Collapse" : "Expand"} review from ${testimonial.customer_name}`}
+                    onClick={() => toggleReviewExpansion(testimonial.id)}
+                    onKeyDown={(event) =>
+                      handleReviewKeyDown(event, testimonial.id)
+                    }
+                    className="relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl bg-background p-6 shadow-sm ring-1 ring-primary/15 transition hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  >
+                    <div className="absolute right-5 top-4 text-6xl font-serif text-primary/15">
+                      <Quote className="size-8" />
                     </div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-bg-creamy text-sm font-semibold text-primary ring-1 ring-primary/15">
-                      {testimonial.customer_name.charAt(0).toUpperCase()}
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: 5 }).map((_, starIndex) => {
+                        const isActiveStar = starIndex < testimonial.rating;
+
+                        return (
+                          <Star
+                            key={`${testimonial.id}-star-${starIndex}`}
+                            className={`h-4 w-4 ${isActiveStar ? "text-primary" : "text-primary/25"}`}
+                            fill="currentColor"
+                          />
+                        );
+                      })}
                     </div>
-                  </div>
-                </article>
-              ))
+                    <p
+                      className={`mt-4 min-h-42 text-sm leading-7 text-taupe-brown sm:text-base ${isExpanded ? "" : "line-clamp-6"}`}
+                    >
+                      &quot;{testimonial.review_text}&quot;
+                    </p>
+                    <span className="mb-5 mt-3 text-xs font-semibold text-primary">
+                      {isExpanded ? "Show less" : "Read full review"}
+                    </span>
+                    <div className="my-6 mt-auto h-px bg-primary/20" />
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-semibold text-primary">
+                          {testimonial.customer_name}
+                        </p>
+                        <p className="text-xs text-gray">
+                          {testimonial.date ?? "Recent review"}
+                        </p>
+                      </div>
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-bg-creamy text-sm font-semibold text-primary ring-1 ring-primary/15">
+                        {testimonial.customer_name.charAt(0).toUpperCase()}
+                      </div>
+                    </div>
+                  </article>
+                );
+              })
             ) : (
               <div className="col-span-full overflow-hidden rounded-[2rem] border border-primary/15 bg-background shadow-[0_20px_60px_rgba(166,111,17,0.08)]">
                 <div className="relative px-6 py-12 sm:px-10 sm:py-14">
