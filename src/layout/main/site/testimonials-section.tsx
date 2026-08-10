@@ -92,7 +92,7 @@ export default function TestimonialsSection({
         {isLoading ? (
           <GridShimmer count={3} cardClassName="bg-background" />
         ) : (
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="mt-10 grid items-start gap-6 md:grid-cols-3">
             {visibleTestimonials.length > 0 ? (
               visibleTestimonials.map((testimonial) => {
                 const isExpanded = expandedReviewIds.has(testimonial.id);
@@ -108,7 +108,7 @@ export default function TestimonialsSection({
                     onKeyDown={(event) =>
                       handleReviewKeyDown(event, testimonial.id)
                     }
-                    className="relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl bg-background p-6 shadow-sm ring-1 ring-primary/15 transition hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    className="relative flex cursor-pointer flex-col overflow-hidden rounded-2xl bg-background p-6 shadow-sm ring-1 ring-primary/15 transition hover:-translate-y-1 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   >
                     <div className="absolute right-5 top-4 text-6xl font-serif text-primary/15">
                       <Quote className="size-8" />
