@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Download } from "lucide-react";
+import { CakeSlice, Download, Sparkles, UtensilsCrossed } from "lucide-react";
 import { Image } from "@/components/ui/app-image";
 import { Shimmer } from "@/components/ui/shimmer";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,71 @@ import {
   useProductsBySubcategory,
 } from "@/hooks/api";
 import type { ApiProductItem } from "@/interfaces";
+
+type MenuEmptyStateProps = {
+  title: string;
+  description: string;
+  compact?: boolean;
+};
+
+function MenuEmptyState({
+  title,
+  description,
+  compact = false,
+}: MenuEmptyStateProps) {
+  const EmptyIcon = compact ? CakeSlice : UtensilsCrossed;
+
+  return (
+    <div
+      className={cn(
+        "relative isolate overflow-hidden border border-primary/20 bg-bg-creamy text-center shadow-[0_16px_45px_rgba(135,67,6,0.06)]",
+        compact
+          ? "rounded-3xl px-5 py-10 sm:py-12"
+          : "rounded-4xl px-6 py-14 sm:px-10 sm:py-18",
+      )}
+    >
+      <div
+        aria-hidden="true"
+        className="absolute -left-16 -top-20 -z-10 size-48 rounded-full bg-primary/8 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -bottom-24 -right-16 -z-10 size-56 rounded-full bg-secondary/8 blur-3xl"
+      />
+
+      <div
+        className={cn(
+          "relative mx-auto grid place-items-center rounded-full border border-primary/15 bg-background text-primary shadow-[0_12px_28px_rgba(135,67,6,0.10)]",
+          compact ? "size-16" : "size-20",
+        )}
+      >
+        <span className="absolute inset-1.5 rounded-full border border-dashed border-primary/25" />
+        <EmptyIcon
+          aria-hidden="true"
+          className={compact ? "size-7" : "size-9"}
+          strokeWidth={1.7}
+        />
+        {!compact && (
+          <span className="absolute -right-1 top-0 grid size-7 place-items-center rounded-full bg-primary text-white shadow-md">
+            <Sparkles aria-hidden="true" className="size-3.5" />
+          </span>
+        )}
+      </div>
+
+      <h3
+        className={cn(
+          "font-semibold tracking-tight text-dark",
+          compact ? "mt-5 text-xl" : "mt-6 text-2xl sm:text-3xl",
+        )}
+      >
+        {title}
+      </h3>
+      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-gray sm:text-base sm:leading-7">
+        {description}
+      </p>
+    </div>
+  );
+}
 
 function formatPrice(item: ApiProductItem): string {
   const firstOption = item.prices
@@ -56,9 +121,11 @@ function MenuItemsList({ slug }: { slug: string }) {
 
   if (products.length === 0) {
     return (
-      <p className="py-10 text-center text-sm text-taupe-brown">
-        No items available in this category yet.
-      </p>
+      <MenuEmptyState
+        compact
+        title="Nothing on this tray yet"
+        description="We're still preparing items for this category. Try another category or check back soon."
+      />
     );
   }
 
@@ -131,12 +198,11 @@ export default function MenuSection() {
   );
 
   const [activeSlug, setActiveSlug] = useState<string>("");
-
-  useEffect(() => {
-    if (!activeSlug && subcategories.length > 0) {
-      setActiveSlug(subcategories[0].slug);
-    }
-  }, [activeSlug, subcategories]);
+  const selectedSlug = subcategories.some(
+    (subcategory) => subcategory.slug === activeSlug,
+  )
+    ? activeSlug
+    : (subcategories[0]?.slug ?? "");
 
   return (
     <section className="bg-background py-16 sm:py-20">
@@ -163,9 +229,10 @@ export default function MenuSection() {
             ))}
           </div>
         ) : subcategories.length === 0 ? (
-          <p className="py-10 text-center text-sm text-taupe-brown">
-            Our menu is being freshly prepared. Please check back soon.
-          </p>
+          <MenuEmptyState
+            title="Our menu is in the oven"
+            description="We're putting the finishing touches on something delicious. Please check back soon to see what's freshly baked."
+          />
         ) : (
           <>
             <div className="flex flex-wrap gap-2">
@@ -176,7 +243,7 @@ export default function MenuSection() {
                   onClick={() => setActiveSlug(subcategory.slug)}
                   className={cn(
                     "rounded-full border px-5 py-2 text-sm font-semibold capitalize transition-colors",
-                    activeSlug === subcategory.slug
+                    selectedSlug === subcategory.slug
                       ? "border-primary bg-primary text-white"
                       : "border-primary/20 bg-bg-creamy text-dark hover:border-primary/40",
                   )}
@@ -186,9 +253,9 @@ export default function MenuSection() {
               ))}
             </div>
 
-            {activeSlug && (
+            {selectedSlug && (
               <div className="mt-8">
-                <MenuItemsList slug={activeSlug} />
+                <MenuItemsList slug={selectedSlug} />
               </div>
             )}
           </>

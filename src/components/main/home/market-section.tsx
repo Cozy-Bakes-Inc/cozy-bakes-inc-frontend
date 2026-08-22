@@ -3,6 +3,8 @@
 import { Image } from "@/components/ui/app-image";
 import MarketShowcase from "@/components/main/market-showcase";
 import { Shimmer } from "@/components/ui/shimmer";
+import Link from "next/link";
+import { ArrowRight, CalendarClock, MapPin } from "lucide-react";
 import { useUpcomingMarkets } from "@/hooks";
 import type { MarketSlide } from "@/interfaces";
 import {
@@ -91,6 +93,61 @@ export default function MarketSection() {
   if (isLoading) return <MarketSectionSkeleton />;
 
   const slides = (data?.data ?? []).map(toMarketSlide);
+
+  if (slides.length === 0) {
+    return (
+      <section className="relative overflow-hidden py-20">
+        <Image
+          src="/images/farmer-market-bg.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-10">
+          <div className="text-center">{sectionTitle}</div>
+
+          <div className="relative isolate mx-auto mt-10 max-w-3xl overflow-hidden rounded-3xl border border-primary/20 bg-background/95 px-6 py-12 text-center shadow-[0_20px_60px_rgba(135,67,6,0.10)] backdrop-blur-sm sm:px-12 sm:py-14">
+            <div
+              aria-hidden="true"
+              className="absolute -left-20 -top-24 -z-10 size-60 rounded-full bg-primary/10 blur-3xl"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute -bottom-28 -right-20 -z-10 size-64 rounded-full bg-secondary/8 blur-3xl"
+            />
+
+            <div className="relative mx-auto grid size-20 place-items-center rounded-2xl border border-primary/15 bg-primary/10 text-primary shadow-[0_12px_28px_rgba(209,150,40,0.14)]">
+              <CalendarClock
+                aria-hidden="true"
+                className="size-9"
+                strokeWidth={1.7}
+              />
+              <span className="absolute -bottom-2 -right-2 grid size-8 place-items-center rounded-full border-4 border-background bg-primary text-white">
+                <MapPin aria-hidden="true" className="size-4" />
+              </span>
+            </div>
+
+            <h3 className="mt-6 text-2xl font-bold tracking-tight text-slate-800 sm:text-3xl">
+              Our next market stop is baking
+            </h3>
+            <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-slate-500 sm:text-base sm:leading-7">
+              We don&apos;t have an upcoming market scheduled just yet. Check
+              back soon&mdash;we&apos;ll share our next location and date here.
+            </p>
+
+            <Link
+              href="/farmers-market"
+              className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            >
+              Explore Farmers Markets
+              <ArrowRight aria-hidden="true" className="size-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <MarketShowcase

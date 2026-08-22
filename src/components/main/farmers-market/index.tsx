@@ -35,7 +35,7 @@ function FarmersMarket() {
   const grouped = data?.data ?? {};
   const todaySlides = (grouped[TODAY_MARKETS_KEY] ?? []).map(toMarketSlide);
   const otherDays = Object.entries(grouped).filter(
-    ([day]) => day !== TODAY_MARKETS_KEY
+    ([day, markets]) => day !== TODAY_MARKETS_KEY && markets.length > 0,
   );
 
   return (
