@@ -5,7 +5,7 @@ import { Image } from "@/components/ui/app-image";
 import Link from "next/link";
 import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
+import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { useRecommendedProductsPreview } from "@/hooks";
 import type { ApiProductItem } from "@/interfaces";
@@ -173,10 +173,11 @@ export default function CartPanelMyLikeCarousel({
                             quantity: 1,
                           })
                         }
-                        className="flex h-7 items-center gap-1 rounded-xl bg-card px-2.5 text-[11px] font-medium text-white hover:bg-card/90 sm:h-8 sm:px-3 sm:text-xs"
+                        disabled
+                        className="flex h-7 cursor-not-allowed items-center gap-1 rounded-xl bg-card/60 px-2.5 text-[11px] font-medium text-white sm:h-8 sm:px-3 sm:text-xs"
                       >
-                        <ShoppingBag className="size-3 shrink-0" />
-                        <span>Add to Cart</span>
+                        <CalendarDays className="size-3 shrink-0" />
+                        <span>October 2026</span>
                       </button>
                     </div>
                   </div>

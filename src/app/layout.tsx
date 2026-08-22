@@ -9,6 +9,7 @@ import "./globals.css";
 import QueryProvider from "@/provider";
 import { Toaster } from "react-hot-toast";
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from "@/constants/seo";
+import OnlineOrderingNotice from "@/components/main/online-ordering-notice";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -95,6 +96,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <QueryProvider>
+          <OnlineOrderingNotice />
           {children}
           <Toaster />
         </QueryProvider>

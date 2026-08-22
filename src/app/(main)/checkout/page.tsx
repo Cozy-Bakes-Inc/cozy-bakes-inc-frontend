@@ -1,7 +1,7 @@
-import CheckoutPaymentPage from "@/components/main/checkout/payment";
+import OnlineOrderingNotice from "@/components/main/online-ordering-notice";
 
 function CheckoutPage() {
-  return <CheckoutPaymentPage />;
+  return <OnlineOrderingNotice fullPage />;
 }
 
 export default CheckoutPage;

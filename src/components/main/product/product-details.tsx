@@ -4,7 +4,7 @@ import { Image } from "@/components/ui/app-image";
 import { useState, useMemo, useRef } from "react";
 import {
   MoveRight,
-  ShoppingCart,
+  CalendarDays,
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
@@ -73,8 +73,6 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     : totalFlavorsSelected * selectedPrice;
 
   const showFlavorPicker = hasFlavors && hasPricing && !!selectedOption;
-  const isReadyToAdd = !showFlavorPicker || isFlavorsComplete;
-
   const images = product?.images?.length
     ? product.images.map((src, i) => ({
         src,
@@ -441,12 +439,12 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
             {/* Add to Cart */}
             <Button
-              className="h-11 w-full rounded-full bg-primary px-6 text-sm font-semibold text-white hover:bg-card/90 disabled:cursor-not-allowed disabled:opacity-50"
+              className="h-auto min-h-11 w-full whitespace-normal rounded-3xl bg-primary px-4 py-3 text-center text-sm font-semibold leading-5 text-white hover:bg-card/90 disabled:cursor-not-allowed disabled:opacity-50 sm:rounded-full sm:px-6"
               onClick={handleAddToCart}
-              disabled={!isReadyToAdd}
+              disabled
             >
-              <ShoppingCart className="size-4" />
-              Add to Cart
+              <CalendarDays className="size-4 shrink-0" />
+              <span>Online ordering available in October 2026</span>
             </Button>
           </div>
         </div>

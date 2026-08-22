@@ -2,9 +2,8 @@
 
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, UserRound } from "lucide-react";
+import { UserRound } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
-import CartPanel from "@/components/main/cart/cart-panel";
 import { useRouter } from "next/navigation";
 import { useAuthenticatedUser } from "@/hooks";
 import { Shimmer } from "@/components/ui/shimmer";
@@ -17,10 +16,6 @@ export default function NavActions({ hasToken }: NavActionsProps) {
   const router = useRouter();
   const { data, isLoading } = useAuthenticatedUser(hasToken);
   const hydrateCart = useCartStore((state) => state.hydrateCart);
-  const openCart = useCartStore((state) => state.openCart);
-  const totalQuantity = useCartStore((state) =>
-    state.items.reduce((sum, item) => sum + item.quantity, 0),
-  );
   const firstName = data?.data?.user?.first_name?.trim();
 
   useEffect(() => {
@@ -41,20 +36,6 @@ export default function NavActions({ hasToken }: NavActionsProps) {
         >
           <Search className="size-5 shrink-0" strokeWidth={2.8} />
         </Button> */}
-
-        <Button
-          size="icon"
-          onClick={openCart}
-          aria-label="Open cart"
-          className="relative rounded-full border border-primary bg-background text-primary shadow-none hover:border-secondary hover:bg-background hover:text-secondary"
-        >
-          <ShoppingCart className="size-5 shrink-0" strokeWidth={2.8} />
-          {totalQuantity > 0 && (
-            <span className="absolute -right-1 -top-1 grid size-4 place-items-center rounded-full bg-primary text-[10px] font-semibold text-white">
-              {totalQuantity > 9 ? "9+" : totalQuantity}
-            </span>
-          )}
-        </Button>
 
         {hasToken ? (
           <Button
@@ -89,7 +70,6 @@ export default function NavActions({ hasToken }: NavActionsProps) {
           </Button>
         )}
       </div>
-      <CartPanel hasToken={hasToken} />
     </>
   );
 }

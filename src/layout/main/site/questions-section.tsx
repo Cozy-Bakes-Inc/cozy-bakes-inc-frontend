@@ -33,7 +33,7 @@ export default function QuestionsSection() {
               href="/contact"
               className="h-10 rounded-full bg-card px-6 text-xs font-semibold text-white hover:bg-card/90 sm:h-11 sm:px-8 sm:text-sm flex gap-2 items-center justify-center"
             >
-              <span>Inquire or Order Now</span> <MoveRight />
+              <span>Contact Us</span> <MoveRight />
             </Link>
           </div>
         </div>
